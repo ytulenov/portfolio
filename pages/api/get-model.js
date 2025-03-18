@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const s3Url = process.env.S3_URL;
+    const s3Url = process.env.NEXT_PUBLIC_S3_URL;
     console.log('S3 URL:', s3Url); // Debug log
     if (!s3Url) {
       return res.status(500).json({ error: 'S3 URL not configured' });
