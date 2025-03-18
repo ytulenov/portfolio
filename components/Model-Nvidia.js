@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { NvidiaSpinner, NvidiaContainer } from './Model-Nvidia-loader';
 
@@ -31,21 +32,14 @@ const ModelNvidia = () => {
     const scH = container.clientHeight;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    const gl = renderer.getContext();
-    if (!gl) {
-      console.error('WebGL context is null. Check browser support or settings.');
-      setLoading(false);
-      return;
-    }
     renderer.setPixelRatio(1); // Low quality during load
     renderer.setSize(scW, scH);
     renderer.toneMapping = THREE.LinearToneMapping;
     renderer.toneMappingExposure = 2;
-
     container.appendChild(renderer.domElement);
     refRenderer.current = renderer;
-    const scene = new THREE.Scene();
 
+    const scene = new THREE.Scene();
     const target = new THREE.Vector3(-0.5, 1.2, 0);
     const initialCameraPosition = new THREE.Vector3(
       20 * Math.sin(0.2 * Math.PI),
@@ -62,48 +56,31 @@ const ModelNvidia = () => {
     controls.autoRotate = true;
     controls.target = target;
 
-    const workerScript = `
-     importScripts('https://cdnjs.cloudflare.com/ajax/libs/three.js/r157/three.min.js');
-      self.onmessage = async (e) => {
-        const response = await fetch(e.data.url);
-        const arrayBuffer = await response.arrayBuffer();
-        const loader = new THREE.GLTFLoader();
-        loader.parse(arrayBuffer, '', (gltf) => {
-          self.postMessage({ model: gltf.scene });
-        }, (error) => {
-          console.error('Worker GLTF parsing error:', error);
-        });
-      };
-    `;
-    const blob = new Blob([workerScript], { type: 'application/javascript' });
-    const workerUrl = URL.createObjectURL(blob);
-    const worker = new Worker(workerUrl);
-    worker.postMessage({ url: urlNvidiaGLB });
+    // Load the GLTF model directly
+    const loader = new GLTFLoader();
+    loader.load(
+      urlNvidiaGLB,
+      (gltf) => {
+        scene.add(gltf.scene);
 
-    worker.onmessage = (e) => {
-      const model = e.data.model;
-      scene.add(model);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+        scene.add(hemiLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        directionalLight.position.set(5, 10, 5);
+        scene.add(directionalLight);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-      scene.add(ambientLight);
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-      scene.add(hemiLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
-      directionalLight.position.set(5, 10, 5);
-      scene.add(directionalLight);
-
-      renderer.setPixelRatio(window.devicePixelRatio); // Restore full quality
-      animate();
-      setLoading(false);
-
-      worker.terminate();
-      URL.revokeObjectURL(workerUrl);
-    };
-
-    worker.onerror = (error) => {
-      console.error('Worker error:', error);
-      setLoading(false);
-    };
+        renderer.setPixelRatio(window.devicePixelRatio); // Full quality
+        animate();
+        setLoading(false);
+      },
+      undefined,
+      (error) => {
+        console.error('GLTF loading error:', error);
+        setLoading(false);
+      }
+    );
 
     let req = null;
     let frame = 0;
@@ -130,10 +107,6 @@ const ModelNvidia = () => {
       renderer.domElement.remove();
       renderer.dispose();
     };
-  }, []);
-
-  useEffect(() => {
-    fetch(urlNvidiaGLB, { method: 'HEAD' }); // Preload hint
   }, []);
 
   useEffect(() => {
