@@ -158,7 +158,7 @@ const experiences = [
       'Implemented responsive design and ensured cross-browser compatibility.',
       'Participated in code reviews and provided constructive feedback to other developers.',
     ],
-    logo: 'eco2.png',
+    logo: 'eco2.jpg',
   },
 ];
 
