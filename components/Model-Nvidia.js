@@ -13,7 +13,8 @@ const ModelNvidia = () => {
   const [loading, setLoading] = useState(true);
   const refRenderer = useRef();
 
-  const apiUrl = '/api/get-model'; // API route to proxy the S3 request
+  console.log('Environment variable:', process.env.NEXT_PUBLIC_S3_URL); // Debug
+  const urlNvidiaGLB = process.env.NEXT_PUBLIC_S3_URL;
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer;
@@ -27,7 +28,7 @@ const ModelNvidia = () => {
 
   useEffect(() => {
     const { current: container } = refContainer;
-    if (container) {
+    if (container && urlNvidiaGLB) {
       const scW = container.clientWidth;
       const scH = container.clientHeight;
 
@@ -78,30 +79,22 @@ const ModelNvidia = () => {
       scene.add(directionalLight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
-    controls.autoRotate = true;
-    controls.target = target;
+      controls.autoRotate = true;
+      controls.target = target;
 
-    fetch('/api/get-model')
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return response.blob();
+      loadGLTFModel(scene, urlNvidiaGLB, {
+        receiveShadow: false,
+        castShadow: false
       })
-      .then(blob => {
-        const objectUrl = URL.createObjectURL(blob);
-        return loadGLTFModel(scene, objectUrl, {
-          receiveShadow: false,
-          castShadow: false
+        .then(() => {
+          console.log('Model loaded successfully');
+          animate();
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error loading model:', error);
+          setLoading(false);
         });
-      })
-      .then(() => {
-        console.log('Model loaded successfully');
-        animate();
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error loading model:', error);
-        setLoading(false);
-      });
 
       let req = null;
       let frame = 0;
@@ -131,9 +124,7 @@ const ModelNvidia = () => {
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize, false);
-    return () => {
-      window.removeEventListener('resize', handleWindowResize, false);
-    };
+    return () => window.removeEventListener('resize', handleWindowResize, false);
   }, [handleWindowResize]);
 
   return (
