@@ -13,7 +13,7 @@ const ModelNvidia = () => { //Model-Model Nvidia-Nvidia
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
   
-  const urlNvidiaGLB = process.env.REACT_APP_S3_URL;
+  const urlNvidiaGLB = 'https://yerkin-3d-models.s3.us-east-1.amazonaws.com/nvidia.glb';
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
     const { current: container } = refContainer
