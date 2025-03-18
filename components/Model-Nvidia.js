@@ -12,8 +12,8 @@ const ModelNvidia = () => { //Model-Model Nvidia-Nvidia
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  //const urlNvidiaGLB = (process.env.NODE_ENV === 'production' ? 'https://craftzNvidia.global.ssl.fastly.net/homepage' : '') + '/nvidia.glb'
-  const urlNvidiaGLB = "https://github.com/ytulenov/portfolio/releases/download/v1.0.0/nvidia.glb";
+  
+  const urlNvidiaGLB = process.env.REACT_APP_S3_URL;
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
     const { current: container } = refContainer
