@@ -78,28 +78,30 @@ const ModelNvidia = () => {
       scene.add(directionalLight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.autoRotate = true;
-      controls.target = target;
+    controls.autoRotate = true;
+    controls.target = target;
 
-      // Fetch the model URL from the API and load it
-      fetch(apiUrl)
-        .then(response => response.blob())
-        .then(blob => {
-          const objectUrl = URL.createObjectURL(blob);
-          return loadGLTFModel(scene, objectUrl, {
-            receiveShadow: false,
-            castShadow: false
-          });
-        })
-        .then(() => {
-          console.log('Model loaded successfully');
-          animate();
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error('Error loading model:', error);
-          setLoading(false);
+    fetch('/api/get-model')
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.blob();
+      })
+      .then(blob => {
+        const objectUrl = URL.createObjectURL(blob);
+        return loadGLTFModel(scene, objectUrl, {
+          receiveShadow: false,
+          castShadow: false
         });
+      })
+      .then(() => {
+        console.log('Model loaded successfully');
+        animate();
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading model:', error);
+        setLoading(false);
+      });
 
       let req = null;
       let frame = 0;
