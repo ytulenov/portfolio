@@ -63,7 +63,7 @@ const ModelNvidia = () => {
     controls.target = target;
 
     const workerScript = `
-      importScripts('https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js');
+     importScripts('https://cdnjs.cloudflare.com/ajax/libs/three.js/r157/three.min.js');
       self.onmessage = async (e) => {
         const response = await fetch(e.data.url);
         const arrayBuffer = await response.arrayBuffer();
