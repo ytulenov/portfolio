@@ -14,6 +14,7 @@ import {
 import { EmailIcon } from "@chakra-ui/icons";
 import Layout from "../components/layouts/article"; // Adjust path if needed
 import Section from "../components/section"; // Adjust path if needed
+import { useEffect } from "react";
 
 const Contact = () => {
   return (

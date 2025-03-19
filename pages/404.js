@@ -8,6 +8,7 @@ import {
   Button,
   useColorModeValue
 } from '@chakra-ui/react'
+import { useEffect } from 'react';
 
 const NotFound = () => {
   return (
