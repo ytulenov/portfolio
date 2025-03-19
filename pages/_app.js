@@ -10,7 +10,15 @@ if (typeof window !== 'undefined') {
 }
 
 function Website({ Component, pageProps, router }) {
-  
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').then(
+        (registration) => console.log('Service Worker registered:', registration),
+        (error) => console.error('Service Worker registration failed:', error)
+      );
+    }
+  }, []);
+
   return (
     <Chakra cookies={pageProps.cookies}>
       <Fonts />
