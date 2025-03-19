@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 
 const NotFound = () => {
   return (
-    <Container pb={530}  mt={{ base: -10, md: -14 }}>
+    <Container pb={530}  mt={{ base: "-40px", md: "-56px" }}>
       <Heading as="h1" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>Not found</Heading>
       <Text fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}> The page you&apos;re looking for was not found.</Text>
       <Divider my={6} />
