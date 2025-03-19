@@ -55,6 +55,8 @@ const ModelNvidia = () => {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.autoRotate = true;
     controls.target = target;
+    // Disable zooming
+    controls.enableZoom = false; // Prevents zooming with mouse scroll or pinch gestures
 
     // Load the GLTF model directly
     const loader = new GLTFLoader();
