@@ -41,7 +41,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
         as="a"
         bg={bgColor}
         borderRadius="20px" // Rounded corners to match image
-        w="360px" // Fixed width to match approximate card width
+        w={{ base: "100%", md: "360px" }} // Reduced from 360px to 300px at md+
         h="545px" // Fixed height to match approximate card height
         display="flex"
         flexDirection="column"
@@ -155,7 +155,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
           position="absolute"
           top="70%" // Position below title after it moves up
           opacity={0}
-          w="275px"
+          w={{ base: "90%", md: "275px" }} // Adjusted for smaller card width
           //ml={20}
           transform="translateY(10px)"
           transition="opacity 0.3s ease, transform 0.3s ease"
@@ -191,9 +191,9 @@ export default function Courseworks({ courseworkByYear }) {
     centerPadding: "0px",
     arrows: true, // Explicitly enable arrows
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
+      { breakpoint: 1600, settings: { slidesToShow: 3 } }, // 3 × 360px = 1080px + padding
+      { breakpoint: 1200, settings: { slidesToShow: 2 } }, // 2 × 360px = 720px + padding
+      { breakpoint: 800, settings: { slidesToShow: 1 } },  // 1 × 360px = 360px + padding
     ],
     className: "custom-slider",
   };
@@ -314,6 +314,7 @@ export default function Courseworks({ courseworkByYear }) {
     position="relative"
     alignItems="center"
     w="100%"
+    maxW="1800px"
     //maxW={{ base: "100%", md: "1200px" }} // Constrain width to keep arrows visible
     minHeight="600px" // Ensure space for arrows
   >
@@ -324,7 +325,7 @@ export default function Courseworks({ courseworkByYear }) {
           px={7}
           boxSizing="border-box"
           display="inline-block"
-          width="360px !important"
+          width={{ base: "100%", md: "300px !important" }} 
         >
           <CourseworkCard
             title={coursework.frontmatter.title}

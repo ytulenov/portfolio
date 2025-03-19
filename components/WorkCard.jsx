@@ -1,10 +1,9 @@
 import { Box, Text, Flex, Image, Button, useColorModeValue } from '@chakra-ui/react';
-import Link from 'next/link'; // Corrected import from 'next/link'
+import Link from 'next/link';
 
 export default function WorkCard({ work, index }) {
   const { companyname, mainpagesummary, startedAt, endedAt, position, companylink, image, mainpagecolor } = work.frontmatter;
 
-  // Custom date format to match "1/1/2019 - 12/30/2025"
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -13,12 +12,10 @@ export default function WorkCard({ work, index }) {
     return `${month}/${day}/${year}`;
   };
 
-  // Determine if the layout should be reversed (image on right, text on left) based on index
   const isReversed = index % 2 === 1;
 
   return (
     <>
-      {/* Add animations directly within the component */}
       <style jsx global>{`
         @keyframes ring {
           0% {
@@ -36,75 +33,86 @@ export default function WorkCard({ work, index }) {
 
       <Flex
         as="div"
-        p={20}
-        color={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
+        p={10} // Reduced from 20 to save space
+        color={useColorModeValue(
+          process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+          process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+        )}
         transition="background 0.3s"
         w="full"
-        h="70vh"
+        maxW="1800px" // Enforce max width
+        minH="70vh" // Allow growth beyond 70vh
         align="center"
         justify="space-between"
         position="relative"
-        overflow="hidden"
-        direction={isReversed ? 'row-reverse' : 'row'} // Alternate layout
-        className={isReversed ? 'reverse' : ''} // Add reverse class for SCSS matching
+        direction={isReversed ? 'row-reverse' : 'row'}
+        className={isReversed ? 'reverse' : ''}
       >
         {/* Linkable Rotated Image */}
         <Link href={`/works/${work.slug}`} passHref>
-  <Box
-    perspective="800px"
-    transform={isReversed ? 'rotateY(-20deg) rotateX(10deg) scale(0.8)' : 'rotateY(20deg) rotateX(10deg) scale(0.8)'}
-    transition="all 0.6s ease"
-    _hover={{
-      transform: isReversed
-        ? 'perspective(800px) rotateY(15deg) rotateX(10deg) scale(0.95)'
-        : 'perspective(800px) rotateY(-15deg) rotateX(10deg) scale(0.95)',
-      filter: 'blur(0.2px)',
-      opacity: 1,
-      boxShadow: useColorModeValue(process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_LIGHT_HOVER, process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_DARK_HOVER)
-    }}
-    boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_LIGHT, process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_DARK)}
-    borderRadius="15px"
-    overflow="hidden"
-    ml={isReversed ? 0 : 100}
-    mr={isReversed ? 100 : 0}
-    flexShrink={0}
-    display="flex"
-    alignItems="center"
-    justifyContent="center"
-    style={{ cursor: 'pointer' }}
-    width="791px"  // Explicitly set the container width
-    height="450px" // Explicitly set the container height
-  >
-    <Image
-      src={image || '/images/works/default.png'}
-      alt={`${companyname} image`}
-      width="791"  // Match container width
-      height="450" // Match container height
-      objectFit="fill" // Stretch to fill the container
-      transition="all 0.6s ease"
-      style={{ width: '100%', height: '100%' }} // Ensure it fills the Box
-    />
-  </Box>
-</Link>
+          <Box
+            perspective="800px"
+            transform={isReversed ? 'rotateY(-20deg) rotateX(10deg) scale(0.8)' : 'rotateY(20deg) rotateX(10deg) scale(0.8)'}
+            transition="all 0.6s ease"
+            _hover={{
+              transform: isReversed
+                ? 'perspective(800px) rotateY(15deg) rotateX(10deg) scale(0.95)'
+                : 'perspective(800px) rotateY(-15deg) rotateX(10deg) scale(0.95)',
+              filter: 'blur(0.2px)',
+              opacity: 1,
+              boxShadow: useColorModeValue(
+                process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_LIGHT_HOVER,
+                process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_DARK_HOVER
+              ),
+            }}
+            boxShadow={useColorModeValue(
+              process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_LIGHT,
+              process.env.NEXT_PUBLIC_WORKSMAINPAGE_IMAGE_BOXSHADOW_DARK
+            )}
+            borderRadius="15px"
+            overflow="hidden"
+            ml={isReversed ? 0 : 4} // Reduced from 100 to 4
+            mr={isReversed ? 4 : 0} // Reduced from 100 to 4
+            flexShrink={0}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            style={{ cursor: 'pointer' }}
+            width={{ base: "100%", md: "791px" }} // Responsive width
+            height="450px"
+          >
+            <Image
+              src={image || '/images/works/default.png'}
+              alt={`${companyname} image`}
+              width="791"
+              height="450"
+              objectFit="fill"
+              transition="all 0.6s ease"
+              style={{ width: '100%', height: '100%' }}
+            />
+          </Box>
+        </Link>
 
         {/* Text and Button */}
         <Box
           flex="1"
           textAlign="center"
-          mr={isReversed ? 0 : 10}
-          ml={isReversed ? 10 : 0}
+          mr={isReversed ? 0 : 4} // Reduced from 10 to 4
+          ml={isReversed ? 4 : 0} // Reduced from 10 to 4
           display="flex"
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
-          width="50%"
+          minW="0" // Prevent overflow
           padding="1rem"
-        
         >
           <Box
-            bg={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
+            bg={useColorModeValue(
+              process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+              process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+            )}
             border="3px solid"
-            borderColor={mainpagecolor} // Use mainpagecolor for border
+            borderColor={mainpagecolor}
             borderRadius="md"
             mb={6}
             px={4}
@@ -114,21 +122,50 @@ export default function WorkCard({ work, index }) {
             <Text
               fontSize="2xl"
               fontWeight="900"
-              color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+              )}
               textTransform="uppercase"
               textAlign="center"
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             >
               {companyname.toUpperCase()}
             </Text>
-            <Text fontSize="md" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={2}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+            <Text
+              fontSize="md"
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+              )}
+              mb={2}
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+            >
               Position: {position || 'UI/UX Designer'}
             </Text>
-            <Text fontSize="sm" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+            <Text
+              fontSize="sm"
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+              )}
+              mb={2}
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+            >
               {formatDate(startedAt)} - {endedAt ? formatDate(endedAt) : 'Present'}
             </Text>
           </Box>
-          <Text fontSize="18px" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={4} textAlign="center" width="90%" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+          <Text
+            fontSize="18px"
+            color={useColorModeValue(
+              process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+              process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+            )}
+            mb={4}
+            textAlign="center"
+            width="90%"
+            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+          >
             {mainpagesummary.split('Solution:')[0]}
             <br />
           </Text>
@@ -136,12 +173,16 @@ export default function WorkCard({ work, index }) {
             <Button
               as={Link}
               href={companylink || `/works/${work.slug}`}
-            fontSize="18px"
-              bg={`linear-gradient(315deg, ${mainpagecolor} 0%, ${mainpagecolor}80 100%)`} // Gradient with mainpagecolor
-              color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
+              fontSize="18px"
+              bg={`linear-gradient(315deg, ${mainpagecolor} 0%, ${mainpagecolor}80 100%)`}
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+              )}
               _hover={{ transform: 'translateY(-6px)', bg: `linear-gradient(315deg, ${mainpagecolor} 0%, ${mainpagecolor}80 100%)` }}
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-              fontWeight="bold" borderRadius='md' 
+              fontWeight="bold"
+              borderRadius="md"
               boxShadow={`9px 7px 32px -11px ${mainpagecolor}80`}
               transition="all 0.3s ease-in-out"
               position="relative"
@@ -188,12 +229,16 @@ export default function WorkCard({ work, index }) {
             <Button
               as={Link}
               href={`/works/${work.slug}`}
-               fontSize="18px"
-              bg={`linear-gradient(315deg, ${mainpagecolor} 0%, ${mainpagecolor}80 100%)`} // Gradient with mainpagecolor
-              color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
+              fontSize="18px"
+              bg={`linear-gradient(315deg, ${mainpagecolor} 0%, ${mainpagecolor}80 100%)`}
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+              )}
               _hover={{ transform: 'translateY(-6px)', bg: `linear-gradient(315deg, ${mainpagecolor} 0%, ${mainpagecolor}80 100%)` }}
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-              fontWeight="bold" borderRadius='md' 
+              fontWeight="bold"
+              borderRadius="md"
               boxShadow={`9px 7px 32px -11px ${mainpagecolor}80`}
               transition="all 0.3s ease-in-out"
               position="relative"

@@ -70,21 +70,30 @@ const Navbar = (props) => {
 
         {/* Collapsible navigation content */}
         <Collapse in={isNavOpen} animateOpacity>
+    
           <Box
-            position="fixed"
-            top="56px" // Adjust based on navbar height
-            left={0}
-            w="100vw"
-            h="100vh"
-            bg={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
-            color={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-            zIndex={99} // Below the hamburger button
-            py={6}
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
+    position="fixed"
+    top="56px" // Matches the navbar height
+    left={0}
+    w="100vw"
+    h="calc(100vh - 56px)" // Height below the navbar
+    bg={useColorModeValue(
+      process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+      process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+    )}
+    color={useColorModeValue(
+      process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+      process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+    )}
+    zIndex={99} // Below the hamburger button
+    overflowY="auto" // Enable vertical scrolling
+    display="flex"
+    flexDirection="column"
+    alignItems="center" // Center buttons horizontally
+    justifyContent="flex-start" // Start buttons from the top
+    pt={12} // Padding at the top
+    pb={6} // Padding at the bottom
+  >
             <Stack
               direction="column"
               spacing={20}

@@ -164,7 +164,7 @@ const experiences = [
 
 const Home = () => (
   <Layout>
-    <Container maxW="80%" px={4} pt={32} >
+    <Container maxW="80%" px={4} pt={28} >
       <Box display={{ md: 'flex' }} alignItems="center">
         <Box flexGrow={1}>
           <Heading 

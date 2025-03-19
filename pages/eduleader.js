@@ -175,7 +175,7 @@ function DynamicBackgroundBox() {
           <Heading as="h1" size="lg" mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             UBC Tech Club
           </Heading>
-          <Text mb={2} fontWeight="1000" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue("#3d85c6", process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}>Active Member | 2022 - Present</Text>
+          <Text mb={2} fontWeight="1000" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue("#4369fa", process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}>Active Member | 2022 - Present</Text>
           <Text mb={4}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           Skills Acquired
           </Text>
@@ -479,34 +479,31 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         />
     <Container maxW="80%" pb={0} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}> {/* Changed pb={20} to pb={0} */}
       {/* Carousel Before the Heading */}
-      <Box mb={4} width="1400px" height="700px" mx="auto" mt={{ base: -10, md: -14 }}>
-        <Slider {...carouselSettings}>
-          <div>
-            <img
-              src="/ubc.jpg"
-              alt="UBC Campus 1"
-              style={{
-                width: "100%",
-                height: "650px",
-                objectFit: "cover",
-                borderRadius: "15px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="/ubc1.jpg"
-              alt="UBC Campus 2"
-              style={{
-                width: "100%",
-                height: "650px",
-                objectFit: "cover",
-                borderRadius: "15px",
-              }}
-            />
-          </div>
-        </Slider>
-      </Box>
+      <Box
+          mb={4}
+          width={{ base: "100%", md: "1400px" }} // Responsive carousel width
+          maxW="100%"
+          height="700px"
+          mx="auto"
+          mt={{ base: -10, md: -14 }}
+        >
+          <Slider {...carouselSettings}>
+            <div>
+              <img
+                src="/ubc.jpg"
+                alt="UBC Campus 1"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc1.jpg"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+          </Slider>
+        </Box>
 
       {/* Education & Leadership Heading */}
       <Heading  as="h1"
@@ -520,50 +517,86 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
 
       {/* UBC Section */}
       <Box >
-        <Flex justifyContent="space-between" alignItems="center">
-          <Box flex="1" pr={8}>
-            <Heading as="h1" fontSize="3xl"  mb={6} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-              UBC
-            </Heading>
-            <Text mb={16} fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-              I pursued my education at the University of British Columbia (UBC),
-              where I enrolled in the Bachelor of Computer Science program...  I pursued my education at the University of British Columbia (UBC),
-              where I enrolled in the Bachelor of Computer Science program...  I pursued my education at the University of British Columbia (UBC),
-              where I enrolled in the Bachelor of Computer Science program...
-            </Text>
-          </Box>
-          <Box
-            flexShrink={0}
-            position="relative"
-            height="22rem"
-            perspective="800px"
-            sx={{ perspective: "800px" }}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-          >
-            <Image
-              src="/ubclogo.png"
-              alt="UBC Logo"
-              height={{ base: "12rem", xl: "16rem" }}
-              sx={{
-                animation: `${translateYanimationUBClogo} 5s ease-in-out infinite alternate`,
-                transform: "rotateX(50deg)",
-              }}
-            />
-            <Text
-              fontFamily={process.env.NEXT_PUBLIC_UBC_MOTTO_FONT}
-              fontSize="2xl"
-              fontWeight="bold"
-              color={useColorModeValue(process.env.NEXT_PUBLIC_UBC_MOTTO_COLOR_LIGHT, process.env.NEXT_PUBLIC_UBC_MOTTO_COLOR_DARK)}
-              textShadow={useColorModeValue(process.env.NEXT_PUBLIC_UBC_MOTTO_TEXT_SHADOW_LIGHT, process.env.NEXT_PUBLIC_UBC_MOTTO_TEXT_SHADOW_DARK)}
-              mt={10}
-              sx={{ letterSpacing: "2px" }}
-            >
-              Tuum Est
-            </Text>
-          </Box>
-        </Flex>
+      <Flex
+  justifyContent={{ base: "center", md: "space-between" }} // Center on small screens, space-between on md+
+  alignItems="center"
+  direction={{ base: "column", md: "row" }} // Stack on small screens
+  maxW="100%" // Ensure it respects 1800px container
+>
+  <Box
+    flex="1"
+    pr={{ base: 0, md: 4 }} // Reduced padding-right from 8 (32px) to 4 (16px) on md+
+    mb={{ base: 4, md: 0 }} // Margin-bottom on small screens
+    maxW={{ base: "100%", md: "80%" }} // Limit text width to leave room for logo
+  >
+    <Heading
+      as="h1"
+      fontSize="3xl"
+      mb={6}
+      fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
+      color={useColorModeValue(
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+      )}
+    >
+      UBC
+    </Heading>
+    <Text
+      mb={16}
+      fontSize="md"
+      fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+      color={useColorModeValue(
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+      )}
+    >
+      I pursued my education at the University of British Columbia (UBC), where I enrolled in the
+      Bachelor of Computer Science program... I pursued my education at the University of British
+      Columbia (UBC), where I enrolled in the Bachelor of Computer Science program... I pursued my
+      education at the University of British Columbia (UBC), where I enrolled in the Bachelor of
+      Computer Science program...
+    </Text>
+  </Box>
+  <Box
+    flexShrink={0}
+    position="relative"
+    height="22rem"
+    perspective="800px"
+    sx={{ perspective: "800px" }}
+    display="flex"
+    flexDirection="column"
+    alignItems="center"
+    ml={{ base: 0, md: "auto" }} // Push to right on md+ by using margin-left: auto
+    mr={{ base: 0, md: -10 }} // Small right margin (8px) to avoid edge
+  >
+    <Image
+      src="/ubclogo.png"
+      alt="UBC Logo"
+      height={{ base: "10rem", xl: "16rem" }}
+      sx={{
+        animation: `${translateYanimationUBClogo} 5s ease-in-out infinite alternate`,
+        transform: "rotateX(50deg)",
+      }}
+    />
+    <Text
+      fontFamily={process.env.NEXT_PUBLIC_UBC_MOTTO_FONT}
+      fontSize="2xl"
+      fontWeight="bold"
+      color={useColorModeValue(
+        process.env.NEXT_PUBLIC_UBC_MOTTO_COLOR_LIGHT,
+        process.env.NEXT_PUBLIC_UBC_MOTTO_COLOR_DARK
+      )}
+      textShadow={useColorModeValue(
+        process.env.NEXT_PUBLIC_UBC_MOTTO_TEXT_SHADOW_LIGHT,
+        process.env.NEXT_PUBLIC_UBC_MOTTO_TEXT_SHADOW_DARK
+      )}
+      mt={10}
+      sx={{ letterSpacing: "2px" }}
+    >
+      Tuum Est
+    </Text>
+  </Box>
+</Flex>
 
         {/* Timeline */}
         <Box textAlign="center" mb={12}>
@@ -668,165 +701,228 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
 
         {/* Courses */}
         <Box mb={28} minH="600px">
-          <Heading as="h1" fontSize="3xl" mb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-            COURSES
-          </Heading>
-          <Box
-            w="100%"
-            h="780px"
-            bg={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-            borderRadius="3xl"
-            //overflow="hidden"
-            position="relative"
-            display="flex"
-            flexDirection="row"
-          >
-            <Box
-              w="361px"
-              h="full"
-              bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_SELECTION_BACKGROUND_NOTSELECTED_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_SELECTION_BACKGROUND_NOTSELECTED_DARK)}
-              display="flex"
-              flexDirection="column"
-              overflowY="auto"
-              borderTopLeftRadius="2xl"
-              borderBottomLeftRadius="2xl"
+            <Heading
+              as="h1"
+              fontSize="3xl"
+              mb={4}
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+              )}
             >
-              {courses.map((courseItem, index) => (
-                <Box
-                  key={index}
-                  h="144px"
-                  display="flex"
-                  alignItems="center"
-                  p={6}
-                  borderBottom="2px"
-                  bortderRight="2px"
-                  borderColor={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-                  bgGradient={
-                    selectedCourse && selectedCourse.slug === courseItem.slug
-                      ? useColorModeValue(
-                          `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_LIGHT}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT})`,
-                          `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_DARK}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK})`
-                        )
-                      : undefined
-                  }
-                  bg={
-                    selectedCourse && selectedCourse.slug === courseItem.slug
-                      ? undefined
-                      : "transparent"
-                  }
-                  color={
-                    selectedCourse && selectedCourse.slug === courseItem.slug
-                      ? useColorModeValue(
-                          process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
-                          process.env.NEXT_PUBLIC_OVERALL_BG_DARK 
-                        )
-                      : useColorModeValue(
-                        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
-                        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
-                      )
-                  }
-                  _hover={
-                    selectedCourse && selectedCourse.slug === courseItem.slug
-                      ? {}
-                      : {
-                          bgGradient: useColorModeValue(
-                            `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_LIGHT }, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT })`,
-                            `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_DARK }, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK })`
-                          ),
-                          color: useColorModeValue(
-                            process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT ,
-                            process.env.NEXT_PUBLIC_OVERALL_BG_DARK 
-                          ),
-                        }
-                  }
-                  cursor="pointer"
-                  onClick={() => setSelectedCourse(courseItem)}
-                  transition="background 0.3s ease"
-                  position="relative"
-                >
-                  {selectedCourse && selectedCourse.slug === courseItem.slug && (
-                    <Box
-                      position="absolute"
-                      left="0"
-                      top="0"
-                      bottom="0"
-                      w="2px"
-                      bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK)}
-                      zIndex={1}
-                    />
-                  )}
-                  <Image
-                    src={`/courses/${courseItem.slug}.jpg`}
-                    h={{ base: 12, xl: 16 }}
-                    w={{ base: 12, xl: 16 }}
-                    borderRadius="full"
-                    alt={`${courseItem.frontmatter.title} Logo`}
-                  />
-                  <Text
-                    ml={6}
-                    fontSize="lg"
-                    fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
-                    letterSpacing="wide"
-                    color="inherit"
-                    fontWeight="medium"
+              COURSES
+            </Heading>
+            <Flex
+              w="100%"
+              maxW="1526px" // Matches original total width
+              h="780px"
+              bg={useColorModeValue(
+                process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+                process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+              )}
+              borderRadius="3xl"
+              direction="row"
+            >
+              <Box
+                w={{ base: "100%", md: "361px" }} // Full width on small screens
+                h="full"
+                bg={useColorModeValue(
+                  process.env.NEXT_PUBLIC_EDULEADER_COURSE_SELECTION_BACKGROUND_NOTSELECTED_LIGHT,
+                  process.env.NEXT_PUBLIC_EDULEADER_COURSE_SELECTION_BACKGROUND_NOTSELECTED_DARK
+                )}
+                display="flex"
+                flexDirection="column"
+                overflowY="auto"
+                borderTopLeftRadius="2xl"
+                borderBottomLeftRadius={{ base: 0, md: "2xl" }}
+              >
+                {courses.map((courseItem, index) => (
+                  <Box
+                    key={index}
+                    h="144px"
+                    display="flex"
+                    alignItems="center"
+                    p={6}
+                    borderBottom="2px"
+                    borderColor={useColorModeValue(
+                      process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+                      process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+                    )}
+                    bgGradient={
+                      selectedCourse && selectedCourse.slug === courseItem.slug
+                        ? useColorModeValue(
+                            `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_LIGHT}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT})`,
+                            `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_DARK}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK})`
+                          )
+                        : undefined
+                    }
+                    bg={
+                      selectedCourse && selectedCourse.slug === courseItem.slug
+                        ? undefined
+                        : "transparent"
+                    }
+                    color={
+                      selectedCourse && selectedCourse.slug === courseItem.slug
+                        ? useColorModeValue(
+                            process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+                            process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+                          )
+                        : useColorModeValue(
+                            process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                            process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+                          )
+                    }
+                    _hover={
+                      selectedCourse && selectedCourse.slug === courseItem.slug
+                        ? {}
+                        : {
+                            bgGradient: useColorModeValue(
+                              `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_LIGHT}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT})`,
+                              `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_DARK}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK})`
+                            ),
+                            color: useColorModeValue(
+                              process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+                              process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+                            ),
+                          }
+                    }
+                    cursor="pointer"
+                    onClick={() => setSelectedCourse(courseItem)}
+                    transition="background 0.3s ease"
+                    position="relative"
                   >
-                    {courseItem.frontmatter.title}
-                  </Text>
-                </Box>
-              ))}
-            </Box>
-            <Box w="3px" h="full" bg={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)} position="absolute" left="361px" />
-            <Box w="1162px" h="full" bgGradient={useColorModeValue(
-                            `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_LIGHT }, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT })`,
-                            `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_DARK }, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK })`
-                          )} position="relative"  borderTopRightRadius="2xl"
-              borderBottomRightRadius="2xl">
-              <Box h="full" overflowY="auto" p={6}>
-                {selectedCourse && (
-                  <Box>
-                    
-                    <Box mb={6} borderLeft="2px" borderColor={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK)}>
-                      <Box position="relative" pl={4}>
-                        <Box
-                          position="absolute"
-                          left="-7px"
-                          top="12px"
-                          w="12px"
-                          h="12px"
-                          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK)}
-                          border="2px"
-                          borderColor={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK)}
-                          borderRadius="full"
-                        />
-                        <Text fontWeight="bold" fontSize="lg" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}  letterSpacing="wide" color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK)}>
-                          {selectedCourse.frontmatter.title}
-                        </Text>
-                        <Text fontSize="lg" letterSpacing="wide" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}  color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK)}>
-                          {`${formatDate(selectedCourse.frontmatter.startedAt)} - ${
-                            selectedCourse.frontmatter.endedAt
-                              ? formatDate(selectedCourse.frontmatter.endedAt)
-                              : "Present"
-                          }`}
-                        </Text>
+                    {selectedCourse && selectedCourse.slug === courseItem.slug && (
+                      <Box
+                        position="absolute"
+                        left="0"
+                        top="0"
+                        bottom="0"
+                        w="2px"
+                        bg={useColorModeValue(
+                          process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT,
+                          process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK
+                        )}
+                        zIndex={1}
+                      />
+                    )}
+                    <Image
+                      src={`/courses/${courseItem.slug}.jpg`}
+                      h={{ base: 12, xl: 16 }}
+                      w={{ base: 12, xl: 16 }}
+                      borderRadius="full"
+                      alt={`${courseItem.frontmatter.title} Logo`}
+                    />
+                    <Text
+                      ml={6}
+                      fontSize="lg"
+                      fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                      letterSpacing="wide"
+                      color="inherit"
+                      fontWeight="medium"
+                    >
+                      {courseItem.frontmatter.title}
+                    </Text>
+                  </Box>
+                ))}
+              </Box>
+              <Box
+                w="3px"
+                h="full"
+                bg={useColorModeValue(
+                  process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+                  process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+                )}
+                display={{ base: "none", md: "block" }} // Hide divider on small screens
+              />
+              <Box
+                flex="1"
+                h="full"
+                bgGradient={useColorModeValue(
+                  `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_LIGHT}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT})`,
+                  `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_COURSE_BGGRADIENT_FIRSTCOLOR_PLUS_HOVER_DARK}, ${process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK})`
+                )}
+                borderTopRightRadius="2xl"
+                borderBottomRightRadius="2xl"
+              >
+                <Box h="full" overflowY="auto" p={6}>
+                  {selectedCourse && (
+                    <Box>
+                      <Box
+                        mb={6}
+                        borderLeft="2px"
+                        borderColor={useColorModeValue(
+                          process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT,
+                          process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK
+                        )}
+                      >
+                        <Box position="relative" pl={4}>
+                          <Box
+                            position="absolute"
+                            left="-7px"
+                            top="12px"
+                            w="12px"
+                            h="12px"
+                            bg={useColorModeValue(
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT,
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK
+                            )}
+                            border="2px"
+                            borderColor={useColorModeValue(
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT,
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK
+                            )}
+                            borderRadius="full"
+                          />
+                          <Text
+                            fontWeight="bold"
+                            fontSize="lg"
+                            fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
+                            letterSpacing="wide"
+                            color={useColorModeValue(
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT,
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK
+                            )}
+                          >
+                            {selectedCourse.frontmatter.title}
+                          </Text>
+                          <Text
+                            fontSize="lg"
+                            letterSpacing="wide"
+                            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                            color={useColorModeValue(
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_LIGHT,
+                              process.env.NEXT_PUBLIC_EDULEADER_COURSE_LEFTLINE_TIMEPERIOD_BRIGHTCOLOR_DARK
+                            )}
+                          >
+                            {`${formatDate(selectedCourse.frontmatter.startedAt)} - ${
+                              selectedCourse.frontmatter.endedAt
+                                ? formatDate(selectedCourse.frontmatter.endedAt)
+                                : "Present"
+                            }`}
+                          </Text>
+                        </Box>
+                      </Box>
+                      <Box
+                        color={useColorModeValue(
+                          process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+                          process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+                        )}
+                        fontSize={{ base: "md", md: "lg" }}
+                        letterSpacing="wide"
+                        lineHeight="relaxed"
+                        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                        pr={2}
+                        pl={2}
+                      >
+                        <MDXRemote {...selectedCourse.source} components={components} />
                       </Box>
                     </Box>
-                    <Box
-                      color={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-                      fontSize={{ base: "md", md: "lg" }}
-                      letterSpacing="wide"
-                      lineHeight="relaxed"
-                      fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
-                      pr={2}
-                      pl={2}
-                    >
-                      <MDXRemote {...selectedCourse.source} components={components} />
-                    </Box>
-                  </Box>
-                )}
+                  )}
+                </Box>
               </Box>
-            </Box>
+            </Flex>
           </Box>
-        </Box>
 
         {/* Clubs */}
         <Box> {/* No mb here to ensure no padding after Clubs */}
@@ -848,7 +944,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
               alignItems="center"
             >
               <Image
-                src="/hackerspacelogo.png"
+                src={useColorModeValue("/hackerspacelogolight.png", "/hackerspacelogodark.png")}
                 alt="UBC Logo"
                 height="16rem"
                 sx={{

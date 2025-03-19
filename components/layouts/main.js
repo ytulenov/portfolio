@@ -4,6 +4,7 @@ import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
 import ModelNvidiaLoader from '../Model-Nvidia-loader'
+import { useEffect } from 'react'
 
 const ModelNvidia = dynamic(() => import('../Model-Nvidia'), {
   ssr: false,
@@ -11,10 +12,21 @@ const ModelNvidia = dynamic(() => import('../Model-Nvidia'), {
 })
 
 const Main = ({ children, router }) => {
+  useEffect(() => {
+    const enforceZoom = () => {
+      if (typeof window !== 'undefined') {
+        document.body.style.zoom = '100%';
+      }
+    };
+    enforceZoom();
+    window.addEventListener('resize', enforceZoom);
+    return () => window.removeEventListener('resize', enforceZoom);
+  }, []);
+
   return (
     <Box as="main" pb={8}>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=1800, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="description" content="Yerkin's homepage" />
         <meta name="author" content="Yerkin Tulenov" />
         <meta name="author" content="personal website" />
@@ -34,7 +46,7 @@ const Main = ({ children, router }) => {
 
       <NavBar path={router.asPath} />
 
-      <Container maxW="100%" pt={56}>
+      <Container maxW="1800px" pt={48}>
         {router.pathname === '/' && (
           <Box width="100%" mx="auto">
             <ModelNvidia />

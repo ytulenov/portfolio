@@ -269,7 +269,7 @@ export default function Projects({ projects }) {
       if (renderAllAsFirstProject) {
         // Render all projects as FirstProjectLayout
         return (
-          <Box key={index} position="relative" h="auto" pb={16}>
+          <Box key={index} position="relative" h="auto" pb={32}>
             <FirstProjectLayout project={project} />
           </Box>
         );
@@ -294,7 +294,7 @@ export default function Projects({ projects }) {
             mx="auto"
             direction="row"
             justify="space-between"
-            py={12}
+            py={24}
           >
             <ProjectBlock project={project} />
             {/* Check if there's a next project (2nd in the sequence) */}
