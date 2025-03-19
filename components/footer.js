@@ -2,30 +2,36 @@ import { Box, useColorModeValue, Flex, IconButton, Link } from "@chakra-ui/react
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
-  const iconSize = "2xl";
-  const customIconSize = "20px";
+  // Define icon sizes (customize these values as needed)
+  const iconSize = "2xl"; // Options: "xs", "sm", "md", "lg", "xl", "2xl", etc. (Chakra sizes)
+  const customIconSize = "20px"; // Custom size in pixels or other units
 
   return (
     <Box
       as="footer"
-      pt="2vh"
-      pb="1vh"
+      pt={20}
       align="center"
       opacity={0.7}
-      fontSize={{ base: 'sm', md: 'md' }}
+      fontSize="md"
       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-      color={useColorModeValue(process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT, process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK)}
+      color={useColorModeValue(
+        process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,
+        process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK
+      )}
     >
-      <Flex justify="center" align="center" direction="column" gap={{ base: 2, md: 3 }}>
-        <Flex gap={{ base: 4, md: 8 }}>
+      <Flex justify="center" align="center" direction="column" gap={2}>
+        <Flex gap={8}>
           <IconButton
             as={Link}
-            href="https://www.linkedin.com/in/ytulenov"
+            href="https://www.linkedin.com/in/ytulenov" // Fixed URL (added https://)
             aria-label="LinkedIn"
-            icon={<FaLinkedin fontSize={customIconSize} />}
-            size={iconSize}
+            icon={<FaLinkedin fontSize={customIconSize} />} // Custom size
+            size={iconSize} // Chakra size
             variant="ghost"
-            color={useColorModeValue(process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT, process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK)}
+            color={useColorModeValue(
+              process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,
+              process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK
+            )}
             _hover={{ opacity: 1 }}
             isExternal
           />
@@ -33,10 +39,13 @@ const Footer = () => {
             as={Link}
             href="https://github.com/ytulenov?tab=repositories"
             aria-label="GitHub"
-            icon={<FaGithub fontSize={customIconSize} />}
-            size={iconSize}
+            icon={<FaGithub fontSize={customIconSize} />} // Custom size
+            size={iconSize} // Chakra size
             variant="ghost"
-            color={useColorModeValue(process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT, process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK)}
+            color={useColorModeValue(
+              process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,
+              process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK
+            )}
             _hover={{ opacity: 1 }}
             isExternal
           />
@@ -44,14 +53,17 @@ const Footer = () => {
             as={Link}
             href="mailto:ytulenov@gmail.com"
             aria-label="Email"
-            icon={<FaEnvelope fontSize={customIconSize} />}
-            size={iconSize}
+            icon={<FaEnvelope fontSize={customIconSize} />} // Custom size
+            size={iconSize} // Chakra size
             variant="ghost"
-            color={useColorModeValue(process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT, process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK)}
+            color={useColorModeValue(
+              process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,
+              process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_DARK
+            )}
             _hover={{ opacity: 1 }}
           />
         </Flex>
-        <Box fontSize={{ base: 'xs', md: 'sm' }}>
+        <Box>
           © {new Date().getFullYear()} Yerkin Tulenov. All Rights Reserved.
         </Box>
       </Flex>
