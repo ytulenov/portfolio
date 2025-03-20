@@ -11,7 +11,7 @@ export default function DataTable({ children, src }) {
   useEffect(() => {
     if (src?.endsWith(".xlsx")) {
       const baseUrl = process.env.NODE_ENV === "production"
-        ? "https://your-production-domain.com"
+        ? "https://ytulenov.com"
         : "http://localhost:3000";
       const absoluteSrc = src.startsWith("http") ? src : `${baseUrl}${src}`;
 
