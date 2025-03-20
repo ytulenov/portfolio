@@ -51,7 +51,7 @@ const Footer = () => {
           />
           <IconButton
             as={Link}
-            href="mailto:ytulenov@gmail.com"
+             href="/contact"
             aria-label="Email"
             icon={<FaEnvelope fontSize={customIconSize} />} // Custom size
             size={iconSize} // Chakra size

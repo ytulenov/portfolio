@@ -1,10 +1,11 @@
 import NextLink from 'next/link';
-import {Link,Container,Heading,Box,SimpleGrid,Button,List,ListItem,FormControl,FormLabel,Input,Textarea,useColorModeValue,
+import {Link,Container,Heading,Box,SimpleGrid,Button,List,ListItem,FormControl,FormLabel,Input,Textarea,useColorModeValue, useToast,
 } from '@chakra-ui/react';
 import { Global } from '@emotion/react';
 import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons';
-
-
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ContactFormSchema } from '../lib/schemas'; // From lib folder
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
 import { GridItem } from '../components/grid-item';
@@ -162,7 +163,48 @@ const experiences = [
   },
 ];
 
-const Home = () => (
+const Home = () => {
+  const toast = useToast();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(ContactFormSchema),
+    defaultValues: { name: '', email: '', subject: '', message: '' }, // Added subject
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      toast({
+        title: 'Message sent successfully!',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      reset();
+    } catch (error) {
+      toast({
+        title: 'An error occurred!',
+        description: 'Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+  return (
   <Layout>
     <Container maxW="80%" px={4} pt={24} >
       <Box display={{ md: 'flex' }} alignItems="center">
@@ -356,76 +398,121 @@ const Home = () => (
           Get in touch with me for collaborations, questions, or just to say hi!
         </Heading>
         <Box maxW="80%" mx="auto" pt={8}>
-        <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert('Form submitted! (Add your backend logic here)');
-            }}
-          >
-            <FormControl id="name" mb={6} isRequired>
-            <FormLabel fontWeight="semibold" as="h3" fontSize="lg"   color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>Name</FormLabel>
-              <Input
-                type="text"
-                placeholder="Your name"
-                size="lg"
-                
-                fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-                color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)} // Text color
-                focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
-                _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }} // Placeholder style
-                bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
-                borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
-              />
-            </FormControl>
+        <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl id="name" mb={6} isRequired isInvalid={!!errors.name}>
+                <FormLabel fontWeight="semibold" as="h3" fontSize="lg" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+                  Name
+                </FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Your name"
+                  size="lg"
+                  {...register('name')}
+                  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                  color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)}
+                  focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
+                  _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }}
+                  bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
+                  borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
+                />
+                {errors.name && (
+                  <Box color="red.500" mt={2} fontSize="sm">
+                    {errors.name.message}
+                  </Box>
+                )}
+              </FormControl>
 
-            <FormControl id="email" mb={6} isRequired>
-            <FormLabel fontWeight="semibold" as="h3" fontSize="lg" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}    fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>Email</FormLabel>
-              <Input
-                type="email"
-                placeholder="Your email"
-                size="lg"
-                fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-                color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)} // Text color
-                _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }} // Placeholder style
-                focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
-                bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
-                borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
-              />
-            </FormControl>
-            <FormControl id="message" mb={8} isRequired>
-              <FormLabel fontWeight="semibold" as="h3" fontSize="lg" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}    fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>Message</FormLabel>
-              <Textarea
-                placeholder="Your message"
-                rows={8}
-                size="lg"
-                fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-                color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)} // Text color
-                _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }} // Placeholder style
-                focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
-                bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
-                borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
-              />
-            </FormControl>
-            <Box textAlign="center">
-              <Button
-                type="submit"
-                leftIcon={<EmailIcon />}
-                fontSize="18px" fontWeight="bold" borderRadius='md'  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)} color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
-                _hover={{
-                  bg: useColorModeValue(
-                    process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
-                    process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
-                  ),}}
-              >
-                Send Message
-              </Button>
-            </Box>
-          </form>
+              <FormControl id="email" mb={6} isRequired isInvalid={!!errors.email}>
+                <FormLabel fontWeight="semibold" as="h3" fontSize="lg" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+                  Email
+                </FormLabel>
+                <Input
+                  type="email"
+                  placeholder="Your email"
+                  size="lg"
+                  {...register('email')}
+                  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                  color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)}
+                  focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
+                  _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }}
+                  bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
+                  borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
+                />
+                {errors.email && (
+                  <Box color="red.500" mt={2} fontSize="sm">
+                    {errors.email.message}
+                  </Box>
+                )}
+              </FormControl>
+              <FormControl id="subject" mb={6} isRequired isInvalid={!!errors.subject}>
+                <FormLabel fontWeight="semibold" as="h3" fontSize="lg" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+                  Subject
+                </FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Your subject"
+                  size="lg"
+                  {...register('subject')}
+                  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                  color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)}
+                  focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
+                  _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }}
+                  bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
+                  borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
+                />
+                {errors.subject && (
+                  <Box color="red.500" mt={2} fontSize="sm">
+                    {errors.subject.message}
+                  </Box>
+                )}
+              </FormControl>
+
+              <FormControl id="message" mb={8} isRequired isInvalid={!!errors.message}>
+                <FormLabel fontWeight="semibold" as="h3" fontSize="lg" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
+                  Message
+                </FormLabel>
+                <Textarea
+                  placeholder="Your message"
+                  rows={8}
+                  size="lg"
+                  {...register('message')}
+                  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                  color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_TEXTCOLOR_DARK)}
+                  focusBorderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_FOCUSBORDERCCOLOR_DARK)}
+                  _placeholder={{ color: useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_DARK) }}
+                  bg={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BG_DARK)}
+                  borderColor={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK)}
+                />
+                {errors.message && (
+                  <Box color="red.500" mt={2} fontSize="sm">
+                    {errors.message.message}
+                  </Box>
+                )}
+              </FormControl>
+
+              <Box textAlign="center">
+                <Button
+                  type="submit"
+                  leftIcon={<EmailIcon />}
+                  fontSize="18px"
+                  fontWeight="bold"
+                  borderRadius="md"
+                  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+                  bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}
+                  color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+                  _hover={{ bg: useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK) }}
+                  isLoading={isSubmitting}
+                  loadingText="Submitting..."
+                >
+                  Send Message
+                </Button>
+              </Box>
+            </form>
 </Box>
       </Section>
     </Container>
   </Layout>
-)
+)}
 
 export default Home
 export { getServerSideProps } from '../components/chakra'
