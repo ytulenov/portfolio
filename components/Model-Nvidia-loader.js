@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Box, Spinner } from '@chakra-ui/react';
+import { AspectRatio, Box, Spinner } from '@chakra-ui/react';
 
 export const NvidiaSpinner = () => (
   <Spinner
@@ -10,7 +10,7 @@ export const NvidiaSpinner = () => (
     transform="translate(-50%, -50%)"
   />
 );
-
+/*
 export const NvidiaContainer = forwardRef(({ children }, ref) => (
   <Box
     ref={ref}
@@ -19,16 +19,40 @@ export const NvidiaContainer = forwardRef(({ children }, ref) => (
     mt={['-20px', '-60px', '-120px']}
     mb={['-40px', '-140px', '-200px']} 
     w="100%"
-    maxW={[1000, 12000, 1300]} // Increased to accommodate the model's rotation
-    h={[400, 600, 800]} // Increased to match width and ensure visibility
+    maxW="1300px"         // Perfect fit on your 1800px width screen
+    aspectRatio="13 / 8"   // Maintains the 1300x800 ratio at any scale
     position="relative"
     display="flex"
     justifyContent="center"
     alignItems="center"
-    overflow="visible" // Ensure the model isn't clipped during rotation
+    overflow="visible"
   >
-    {children} 
+    {children}
   </Box>
+));*/
+
+export const NvidiaContainer = forwardRef(({ children }, ref) => (
+  <AspectRatio
+    ref={ref}
+    ratio={13 / 7}
+    w="100%"             // Fluid width: scales with parent
+    maxW="1300px"        // Maximum width remains 1300px on large screens
+    mt={['-20px', '-60px', '-150px']}
+    mb={['-40px', '-140px', '-200px']} 
+    position="relative"
+    overflow="visible"
+    mx="auto"   
+  >
+    <Box
+      width="100%"
+      height="100%"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      {children}
+    </Box>
+  </AspectRatio>
 ));
 
 const Loader = () => {

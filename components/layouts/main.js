@@ -1,20 +1,28 @@
-import Head from 'next/head'
-import dynamic from 'next/dynamic'
-import NavBar from '../navbar'
-import { Box, Container } from '@chakra-ui/react'
-import Footer from '../footer'
-import ModelNvidiaLoader from '../Model-Nvidia-loader'
-import { useEffect } from 'react'
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import NavBar from '../navbar';
+import { Box, Container } from '@chakra-ui/react';
+import Footer from '../footer';
+import ModelNvidiaLoader from '../Model-Nvidia-loader';
+import { useEffect, useState } from 'react';
 
 const ModelNvidia = dynamic(() => import('../Model-Nvidia'), {
   ssr: false,
   loading: () => <ModelNvidiaLoader />
-})
+});
 
 const Main = ({ children, router }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
+    // Detect mobile devices (iPhone or Android)
+    const userAgent = typeof window !== 'undefined' ? navigator.userAgent.toLowerCase() : '';
+    const mobileCheck = /iphone|ipad|android/.test(userAgent);
+    setIsMobile(mobileCheck);
+
+    // Enforce zoom for non-mobile devices
     const enforceZoom = () => {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && !mobileCheck) {
         document.body.style.zoom = '100%';
       }
     };
@@ -23,10 +31,11 @@ const Main = ({ children, router }) => {
     return () => window.removeEventListener('resize', enforceZoom);
   }, []);
 
+
   return (
     <Box as="main" pb={8}>
       <Head>
-        <meta name="viewport" content="width=1800, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="description" content="Yerkin's homepage" />
         <meta name="author" content="Yerkin Tulenov" />
         <meta name="author" content="personal website" />
@@ -46,17 +55,19 @@ const Main = ({ children, router }) => {
 
       <NavBar path={router.asPath} />
 
-      <Container maxW="1800px" pt={48}>
+      <Container maxW={{ base: "100%", md: "90vw", lg: "1800px" }} pt={{ base: 12, md: 24, lg: 48 }}>
         {router.pathname === '/' && (
           <Box width="100%" mx="auto">
-            <ModelNvidia />
+            {!isMobile ? <ModelNvidia /> : null}
+            {/* Optionally, add a fallback for mobile users here, e.g., a static image */}
           </Box>
         )}
         {children}
         <Footer />
       </Container>
-    </Box> 
-  )
-}
 
-export default Main
+    </Box>
+  );
+};
+
+export default Main;

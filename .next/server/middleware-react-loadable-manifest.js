@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components/layouts/main.js -> ../Model-Nvidia\":{\"id\":\"components/layouts/main.js -> ../Model-Nvidia\",\"files\":[\"static/chunks/components_Model-Nvidia_js.js\"]},\"pages/eduleader.js -> ../components/DataTable\":{\"id\":\"pages/eduleader.js -> ../components/DataTable\",\"files\":[\"static/chunks/components_DataTable_jsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{\"components/layouts/main.js -> ../Model-Nvidia\":{\"id\":\"components/layouts/main.js -> ../Model-Nvidia\",\"files\":[\"static/chunks/components_Model-Nvidia_js.js\"]}}"

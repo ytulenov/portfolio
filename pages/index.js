@@ -164,7 +164,7 @@ const experiences = [
 
 const Home = () => (
   <Layout>
-    <Container maxW="80%" px={4} pt={28} >
+    <Container maxW="80%" px={4} pt={24} >
       <Box display={{ md: 'flex' }} alignItems="center">
         <Box flexGrow={1}>
           <Heading 
@@ -214,7 +214,7 @@ const Home = () => (
       </Box>
 
       <Section delay={0.1}>
-        <Heading as="h1" fontSize="3xl" variant="section-title" pt={14} mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
+        <Heading as="h1" fontSize="3xl" variant="section-title" pt={20} mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           ABOUT
         </Heading>
