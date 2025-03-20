@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import NavBar from '../navbar';
-import { Box, Container } from '@chakra-ui/react';
+import { Box, Container, Text, VStack } from '@chakra-ui/react';
 import Footer from '../footer';
 import ModelNvidiaLoader from '../Model-Nvidia-loader';
 import { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ const Main = ({ children, router }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Detect mobile devices (iPhone or Android)
+    // Detect mobile devices (iPhone, iPad or Android)
     const userAgent = typeof window !== 'undefined' ? navigator.userAgent.toLowerCase() : '';
     const mobileCheck = /iphone|ipad|android/.test(userAgent);
     setIsMobile(mobileCheck);
@@ -31,6 +31,27 @@ const Main = ({ children, router }) => {
     return () => window.removeEventListener('resize', enforceZoom);
   }, []);
 
+  // Mobile block message component
+  const MobileBlockMessage = () => (
+    <VStack 
+      minH="100vh" 
+      justify="center" 
+      align="center" 
+      spacing={4} 
+      textAlign="center"
+      p={4}
+    >
+      <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold">
+        Website Under Construction
+      </Text>
+      <Text fontSize={{ base: "md", md: "lg" }}>
+        This website is not yet optimized for mobile devices.
+      </Text>
+      <Text fontSize={{ base: "sm", md: "md" }}>
+        Please visit us from a desktop computer for the best experience.
+      </Text>
+    </VStack>
+  );
 
   return (
     <Box as="main" pb={8}>
@@ -55,17 +76,19 @@ const Main = ({ children, router }) => {
 
       <NavBar path={router.asPath} />
 
-      <Container maxW={{ base: "100%", md: "90vw", lg: "1800px" }} pt={{ base: 12, md: 24, lg: 48 }}>
-        {router.pathname === '/' && (
-          <Box width="100%" mx="auto">
-            {!isMobile ? <ModelNvidia /> : null}
-            {/* Optionally, add a fallback for mobile users here, e.g., a static image */}
-          </Box>
-        )}
-        {children}
-        <Footer />
-      </Container>
-
+      {isMobile ? (
+        <MobileBlockMessage />
+      ) : (
+        <Container maxW={{ base: "100%", md: "90vw", lg: "1800px" }} pt={{ base: 12, md: 24, lg: 48 }}>
+          {router.pathname === '/' && (
+            <Box width="100%" mx="auto">
+              <ModelNvidia />
+            </Box>
+          )}
+          {children}
+          <Footer />
+        </Container>
+      )}
     </Box>
   );
 };
