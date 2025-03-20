@@ -12,8 +12,8 @@ import {
     Text,
   } from '@react-email/components';
   import * as React from 'react';
-  const baseUrl = 'https://ytulenov.com'; // Hardcoded for ytulenov.com
-  //const baseUrl = 'http://localhost:3000'; // Using localhost for testing
+  
+  const baseUrl = 'https://ytulenov.com'; // Use your live website for correct icon paths
   
   const ContactFormEmail = ({ name, email, subject, message }) => {
     return (
@@ -62,7 +62,7 @@ import {
   
             <Section style={{ textAlign: 'center' }}>
               <Text style={{ fontSize: '16px', marginTop: '20px', marginBottom: '20px' }}>
-                In the meantime, please feel free to explore the website to discover more about my work!
+                In the meantime, feel free to explore my website to discover more about my work!
               </Text>
               <Button
                 href={baseUrl}
@@ -73,6 +73,7 @@ import {
                   padding: '12px 18px',
                   textDecoration: 'none',
                   display: 'inline-block',
+                  fontWeight: 'bold',
                 }}
               >
                 Go Back to My Website
@@ -84,39 +85,42 @@ import {
               <Text style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>
                 Connect with me:
               </Text>
-              <Section style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+  
+              {/* FLEX CONTAINER FOR ICONS */}
+              <Section
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '24px', // Adjust spacing between icons
+                }}
+              >
                 <Link href="https://www.linkedin.com/in/ytulenov">
                   <Img
                     src={`${baseUrl}/icons/linkedin.png`}
-                    width="20"
-
-                    height="20"
-
+                    width="24"
+                    height="24"
                     alt="LinkedIn"
-                    
                   />
                 </Link>
                 <Link href="https://github.com/ytulenov?tab=repositories">
                   <Img
                     src={`${baseUrl}/icons/github.png`}
-                    width="20"
-
-                    height="20"
-
+                    width="24"
+                    height="24"
                     alt="GitHub"
-                    
                   />
                 </Link>
                 <Link href="mailto:ytulenov@gmail.com">
                   <Img
                     src={`${baseUrl}/icons/email.png`}
-                    width="20"
-                    height="20"
+                    width="24"
+                    height="24"
                     alt="Email"
-                    
                   />
                 </Link>
               </Section>
+  
               <Text style={{ color: '#666666', marginTop: '20px', fontSize: '14px' }}>
                 © {new Date().getFullYear()} Yerkin Tulenov. All Rights Reserved.
               </Text>
@@ -129,5 +133,3 @@ import {
   
   export default ContactFormEmail;
   
-
-  //const baseUrl = 'https://ytulenov.com'; // Hardcoded for ytulenov.com
