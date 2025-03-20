@@ -86,37 +86,55 @@ import {
                 Connect with me:
               </Text>
   
-              {/* FLEX CONTAINER FOR ICONS */}
+              {/* Horizontal row for social media icons */}
               <Section
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '24px', // Adjust spacing between icons
+                  textAlign: 'center', // Center the icons within the section
                 }}
               >
-                <Link href="https://www.linkedin.com/in/ytulenov">
+                <Link
+                  href="https://www.linkedin.com/in/ytulenov"
+                  style={{
+                    display: 'inline-block',
+                    margin: '0 12px', // Spacing between icons
+                  }}
+                >
                   <Img
                     src={`${baseUrl}/icons/linkedin.png`}
                     width="24"
                     height="24"
                     alt="LinkedIn"
+                    style={{ display: 'inline-block' }}
                   />
                 </Link>
-                <Link href="https://github.com/ytulenov?tab=repositories">
+                <Link
+                  href="https://github.com/ytulenov?tab=repositories"
+                  style={{
+                    display: 'inline-block',
+                    margin: '0 12px', // Spacing between icons
+                  }}
+                >
                   <Img
                     src={`${baseUrl}/icons/github.png`}
                     width="24"
                     height="24"
                     alt="GitHub"
+                    style={{ display: 'inline-block' }}
                   />
                 </Link>
-                <Link href="mailto:ytulenov@gmail.com">
+                <Link
+                  href="mailto:ytulenov@gmail.com"
+                  style={{
+                    display: 'inline-block',
+                    margin: '0 12px', // Spacing between icons
+                  }}
+                >
                   <Img
                     src={`${baseUrl}/icons/email.png`}
                     width="24"
                     height="24"
                     alt="Email"
+                    style={{ display: 'inline-block' }}
                   />
                 </Link>
               </Section>
@@ -132,4 +150,3 @@ import {
   };
   
   export default ContactFormEmail;
-  
