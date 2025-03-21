@@ -26,7 +26,7 @@ const SpinningBlock = ({ label, finalValue, generateRandom, spinDuration = 5000 
       textAlign="center"
       display="inline-block"
       height="100px"
-      width={{ base: "100%", md: "300px" }} // Responsive width
+      width={{ base: "100%", md: "300px" }} 
       maxW="400px"
     >
       <Text

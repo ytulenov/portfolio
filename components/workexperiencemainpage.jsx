@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 const MotionBox = motion(Box);
 
 const WorkExperience = ({ experiences }) => {
-  // Dynamic colors based on theme
-  const boxBg = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BOXBG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BOXBG_DARK); // Experience card background
-  const circleBg = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_CIRCLEBG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_CIRCLEBG_DARK); // Logo circle background
-  const lineColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_LINECOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_LINECOLOR_DARK); // Timeline line
-  const borderColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_DARK); // Border color (was borderBottomColor)
+  
+  const boxBg = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BOXBG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BOXBG_DARK); 
+  const circleBg = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_CIRCLEBG_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_CIRCLEBG_DARK); 
+  const lineColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_LINECOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_LINECOLOR_DARK); 
+  const borderColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_DARK); 
 
   return (
     <VStack spacing={8} align="stretch" position="relative" py={16}>
@@ -46,7 +46,7 @@ const WorkExperience = ({ experiences }) => {
          <Box
             position="absolute"
             left="50%"
-            bottom="5px" // Align with the bottom of the line
+            bottom="5px" 
             transform="translateX(-50%)"
             display="flex"
             flexDirection="column"
@@ -62,14 +62,14 @@ const WorkExperience = ({ experiences }) => {
               h="0"
               borderLeft="10px solid transparent"
               borderRight="10px solid transparent"
-              borderTop={`10px solid ${lineColor}`} // Triangle pointing down
+              borderTop={`10px solid ${lineColor}`} 
             />
           </Box>
 
         {/* Experience Timeline */}
         {experiences.map((exp, index) => {
-          const isLeft = index % 2 === 0; // Alternates placement
-          const alignLeft = index === 0 || isLeft; // First one always left
+          const isLeft = index % 2 === 0; 
+          const alignLeft = index === 0 || isLeft; 
 
           return (
             <HStack
@@ -95,8 +95,8 @@ const WorkExperience = ({ experiences }) => {
                     borderColor={borderColor}
                   >
                     <Heading
-                      fontSize="xl" // Corrected to "xl" for consistency
-                      fontWeight="1000" // Title: extrabold for emphasis
+                      fontSize="xl" 
+                      fontWeight="1000" 
                       as="h1"
                       mt={1}
                       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
@@ -106,7 +106,7 @@ const WorkExperience = ({ experiences }) => {
                     </Heading>
                     <Heading
                       fontSize="lg"
-                      fontWeight="600" // Company: lighter weight for contrast
+                      fontWeight="600" 
                       as="h3"
                       textAlign="left"
                       mt={3}
@@ -143,14 +143,14 @@ const WorkExperience = ({ experiences }) => {
                       justifyContent="center"
                       zIndex="1"
                       mt={1}
-                      overflow="hidden" // Added to ensure image doesn't spill out of circle
+                      overflow="hidden" 
                     >
                       <ChakraImage
                         src={exp.logo}
                         alt={exp.company}
-                        w="100%" // Changed from boxSize to fill container
-                        h="100%" // Changed from boxSize to fill container
-                        objectFit="cover" // Ensures image fills circle while maintaining aspect ratio
+                        w="100%" 
+                        h="100%" 
+                        objectFit="cover" 
                       />
                     </Box>
                   </VStack>
@@ -181,14 +181,14 @@ const WorkExperience = ({ experiences }) => {
                       justifyContent="center"
                       zIndex="1"
                       mt={1}
-                      overflow="hidden" // Added to ensure image doesn't spill out of circle
+                      overflow="hidden" 
                     >
                       <ChakraImage
                         src={exp.logo}
                         alt={exp.company}
-                        w="100%" // Changed from boxSize to fill container
-                        h="100%" // Changed from boxSize to fill container
-                        objectFit="cover" // Ensures image fills circle while maintaining aspect ratio
+                        w="100%" 
+                        h="100%" 
+                        objectFit="cover" 
                       />
                     </Box>
                   </VStack>
@@ -201,12 +201,12 @@ const WorkExperience = ({ experiences }) => {
                     borderRadius="2xl"
                     boxShadow="md"
                     position="relative"
-                    border="4px solid" // Border around the entire box
-                    borderColor={borderColor} // Using the same color as the original bottom line
+                    border="4px solid" 
+                    borderColor={borderColor} 
                   >
                     <Heading
-                      fontSize="xl" // Corrected to "xl" for consistency
-                      fontWeight="extrabold" // Title: extrabold for emphasis
+                      fontSize="xl" 
+                      fontWeight="extrabold" 
                       as="h1"
                       mt={1}
                       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
@@ -216,7 +216,7 @@ const WorkExperience = ({ experiences }) => {
                     </Heading>
                     <Heading
                       fontSize="lg"
-                      fontWeight="medium" // Company: lighter weight for contrast
+                      fontWeight="medium" 
                       as="h3"
                       textAlign="left"
                       mt={1}

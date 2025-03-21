@@ -2,9 +2,9 @@ import { Box, useColorModeValue, Flex, IconButton, Link } from "@chakra-ui/react
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
-  // Define icon sizes (customize these values as needed)
-  const iconSize = "2xl"; // Options: "xs", "sm", "md", "lg", "xl", "2xl", etc. (Chakra sizes)
-  const customIconSize = "20px"; // Custom size in pixels or other units
+  
+  const iconSize = "2xl";
+  const customIconSize = "20px";
 
   return (
     <Box
@@ -23,10 +23,10 @@ const Footer = () => {
         <Flex gap={8}>
           <IconButton
             as={Link}
-            href="https://www.linkedin.com/in/ytulenov" // Fixed URL (added https://)
+            href="https://www.linkedin.com/in/ytulenov" 
             aria-label="LinkedIn"
-            icon={<FaLinkedin fontSize={customIconSize} />} // Custom size
-            size={iconSize} // Chakra size
+            icon={<FaLinkedin fontSize={customIconSize} />} 
+            size={iconSize} 
             variant="ghost"
             color={useColorModeValue(
               process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,
@@ -39,8 +39,8 @@ const Footer = () => {
             as={Link}
             href="https://github.com/ytulenov?tab=repositories"
             aria-label="GitHub"
-            icon={<FaGithub fontSize={customIconSize} />} // Custom size
-            size={iconSize} // Chakra size
+            icon={<FaGithub fontSize={customIconSize} />} 
+            size={iconSize} 
             variant="ghost"
             color={useColorModeValue(
               process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,
@@ -53,8 +53,8 @@ const Footer = () => {
             as={Link}
              href="/contact"
             aria-label="Email"
-            icon={<FaEnvelope fontSize={customIconSize} />} // Custom size
-            size={iconSize} // Chakra size
+            icon={<FaEnvelope fontSize={customIconSize} />}
+            size={iconSize} 
             variant="ghost"
             color={useColorModeValue(
               process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,

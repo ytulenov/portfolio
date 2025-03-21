@@ -9,20 +9,20 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Global } from "@emotion/react";
 import SpinningBlock from "../components/SpinnerBlock";
 import Slider from "react-slick";
-import { keyframes } from "@emotion/react"; // For animations
-// Import slick-carousel styles
+import { keyframes } from "@emotion/react"; 
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Dynamic import for DataTable
+
 const DataTable = dynamic(() => import("../components/DataTable"), { ssr: false });
 
-// Use the actual current date
+
 const getToday = () => {
-  return new Date(); // Dynamically gets today's date
+  return new Date(); 
 };
 
-// Custom HighlightLink component (unchanged)
+
 const HighlightLink = ({ children, href, ...props }) => (
   <Text
     as="a"
@@ -37,7 +37,7 @@ const HighlightLink = ({ children, href, ...props }) => (
   </Text>
 );
 
-// Updated format date function to include exact day
+
 const formatDate = (dateString) => {
   if (!dateString) return "";
   const date = new Date(dateString);
@@ -66,9 +66,9 @@ const translateYanimationhackerspacelogo = keyframes`
   }
 `;
 
-// Fetch MDX files for courses
+
 const getCourseMDXFiles = async () => {
-  const { promises: fs } = await import("fs"); // Dynamic import inside server-side function
+  const { promises: fs } = await import("fs"); 
   const path = await import("path");
   const coursesDir = path.join(process.cwd(), "public", "courses");
   const files = await fs.readdir(coursesDir, { withFileTypes: true });
@@ -89,8 +89,8 @@ const getCourseMDXFiles = async () => {
 };
 
 function DynamicBackgroundBox() {
-    const [bgSize, setBgSize] = useState("170% auto"); // Initial background size
-    const [overlayOpacity, setOverlayOpacity] = useState(0); // Initial overlay opacity
+    const [bgSize, setBgSize] = useState("170% auto"); 
+    const [overlayOpacity, setOverlayOpacity] = useState(0); 
     const boxRef = useRef(null);
   
     useEffect(() => {
@@ -102,31 +102,31 @@ function DynamicBackgroundBox() {
         const rect = boxRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
   
-        // Calculate how much of the box is in view
+        
         const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
         const totalHeight = rect.height;
         const visibilityRatio = Math.max(0, Math.min(1, visibleHeight / totalHeight));
   
-        // Interpolate values directly based on scroll position
-        const newSize = 170 - (170 - 80) * visibilityRatio; // 170% to 80%
-        const newOpacity = 0 + (0.85 - 0) * visibilityRatio; // 0 to 0.85
+        
+        const newSize = 170 - (170 - 80) * visibilityRatio; 
+        const newOpacity = 0 + (0.85 - 0) * visibilityRatio; 
   
-        // Update state immediately
+        
         setBgSize(`${newSize}% auto`);
         setOverlayOpacity(newOpacity);
       };
   
       const scrollHandler = () => {
-        // Cancel previous frame and request a new one
+        
         if (rafId) cancelAnimationFrame(rafId);
         rafId = requestAnimationFrame(handleScroll);
       };
   
-      // Add scroll listener
+      
       window.addEventListener("scroll", scrollHandler);
-      handleScroll(); // Initial call on mount
+      handleScroll(); 
   
-      // Cleanup
+      
       return () => {
         window.removeEventListener("scroll", scrollHandler);
         if (rafId) cancelAnimationFrame(rafId);
@@ -138,36 +138,36 @@ function DynamicBackgroundBox() {
         ref={boxRef}
         w="100%"
         h="656px"
-        borderRadius="4rem" // Matches rounded-[4rem]
-        overflow="hidden" // Matches overflow-hidden
-        position="relative" // Matches relative
-        display="flex" // Matches flex
-        flexDirection="column" // Matches flex-col
-        alignItems={{ base: "center", md: "start" }} // Matches items-center and md:items-start
-        justifyContent="start" // Matches justify-start
-        px={{ base: 5, sm: 16 }} // Matches px-5 and sm:p-16
-        py={10} // Matches py-10
-        pb={12} // Matches pb-12
-        bgImage="url('/eduleaderbackgroundforclub.png')" // Background image
-        bgRepeat="no-repeat" // Matches background-repeat: no-repeat
-        bgSize={bgSize} // Dynamic size from 170% to 80%, updates instantly
-        bgPos={{ base: "center 10%", md: "40% 40%" }} // Matches bg-[center_10%] and md:bg-[40%_40%]
-        // No transition prop here—updates are raw and immediate
+        borderRadius="4rem" 
+        overflow="hidden" 
+        position="relative" 
+        display="flex" 
+        flexDirection="column" 
+        alignItems={{ base: "center", md: "start" }} 
+        justifyContent="start" 
+        px={{ base: 5, sm: 16 }} 
+        py={10} 
+        pb={12} 
+        bgImage="url('/eduleaderbackgroundforclub.png')" 
+        bgRepeat="no-repeat" 
+        bgSize={bgSize} 
+        bgPos={{ base: "center 10%", md: "40% 40%" }} 
+        
       >
         {/* Overlay Box */}
         <Box
-          position="absolute" // Matches absolute
-          top={0} // Matches top-0
-          left={0} // Matches left-0
-          h="full" // Matches h-full
-          w="full" // Matches w-full
+          position="absolute" 
+          top={0} 
+          left={0} 
+          h="full" 
+          w="full" 
           bgGradient={useColorModeValue(
             `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_GRADIENT_FIRSTCOLOR_LIGHT }, ${process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_GRADIENT_SECONDCOLOR_LIGHT })`,
             `linear(to-bl, ${process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_GRADIENT_FIRSTCOLOR_DARK }, ${process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_GRADIENT_SECONDCOLOR_DARK })`
           )}
-          opacity={overlayOpacity} // Dynamic opacity from 0 to 0.85, updates instantly
-          zIndex={1} // Above background, below content
-          // No transition prop here—updates are raw and immediate
+          opacity={overlayOpacity} 
+          zIndex={1} 
+          
         />
   
         {/* Content (above overlay) */}
@@ -182,37 +182,37 @@ function DynamicBackgroundBox() {
         </Box>
         <Box
         position="relative"
-        mt={{ base: 40, md: 10 }} // Matches mt-40 md:mt-10 with dynamic adjustment
+        mt={{ base: 40, md: 10 }} 
         display="grid"
         zIndex={2}
-        gridTemplateRows="repeat(2, 1fr)" // Matches grid-rows-2
-        gridTemplateColumns={{ base: "repeat(2, 1fr)", sm: "repeat(3, 1fr)" }} // Matches grid-cols-2 sm:grid-cols-3
-        gap={5} // Matches gap-5 (20px)
+        gridTemplateRows="repeat(2, 1fr)" 
+        gridTemplateColumns={{ base: "repeat(2, 1fr)", sm: "repeat(3, 1fr)" }} 
+        gap={5} 
       >
         {/* Card 1 */}
         <Box
-        bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} // Transparent background with 30% opacity
-          borderRadius="4rem" // Matches rounded-[4rem]
-          w={{ base: "10rem", md: "11rem" }} // Matches w-40 (10rem) md:w-44 (11rem)
-          h={{ base: "10rem", md: "11rem" }} // Matches h-40 (10rem) md:h-44 (11rem)
-          p="1.75rem" // Matches p-7 (1.75rem)
+        bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
+          borderRadius="4rem" 
+          w={{ base: "10rem", md: "11rem" }} 
+          h={{ base: "10rem", md: "11rem" }} 
+          p="1.75rem" 
           display="flex"
           flexDirection="column"
           alignItems="start"
           justifyContent="space-between"
         >
           <Image
-            src="/light-bulb.png" // Matches your image path (adjust if needed)
+            src="/light-bulb.png" 
             alt="Light Bulb"
-            h={10} // Matches h-10 (40px, interpreted as Chakra units)
+            h={10} 
             w={10}
             objectFit="cover"
             borderRadius="md"
           />
           <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} // Matches text-light (white)
-            fontSize={{ base: "xs", md: "sm" }} // Matches text-xs md:text-sm
-            letterSpacing="wide" // Matches tracking-wide
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
+            fontSize={{ base: "xs", md: "sm" }} 
+            letterSpacing="wide" 
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             fontWeight="1000"
           >
@@ -222,7 +222,7 @@ function DynamicBackgroundBox() {
 
         {/* Card 2 */}
         <Box
-           bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} // Transparent background with 30% opacity
+           bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
           borderRadius="4rem"
           w={{ base: 40, md: 44 }}
           h={{ base: 40, md: 44 }}
@@ -233,15 +233,15 @@ function DynamicBackgroundBox() {
           justifyContent="space-between"
         >
           <Image
-            src="/password.png" // Matches src="/assets/skill-icons/light-bulb.png"
+            src="/password.png" 
             alt="Example"
-            h={10} // Matches h-10 (40px, interpreted as Chakra units)
+            h={10} 
             w={10}
             objectFit="cover"
             borderRadius="md"
           />
           <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} // Matches text-light
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
             fontSize={{ base: "xs", md: "sm" }}
             letterSpacing="wide"
             fontWeight="1000"
@@ -253,7 +253,7 @@ function DynamicBackgroundBox() {
 
         {/* Card 3 (visible on sm+) */}
         <Box
-          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} // Transparent background with 30% opacity
+          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
           borderRadius="4rem"
           w={{ base: 40, md: 44 }}
           h={{ base: 40, md: 44 }}
@@ -265,15 +265,15 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/palette.png" // Matches src="/assets/skill-icons/light-bulb.png"
+            src="/palette.png" 
             alt="Example 2"
-            h={10} // Matches h-10 (40px, interpreted as Chakra units)
+            h={10} 
             w={10}
             objectFit="cover"
             borderRadius="md"
           />
           <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} // Matches text-light
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
             fontSize={{ base: "xs", md: "sm" }}
             letterSpacing="wide"
             fontWeight="1000"
@@ -283,7 +283,7 @@ function DynamicBackgroundBox() {
           </Text>
         </Box>
         <Box
-          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} // Transparent background with 30% opacity
+          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
           borderRadius="4rem"
           w={{ base: 40, md: 44 }}
           h={{ base: 40, md: 44 }}
@@ -295,15 +295,15 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/blueprint.png" // Matches src="/assets/skill-icons/light-bulb.png"
+            src="/blueprint.png" 
             alt="Example 2"
-            h={10} // Matches h-10 (40px, interpreted as Chakra units)
+            h={10} 
             w={10}
             objectFit="cover"
             borderRadius="md"
           />
           <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} // Matches text-light
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
             fontSize={{ base: "xs", md: "sm" }}
             letterSpacing="wide"
             fontWeight="1000"
@@ -313,7 +313,7 @@ function DynamicBackgroundBox() {
           </Text>
         </Box>
         <Box
-          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} // Transparent background with 30% opacity
+          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
           borderRadius="4rem"
           w={{ base: 40, md: 44 }}
           h={{ base: 40, md: 44 }}
@@ -325,15 +325,15 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/relax.png" // Matches src="/assets/skill-icons/light-bulb.png"
+            src="/relax.png" 
             alt="Example 2"
-            h={10} // Matches h-10 (40px, interpreted as Chakra units)
+            h={10} 
             w={10}
             objectFit="cover"
             borderRadius="md"
           />
           <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} // Matches text-light
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
             fontSize={{ base: "xs", md: "sm" }}
             letterSpacing="wide"
             fontWeight="1000"
@@ -343,7 +343,7 @@ function DynamicBackgroundBox() {
           </Text>
         </Box>
         <Box
-           bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} // Transparent background with 30% opacity
+           bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
           borderRadius="4rem"
           w={{ base: 40, md: 44 }}
           h={{ base: 40, md: 44 }}
@@ -355,15 +355,15 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/biceps.png" // Matches src="/assets/skill-icons/light-bulb.png"
+            src="/biceps.png" 
             alt="Example 2"
-            h={10} // Matches h-10 (40px, interpreted as Chakra units)
+            h={10} 
             w={10}
             objectFit="cover"
             borderRadius="md"
           />
           <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} // Matches text-light
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
             fontSize={{ base: "xs", md: "sm" }}
             fontWeight="1000"
             letterSpacing="wide"
@@ -380,10 +380,10 @@ function DynamicBackgroundBox() {
   
   
 
-// Fetch transcript data
+
 const getTranscriptData = async () => {
   try {
-    const { promises: fs } = await import("fs"); // Dynamic import inside server-side function  // add in progress for modern control, dont show D. also maybe change sorting from 4th year to 1st not vice versa
+    const { promises: fs } = await import("fs"); 
     const path = await import("path");
     const transcriptPath = path.join(process.cwd(), "public", "transcript.xlsx");
     const buffer = await fs.readFile(transcriptPath);
@@ -418,25 +418,25 @@ export default function EduLeaderPage({ courses }) {
     li: (props) => <Box as="li" mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}  color="inherit" {...props} />,
   };
 
-  // Random generators
+  
 
   const generateRandomDecimal = () => (Math.random() * 100).toFixed(1);
 
 
   const generateRandomSmallInteger = () => Math.floor(Math.random() * 5) + 1;
 
-  // Academic statistics with labels, final values, and random generators
+  
   const spinningBlocks = [
     { label: "Cumulative Average", finalValue: 76.9, generateRandom: generateRandomDecimal },
     { label: "GPA", finalValue: 3.4, generateRandom: generateRandomDecimal },
     { label: "Class Average", finalValue: 71.41, generateRandom: generateRandomDecimal },
     
-    { label: "Cumulative Credits Earned", finalValue: "127/145", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },//looks 
+    { label: "Cumulative Credits Earned", finalValue: "127/145", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
     { label: "Current Year", finalValue: 4, generateRandom: generateRandomSmallInteger },
-    { label: "Courses Passed", finalValue: "37/41", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },//looks scary, might think i only passed 37 out of 41 and failed 4. just write satisfied
+    { label: "Courses Passed", finalValue: "37/41", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
   ];
 
-  // Carousel settings for react-slick
+  
   const carouselSettings = {
     dots: true,
     infinite: true,
@@ -459,8 +459,8 @@ export default function EduLeaderPage({ courses }) {
   const [selectedCourse, setSelectedCourse] = useState(courses[0] || null);
 const [isOpen, setIsOpen] = useState(false);
 
-const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK); // Dark gray for light mode, white for dark mode
-  const activeDotColor = useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK); // Black for light mode, tangerine for dark mode
+const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK); 
+  const activeDotColor = useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK); 
   return (
     <>
         {/* Inject global styles for the slider dots */}
@@ -481,7 +481,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
       {/* Carousel Before the Heading */}
       <Box
           mb={4}
-          width={{ base: "100%", md: "1400px" }} // Responsive carousel width
+          width={{ base: "100%", md: "1400px" }} 
           maxW="100%"
           height="700px"
           mx="auto"
@@ -518,16 +518,16 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
       {/* UBC Section */}
       <Box >
       <Flex
-  justifyContent={{ base: "center", md: "space-between" }} // Center on small screens, space-between on md+
+  justifyContent={{ base: "center", md: "space-between" }} 
   alignItems="center"
-  direction={{ base: "column", md: "row" }} // Stack on small screens
-  maxW="100%" // Ensure it respects 1800px container
+  direction={{ base: "column", md: "row" }} 
+  maxW="100%" 
 >
   <Box
     flex="1"
-    pr={{ base: 0, md: 4 }} // Reduced padding-right from 8 (32px) to 4 (16px) on md+
-    mb={{ base: 4, md: 0 }} // Margin-bottom on small screens
-    maxW={{ base: "100%", md: "80%" }} // Limit text width to leave room for logo
+    pr={{ base: 0, md: 4 }} 
+    mb={{ base: 4, md: 0 }} 
+    maxW={{ base: "100%", md: "80%" }} 
   >
     <Heading
       as="h1"
@@ -567,8 +567,8 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
     display="flex"
     flexDirection="column"
     alignItems="center"
-    ml={{ base: 0, md: "auto" }} // Push to right on md+ by using margin-left: auto
-    mr={{ base: 0, md: -10 }} // Small right margin (8px) to avoid edge
+    ml={{ base: 0, md: "auto" }} 
+    mr={{ base: 0, md: -10 }} 
   >
     <Image
       src="/ubclogo.png"
@@ -684,7 +684,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
           <Button
       as={Link}
       href="/transcript.xlsx"
-      download="transcript.xlsx" // Triggers download with this filename
+      download="transcript.xlsx" 
       fontSize="18px"
       variant="solid"
       _hover={{
@@ -717,7 +717,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
             </Heading>
             <Flex
               w="100%"
-              maxW="1526px" // Matches original total width
+              maxW="1526px" 
               h="780px"
               bg={useColorModeValue(
                 process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
@@ -727,7 +727,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
               direction="row"
             >
               <Box
-                w={{ base: "100%", md: "361px" }} // Full width on small screens
+                w={{ base: "100%", md: "361px" }} 
                 h="full"
                 bg={useColorModeValue(
                   process.env.NEXT_PUBLIC_EDULEADER_COURSE_SELECTION_BACKGROUND_NOTSELECTED_LIGHT,
@@ -835,7 +835,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
                   process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
                   process.env.NEXT_PUBLIC_OVERALL_BG_DARK
                 )}
-                display={{ base: "none", md: "block" }} // Hide divider on small screens
+                display={{ base: "none", md: "block" }} 
               />
               <Box
                 flex="1"

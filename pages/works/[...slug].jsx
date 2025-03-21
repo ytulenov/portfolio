@@ -8,7 +8,7 @@ import Link from "next/link";
 import { promises as fs } from "fs";
 import path from "path";
 
-// Custom HighlightLink component for slightly bold links
+
 const HighlightLink = ({ children, href, ...props }) => (
   <Text
     as="a"
@@ -46,16 +46,16 @@ export default function WorkSlug({ source, frontmatter }) {
     a: HighlightLink,
     ul: (props) => (
       <List
-        style={{ marginLeft: 0, paddingLeft: "1em", listStyleType: "disc" }} // Ensure bullet points are displayed
+        style={{ marginLeft: 0, paddingLeft: "1em", listStyleType: "disc" }} 
         fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
         {...props}
         
       />
     ),
-    li: (props) => <ListItem {...props} />, // Ensure list items inherit proper styling
+    li: (props) => <ListItem {...props} />, 
   };
 
-  // Extract images from frontmatter (only 'image1' to 'image6', exclude 'image')
+  
   const images = [];
   for (let i = 1; i <= 6; i++) {
     const imageKey = `image${i}`;
@@ -67,9 +67,9 @@ export default function WorkSlug({ source, frontmatter }) {
     }
   }
 
-  // Calculate collective height of images for desktop
-  const imageHeightPx = 200; // Fixed height of 200px on desktop
-  const spacingPx = 24; // spacing={6} = 24px (Chakra UI default)
+  
+  const imageHeightPx = 200; 
+  const spacingPx = 24; 
   const totalImagesHeightPx = images.length * imageHeightPx + (images.length - 1) * spacingPx;
 
   return (
@@ -94,10 +94,10 @@ export default function WorkSlug({ source, frontmatter }) {
         align="stretch"
         border="3px solid"
         borderColor={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
-        //bgGradient="linear(to-b, #ffffff, #edeaea)"
+        
         borderRadius="3xl"
         overflow="hidden"
-        //boxShadow="2xl"
+        
       >
         {/* Left Side: Images */}
         <Box
@@ -107,7 +107,7 @@ export default function WorkSlug({ source, frontmatter }) {
           justifyContent="center"
           alignItems="center"
           p={{ base: 4, md: 6 }}
-          minH={{ base: "50vh", md: `${totalImagesHeightPx}px` }} // Set min height to match collective image height
+          minH={{ base: "50vh", md: `${totalImagesHeightPx}px` }} 
           position="relative"
           overflow="hidden"
           bg={useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}
@@ -122,8 +122,8 @@ export default function WorkSlug({ source, frontmatter }) {
                   h={{ base: "40vh", md: "250px" }}
                   ml={index % 2 === 0 ? { md: "-10%" } : { md: "10%" }}
                   mr={index % 2 === 0 ? { md: "10%" } : { md: "-10%" }}
-                  pt={index === 0 ? 6 : undefined} // Match padding-top of first image to spacing={6} (24px)
-                  pb={index === images.length - 1 ? 6 : (index === 1 ? 0 : undefined)} // Match padding-bottom of last image to spacing={6} (24px), keep pb={0} for second image
+                  pt={index === 0 ? 6 : undefined} 
+                  pb={index === images.length - 1 ? 6 : (index === 1 ? 0 : undefined)} 
                  
                   border="1px solid"
                   borderColor={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
@@ -190,7 +190,7 @@ export default function WorkSlug({ source, frontmatter }) {
              bg={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
           overflowY="auto"
           position="relative"
-          minH={{ base: "50vh", md: `${totalImagesHeightPx}px` }} // Match the height of the left panel
+          minH={{ base: "50vh", md: `${totalImagesHeightPx}px` }} 
           _before={{
             content: '""',
             position: "absolute",

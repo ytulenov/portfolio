@@ -8,12 +8,12 @@ const LogoBox = styled.span`
   font-size: 24px;
   display: inline-flex;
   align-items: center;
-  height: 30px; /* Fixed height for the entire logo container */
+  height: 30px; 
   padding: 0 10px;
   svg {
     transition: 200ms ease;
-    height: 24px; /* Matches the font-size of text */
-    width: auto;  /* Maintains aspect ratio */
+    height: 24px; 
+    width: auto;  
   } 
   &:hover > svg {
     transform: rotate(20deg);
@@ -31,7 +31,7 @@ const Logo = () => {
           fontWeight="bold"
           ml="2px"
           pt={1}
-          fontSize="24px" /* Explicitly set to match container */
+          fontSize="24px" 
         >
           &nbsp; YERKIN &nbsp; TULENOV
         </Text>

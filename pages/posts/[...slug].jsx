@@ -8,14 +8,14 @@ import dynamic from "next/dynamic";
 import { promises as fs } from "fs";
 import path from "path";
 
-// Dynamic imports for client-side only components
+
 const CodeBlock = dynamic(() => import("../../components/CodeBlock"), { ssr: false });
 const DataTable = dynamic(() => import("../../components/DataTable"), { ssr: false });
 const ChartComponent = dynamic(() => import("../../components/Chart"), { ssr: false });
 const GlbViewer = dynamic(() => import("../../components/GlbViewer"), { ssr: false });
 const GitHubRepoBrowser = dynamic(() => import("../../components/GitHubRepoBrowser"), { ssr: false });
 
-// Custom HighlightLink component for slightly bold links
+
 const HighlightLink = ({ children, href, ...props }) => (
   <Text
     as="a"
@@ -51,7 +51,7 @@ const resolvePath = (filePath, baseDir) => {
   const supportExtensions = ['.glb', '.xlsx', '.pdf'];
 
   if (imageExtensions.some(ext => filePath.toLowerCase().endsWith(ext))) {
-    const resolvedPath = `/images/posts/${filePath}`; // Updated to /images/posts/
+    const resolvedPath = `/images/posts/${filePath}`; 
     console.log(`Resolving image path: ${filePath} -> ${resolvedPath}`);
     return resolvedPath;
   }
@@ -68,13 +68,13 @@ const resolvePath = (filePath, baseDir) => {
   return resolvedPath;
 };
 
-export default function PostsPage({ source, frontmatter, baseDir, params }) { // Added params as a prop
+export default function PostsPage({ source, frontmatter, baseDir, params }) { 
   const components = {
     h1: (props) => <Heading as="h1" size="2xl" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={6} {...props} />,
     h2: (props) => <Heading as="h2" size="xl" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={5} {...props} />,
     h3: (props) => <Heading as="h3" size="lg"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={4} {...props} />,
     h4: (props) => <Heading as="h4" size="md"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={3} {...props} />,
-    p: (props) => <Text pb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props} />, // Add padding to the bottom of normal text
+    p: (props) => <Text pb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props} />, 
     strong: (props) => <Text as="strong" fontWeight="bold"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={4} {...props} />,
     em: (props) => <Text as="em" fontStyle="italic" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={4}{...props} />,
     a: ({ href, children, ...props }) =>
@@ -93,9 +93,9 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) { //
       <Box
         as="ol"
         fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
-        pl={6} // Padding-left to align numbers within the container
-        ml={0} // Remove default margin-left
-        style={{ listStylePosition: "outside", paddingLeft: "1.5em" }} // Ensure numbers are outside but aligned
+        pl={6} 
+        ml={0} 
+        style={{ listStylePosition: "outside", paddingLeft: "1.5em" }} 
         {...props}
       />
     ),
@@ -103,7 +103,7 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) { //
       <Box
         as="li"
         fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
-        ml={0} // Remove default margin-left on list items
+        ml={0} 
         {...props}
       />
     ),
@@ -129,7 +129,7 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) { //
     },
   };
 
-  // Derive slug from params since frontmatter.slug might not exist
+  
   const slug = frontmatter.slug || (Array.isArray(params?.slug) ? params.slug.join('/') : params?.slug || '');
 
   return (
@@ -241,7 +241,7 @@ export async function getStaticProps({ params }) {
       source,
       frontmatter,
       baseDir,
-      params, // Pass params to the component
+      params, 
     },
   };
 }

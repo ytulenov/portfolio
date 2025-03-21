@@ -15,7 +15,7 @@ import {
 import { EmailIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ContactFormSchema } from '../lib/schemas'; // Adjust path if needed
+import { ContactFormSchema } from '../lib/schemas'; 
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
 

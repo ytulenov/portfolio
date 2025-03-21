@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Box, Flex, Text, Image, Grid, Card, CardBody, Container, Button, Heading, useColorModeValue } from '@chakra-ui/react';
-import Link from 'next/link'; // Import Link from Next.js
-import matter from 'gray-matter'; // For parsing MDX frontmatter
+import Link from 'next/link'; 
+import matter from 'gray-matter'; 
 import { IoLogoGithub } from 'react-icons/io5';
 
 
-// Projects page component
+
 const ProjectBlock = ({ project }) => {
   const [hovered, setHovered] = useState(false);
   return (
@@ -76,7 +76,7 @@ const ProjectBlock = ({ project }) => {
           left="47%"
           transform="translateX(-50%)"
           color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
-          //textAlign="center"
+          
           position="absolute"
           w="674px"
         >
@@ -267,7 +267,7 @@ export default function Projects({ projects }) {
      
     {projects.map((project, index) => {
       if (renderAllAsFirstProject) {
-        // Render all projects as FirstProjectLayout
+        
         return (
           <Box key={index} position="relative" h="auto" pb={32}>
             <FirstProjectLayout project={project} />
@@ -276,7 +276,7 @@ export default function Projects({ projects }) {
       }
 
       if (index % 3 === 0) {
-        // Render every 3rd project (0th, 3rd, 6th, etc.) as FirstProjectLayout
+        
         return (
           <Box key={index} position="relative" h="auto" py={20}>
             <FirstProjectLayout project={project} />
@@ -285,7 +285,7 @@ export default function Projects({ projects }) {
       }
 
       if (index % 3 === 1) {
-        // Render 1st and 2nd projects in the sequence as ProjectBlock
+        
         return (
           <Flex
             key={`row-${index}`}
@@ -305,13 +305,13 @@ export default function Projects({ projects }) {
         );
       }
 
-      return null; // Prevent redundant rendering
+      return null; 
     })}
   </>
 );
 }
 
-// Server-side static generation with getStaticProps
+
 export async function getStaticProps() {
   const path = require('path');
   const fs = require('fs');
@@ -327,14 +327,14 @@ export async function getStaticProps() {
       title: frontmatter.title,
       image: frontmatter.image,
       summary: frontmatter.summary || '',
-      githubLink: frontmatter.githubLink || '', // Add githubLink from frontmatter
-      slug: file.replace('.mdx', ''), // Add slug based on filename (without .mdx)
-      // Removed dateInfo (publishedDate, startedAt, endedAt)
+      githubLink: frontmatter.githubLink || '', 
+      slug: file.replace('.mdx', ''), 
+      
     };
   });
 
-  // Removed date-based sorting
-  // Projects will now be returned in the order they are found in the filesystem
+  
+  
 
   return {
     props: {

@@ -60,17 +60,8 @@ const Main = ({ children, router }) => {
         <meta name="description" content="Yerkin's homepage" />
         <meta name="author" content="Yerkin Tulenov" />
         <meta name="author" content="personal website" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <meta name="twitter:title" content="Yerkin Tulenov" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@craftzNvidia" />
-        <meta name="twitter:creator" content="@craftzNvidia" />
-        <meta name="twitter:image" content="https://www.craftz.Nvidia/card.png" />
-        <meta property="og:site_name" content="Yerkin Tulenov" />
-        <meta name="og:title" content="Yerkin Tulenov" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.craftz.Nvidia/card.png" />
+        <link rel="cpu" href="cpu.png" />
+        <link rel="icon" href="/cpu.png" type="image/png" />
         <title>Yerkin Tulenov - Homepage</title>
       </Head>
 

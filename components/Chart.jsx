@@ -2,14 +2,14 @@ import { useEffect, useRef } from 'react';
 import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 import Chart from 'chart.js/auto';
 import * as d3 from 'd3';
-import { Children, isValidElement } from 'react';
+import { isValidElement } from 'react';
 
 const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
-  // Helper function to convert children to a string
+  
   const extractTextFromChildren = (children) => {
     if (typeof children === 'string') {
       return children;
@@ -35,15 +35,15 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
       chartRef.current = null;
     }
 
-    // Convert children to string and process
+    
     const content = extractTextFromChildren(children);
-    if (!content) return; // If no content, exit early
+    if (!content) return; 
 
     const dataLines = content.trim().split('\n').filter(line => line.trim());
     
     const renderChartJs = () => {
       let chartConfig = {};
-      const fixedHeight = 600; // Fixed height for a compact chart
+      const fixedHeight = 600; 
 
       switch (type.toLowerCase()) {
         case 'pie':
@@ -57,12 +57,12 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
               labels: pieData.map(d => d.label),
               datasets: [{
                 data: pieData.map(d => d.value),
-                backgroundColor: ['#FFCCCC', '#CCFFCC', '#CCCCFF', '#FFFFCC', '#FFCCFF'] // Cyan, Yellow, Orange-Red, Lime Green, and Deep Pink
+                backgroundColor: ['#FFCCCC', '#CCFFCC', '#CCCCFF', '#FFFFCC', '#FFCCFF'] 
               }],
             },
             options: { 
-              responsive: true, // Enable responsiveness for full width
-              maintainAspectRatio: false, // Allow custom height
+              responsive: true, 
+              maintainAspectRatio: false, 
               plugins: { legend: { position: 'top' } }, 
               height: fixedHeight,
             },
@@ -88,8 +88,8 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
               }],
             },
             options: { 
-              responsive: true, // Enable responsiveness for full width
-              maintainAspectRatio: false, // Allow custom height
+              responsive: true, 
+              maintainAspectRatio: false, 
               scales: { y: { beginAtZero: true } },
               height: fixedHeight,
             },
@@ -115,8 +115,8 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
               })),
             },
             options: {
-              responsive: true, // Enable responsiveness for full width
-              maintainAspectRatio: false, // Allow custom height
+              responsive: true, 
+              maintainAspectRatio: false, 
               scales: {
                 x: { title: { display: true, text: 'GDP ($T)' } },
                 y: { title: { display: true, text: 'Reserves (B barrels)' } },
@@ -131,7 +131,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
           const scatterHeaders = scatterHeader.split(',');
           const scatterData = scatterRows.map(row => {
             const [x, y, r] = row.split(',').map(val => (isNaN(val) ? val : parseFloat(val)));
-            return { x, y, r: r || 5 }; // Default radius of 5 if not provided
+            return { x, y, r: r || 5 }; 
           });
           chartConfig = {
             type: 'scatter',
@@ -139,15 +139,15 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
               datasets: [{
                 label: 'Scatter Data',
                 data: scatterData.map(d => ({ x: d.x, y: d.y })),
-                pointRadius: scatterData.map(d => d.r || 5), // Use r for radius
+                pointRadius: scatterData.map(d => d.r || 5), 
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
               }],
             },
             options: {
-              responsive: true, // Enable responsiveness for full width
-              maintainAspectRatio: false, // Allow custom height
+              responsive: true, 
+              maintainAspectRatio: false, 
               scales: {
                 x: { title: { display: true, text: scatterHeaders[0] || 'X' } },
                 y: { title: { display: true, text: scatterHeaders[1] || 'Y' } },
@@ -165,13 +165,13 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
     };
 
     const renderD3 = () => {
-      const fixedHeight = 600; // Fixed height for a compact chart
-      const margin = { top: 20, right: 30, bottom: 40, left: 40 }; // Adjusted margins for smaller height
+      const fixedHeight = 600; 
+      const margin = { top: 20, right: 30, bottom: 40, left: 40 }; 
 
-      // Get the container width dynamically for full width
-      const containerWidth = containerRef.current.offsetWidth || 600; // Default to 600 if not available
+      
+      const containerWidth = containerRef.current.offsetWidth || 600; 
 
-      // Clear previous SVG
+      
       d3.select(containerRef.current).selectAll('svg').remove();
       
       const svg = d3.select(containerRef.current)
@@ -224,7 +224,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
             .padding(0.1);
 
           const yScale = d3.scaleLinear()
-            .domain([0, d3.max(barData, d => d.y) * 1.1]) // Add some padding
+            .domain([0, d3.max(barData, d => d.y) * 1.1]) 
             .range([fixedHeight - margin.bottom, margin.top]);
 
           svg.append('g')
@@ -246,7 +246,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
             .attr('transform', `translate(${margin.left},0)`)
             .call(d3.axisLeft(yScale));
 
-          // Add axis labels
+          
           svg.append('text')
             .attr('transform', `translate(${containerWidth / 2},${fixedHeight - margin.bottom + 30})`)
             .style('text-anchor', 'middle')
@@ -270,7 +270,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
             .range([margin.left, containerWidth - margin.right]);
 
           const yLineScale = d3.scaleLinear()
-            .domain([0, d3.max(lineData, d => d.y) * 1.1]) // Add some padding
+            .domain([0, d3.max(lineData, d => d.y) * 1.1]) 
             .range([fixedHeight - margin.bottom, margin.top]);
 
           const line = d3.line()
@@ -292,7 +292,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
             .attr('transform', `translate(${margin.left},0)`)
             .call(d3.axisLeft(yLineScale));
 
-          // Add axis labels
+          
           svg.append('text')
             .attr('transform', `translate(${containerWidth / 2},${fixedHeight - margin.bottom + 30})`)
             .style('text-anchor', 'middle')
@@ -342,7 +342,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
             .attr('transform', `translate(${margin.left},0)`)
             .call(d3.axisLeft(yBubbleScale));
 
-          // Add axis labels
+          
           svg.append('text')
             .attr('transform', `translate(${containerWidth / 2},${fixedHeight - margin.bottom + 30})`)
             .style('text-anchor', 'middle')
@@ -359,7 +359,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
           const scatterHeaders = scatterHeader.split(',');
           const scatterData = scatterRows.map(row => {
             const [x, y, r] = row.split(',').map(val => (isNaN(val) ? val : parseFloat(val)));
-            return { x, y, r: r || 5 }; // Default radius of 5 if not provided
+            return { x, y, r: r || 5 }; 
           });
 
           const xScatterScale = d3.scaleLinear()
@@ -372,7 +372,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
 
           const rScale = d3.scaleSqrt()
             .domain(d3.extent(scatterData, d => d.r))
-            .range([2, 20]); // Adjust radius range for visibility
+            .range([2, 20]); 
 
           svg.selectAll('circle')
             .data(scatterData)
@@ -392,7 +392,7 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
             .attr('transform', `translate(${margin.left},0)`)
             .call(d3.axisLeft(yScatterScale));
 
-          // Add axis labels
+          
           svg.append('text')
             .attr('transform', `translate(${containerWidth / 2},${fixedHeight - margin.bottom + 30})`)
             .style('text-anchor', 'middle')
@@ -439,8 +439,8 @@ const ChartComponent = ({ children, type = 'bar', library = 'chartjs' }) => {
         borderWidth="1px" 
         borderColor={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
         ref={containerRef}
-        w="100%" // Full width, responsive to container
-        h="600px" // Fixed, compact height
+        w="100%" 
+        h="600px" 
       >
         {library === 'chartjs' && <canvas ref={canvasRef} />}
       </Box>

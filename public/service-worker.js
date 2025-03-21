@@ -11,17 +11,17 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         }).catch((error) => {
           console.error('Fetch failed:', error);
-          return cachedResponse; // Fallback to cache if network fails
+          return cachedResponse; 
         });
 
-        // Serve from cache immediately, revalidate in background
+        
         return cachedResponse || fetchPromise;
       })
     );
   }
 });
 
-// Clean up old caches on activation
+
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(

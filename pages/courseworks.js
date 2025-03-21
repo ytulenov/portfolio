@@ -34,29 +34,29 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
   const darkCardColors = (process.env.NEXT_PUBLIC_COURSEWORKS_COURSECARD_MULTIPLECOLORSELECTION_DARK).split(",");
 
   const cardColors = useColorModeValue(lightCardColors, darkCardColors);
-  //const icons = Array.from({ length: 20 }, (_, i) => `/icons/abstract-${i + 1}.svg`);
+  
   const icons = [
     Icon1, Icon2, Icon3, Icon4, Icon5, Icon6, Icon7, Icon8, Icon9, Icon10,
     Icon11, Icon12, Icon13, Icon14, Icon15, Icon16, Icon17, Icon18, Icon19, Icon20,
   ];
-  // Assign colors and icons based on year and index
+  
   let colorIndex, iconIndex;
   switch (year) {
     case 4:
-      colorIndex = index % 20; // 4th year starts at 1st color (index 0)
-      iconIndex = index % 20;  // 4th year starts at 1st icon (abstract-1.svg)
+      colorIndex = index % 20; 
+      iconIndex = index % 20;  
       break;
     case 3:
-      colorIndex = (4 + index) % 20; // 3rd year starts at 5th color (index 4)
-      iconIndex = (4 + index) % 20;  // 3rd year starts at 5th icon (abstract-5.svg)
+      colorIndex = (4 + index) % 20; 
+      iconIndex = (4 + index) % 20;  
       break;
     case 2:
-      colorIndex = (9 + index) % 20; // 2nd year starts at 10th color (index 9)
-      iconIndex = (9 + index) % 20;  // 2nd year starts at 10th icon (abstract-10.svg)
+      colorIndex = (9 + index) % 20; 
+      iconIndex = (9 + index) % 20;  
       break;
     case 1:
-      colorIndex = (14 + index) % 20; // 1st year starts at 15th color (index 14)
-      iconIndex = (14 + index) % 20;  // 1st year starts at 15th icon (abstract-15.svg)
+      colorIndex = (14 + index) % 20; 
+      iconIndex = (14 + index) % 20;  
       break;
     default:
       colorIndex = index % 20;
@@ -70,9 +70,9 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
     process.env.NEXT_PUBLIC_OVERALL_BG_DARK
   );
 
-  const IconComponent = icons[iconIndex]; // Select the SVG component
+  const IconComponent = icons[iconIndex]; 
 
-  // Format the number: "01" to "09" for 1-9, "10" and above as is
+  
   const formattedNumber = index + 1 < 10 ? `0${index + 1}` : `${index + 1}`;
  
   return (
@@ -80,9 +80,9 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
       <Box
         as="a"
         bg={bgColor}
-        borderRadius="20px" // Rounded corners to match image
-        w={{ base: "100%", md: "360px" }} // Reduced from 360px to 300px at md+
-        h="545px" // Fixed height to match approximate card height
+        borderRadius="20px" 
+        w={{ base: "100%", md: "360px" }} 
+        h="545px" 
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -90,11 +90,11 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
         position="relative"
         boxShadow="md"
         
-        p={6} // Internal padding: 24px
-        transition="transform 0.3s ease" // Smooth hover transition
+        p={6} 
+        transition="transform 0.3s ease" 
         _hover={{
           "& .title-container": {
-            top: "55%", // Move title up on hover
+            top: "55%", 
             transform: "translateY(-50%)",
           },
           "& .summary-container": {
@@ -118,11 +118,11 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
         <Box 
           className="title-container"
           position="absolute"
-          top="60%" // Start lower
-          transf3rm="translateY(-50%)" // Center vertically
-          transition="all 0.3s ease" // Smooth transition for hover
+          top="60%" 
+          transf3rm="translateY(-50%)" 
+          transition="all 0.3s ease" 
           display="flex"
-          flexDirection="column" // Stack number above title
+          flexDirection="column" 
           alignItems="left"
           justifyContent="center"
           w="100%"
@@ -134,7 +134,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
            color={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
             ml={10}
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
-            mb={2} // Margin-bottom to space from title
+            mb={2} 
           >
             {`${formattedNumber}.`}
           </Text>
@@ -153,7 +153,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
               lineHeight="1.2"
               ml={10}
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
-              maxW="200px" // Adjusted to fit with button
+              maxW="200px" 
               
             >
               {title}
@@ -165,7 +165,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
               opacity={0}
               transform="translateY(-10px)"
               transition="opacity 0.3s ease, transform 0.3s ease"
-              ml={4} // Margin-left to space from title
+              ml={4} 
             >
               <Box
                 w="60px"
@@ -188,12 +188,12 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
         {/* Summary and Horizontal Line (hidden by default) */}
         <Box
           className="summary-container"
-          //textAlign="center"
+          
           position="absolute"
-          top="70%" // Position below title after it moves up
+          top="70%" 
           opacity={0}
-          w={{ base: "90%", md: "275px" }} // Adjusted for smaller card width
-          //ml={20}
+          w={{ base: "90%", md: "275px" }} 
+          
           transform="translateY(10px)"
           transition="opacity 0.3s ease, transform 0.3s ease"
         >  
@@ -204,7 +204,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
             lineHeight="1.5"
             textAlign="left"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-            //maxW="350px"
+            
           >
             {summary || "No summary available"}
           </Text>
@@ -214,31 +214,31 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
   );
 };
 
-// Main component
+
 export default function Courseworks({ courseworkByYear }) {
   const baseSliderSettings = {
     dots: true,
     speed: 500,
     infinite: true,
     slidesToShow: 4,
-    slidesToScroll: 1, // Smooth scrolling one slide at a time
+    slidesToScroll: 1, 
     autoplay: true,
     autoplaySpeed: 1500,
     centerMode: true,
     centerPadding: "0px",
-    arrows: true, // Explicitly enable arrows
-    initialSlide: 2, // Start from index 1 (second card)
+    arrows: true, 
+    initialSlide: 2, 
     responsive: [
-      { breakpoint: 1600, settings: { slidesToShow: 3 } }, // 3 × 360px = 1080px + padding
-      { breakpoint: 1210, settings: { slidesToShow: 2 } }, // 2 × 360px = 720px + padding
-      { breakpoint: 800, settings: { slidesToShow: 1 } },  // 1 × 360px = 360px + padding
+      { breakpoint: 1600, settings: { slidesToShow: 3 } }, 
+      { breakpoint: 1210, settings: { slidesToShow: 2 } }, 
+      { breakpoint: 800, settings: { slidesToShow: 1 } },  
     ],
     className: "custom-slider",
   };
 
-  const years = [4, 3, 2, 1]; // Reordered to start with 4th year
-  const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK); // Dark gray for light mode, white for dark mode
-  const activeDotColor = useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK); // Black for light mode, tangerine for dark mode
+  const years = [4, 3, 2, 1]; 
+  const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK); 
+  const activeDotColor = useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK); 
   const arrowColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK);
   return (
     <>
@@ -378,8 +378,8 @@ export default function Courseworks({ courseworkByYear }) {
     alignItems="center"
     w="100%"
     maxW="1800px"
-    //maxW={{ base: "100%", md: "1200px" }} // Constrain width to keep arrows visible
-    minHeight="600px" // Ensure space for arrows
+    
+    minHeight="600px" 
   >
     <Slider {...sliderSettings}>
       {courseworkByYear[year].map((coursework, index) => (
@@ -387,11 +387,11 @@ export default function Courseworks({ courseworkByYear }) {
        key={coursework.slug}
        px={7}
        boxSizing="border-box"
-       display="flex" // Flex to center the card
-       justifyContent="center" // Center card in slide
-       alignItems="center" // Vertically center card
-       width={{ base: "100%", md: "360px" }} // Fixed width
-       minWidth={{ base: "100%", md: "360px" }} // Ensure consistency
+       display="flex" 
+       justifyContent="center" 
+       alignItems="center" 
+       width={{ base: "100%", md: "360px" }} 
+       minWidth={{ base: "100%", md: "360px" }} 
      >
        <CourseworkCard
          title={coursework.frontmatter.title}
@@ -422,7 +422,7 @@ export default function Courseworks({ courseworkByYear }) {
 );
 }
 
-// Fetch and categorize coursework by year
+
 export async function getStaticProps() {
   const courseworksDir = path.join(process.cwd(), "public", "courseworks");
   let files;
@@ -487,24 +487,24 @@ export async function getStaticProps() {
           throw new Error("Invalid date");
         }
 
-        const month = publishDate.getMonth(); // 0-11 (January = 0, September = 8)
+        const month = publishDate.getMonth(); 
         const yearNum = publishDate.getFullYear();
 
         console.log(
           `Date for ${file}: ${publishDate}, Year: ${yearNum}, Month: ${month + 1}`
         );
 
-        // Academic year logic: Assuming you started in Sep 2021
+        
         if (yearNum === 2021 || (yearNum === 2022 && month < 8)) {
-          year = 1; // 1st year: Sep 2021 - Aug 2022
+          year = 1; 
         } else if (yearNum === 2022 || (yearNum === 2023 && month < 8)) {
-          year = 2; // 2nd year: Sep 2022 - Aug 2023
+          year = 2; 
         } else if (yearNum === 2023 || (yearNum === 2024 && month < 8)) {
-          year = 3; // 3rd year: Sep 2023 - Aug 2024
+          year = 3; 
         } else if (yearNum === 2024 || (yearNum === 2025 && month < 8)) {
-          year = 4; // 4th year: Sep 2024 - Aug 2025
+          year = 4; 
         } else {
-          year = 1; // Default to 1st year for dates outside the range
+          year = 1; 
           console.warn(
             `Date ${frontmatter.publishedDate} falls outside defined ranges for ${file}, defaulting to 1st year`
           );

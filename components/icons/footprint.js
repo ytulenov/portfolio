@@ -1,8 +1,8 @@
 const FootprintIcon = (props) => {
   return (
     <svg
-      height="28"  /* Matches text font-size */
-      width="28"   /* Square aspect ratio */
+      height="28"  
+      width="28"   
       className="inline-block transition-transform group-hover:rotate-[20deg]"
       viewBox="0 0 50 50"
       fill="none"

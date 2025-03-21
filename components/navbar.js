@@ -22,7 +22,7 @@ import { FaEnvelope } from 'react-icons/fa';
 
 const Navbar = (props) => { 
   const { path } = props;
-  const [isNavOpen, setIsNavOpen] = useState(false); // State to control navigation visibility
+  const [isNavOpen, setIsNavOpen] = useState(false); 
 
   return (
     <Box
@@ -32,7 +32,7 @@ const Navbar = (props) => {
       css={{ backdropFilter: 'blur(10px)' }}
       bg={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
       color={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-      zIndex={100} // High zIndex for the navbar
+      zIndex={100} 
       {...props}
     >
       <Container
@@ -51,7 +51,7 @@ const Navbar = (props) => {
         </Flex>
         <Box flex={1} align="right" position="relative">
           <ThemeToggleButton />
-          {/* Button to toggle navigation */}
+          
           <IconButton
             as={Box}
             icon={<HamburgerIcon />}
@@ -60,23 +60,23 @@ const Navbar = (props) => {
             color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}
             bg={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
             _hover={{
-              bg: useColorModeValue(process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_LIGHT, process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_DARK), // Slightly darker shade for hover
+              bg: useColorModeValue(process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_LIGHT, process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_DARK), 
             }}
             aria-label={isNavOpen ? "Close page navigation" : "Open page navigation"}
-            onClick={() => setIsNavOpen(!isNavOpen)} // Toggle navigation state
-            zIndex={101} // Ensure button stays above everything
+            onClick={() => setIsNavOpen(!isNavOpen)} 
+            zIndex={101} 
           />
         </Box>
 
-        {/* Collapsible navigation content */}
+        
         <Collapse in={isNavOpen} animateOpacity>
     
           <Box
     position="fixed"
-    top="56px" // Matches the navbar height
+    top="56px" 
     left={0}
     w="100vw"
-    h="calc(100vh - 56px)" // Height below the navbar
+    h="calc(100vh - 56px)" 
     bg={useColorModeValue(
       process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
       process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
@@ -85,14 +85,14 @@ const Navbar = (props) => {
       process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
       process.env.NEXT_PUBLIC_OVERALL_BG_DARK
     )}
-    zIndex={99} // Below the hamburger button
-    overflowY="auto" // Enable vertical scrolling
+    zIndex={99} 
+    overflowY="auto" 
     display="flex"
     flexDirection="column"
-    alignItems="center" // Center buttons horizontally
-    justifyContent="flex-start" // Start buttons from the top
-    pt={12} // Padding at the top
-    pb={6} // Padding at the bottom
+    alignItems="center" 
+    justifyContent="flex-start" 
+    pt={12} 
+    pb={6} 
   >
             <Stack
               direction="column"

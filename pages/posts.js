@@ -44,8 +44,8 @@ export default function Posts({ Posts }) {
                 as="a"
                 w="560px"
                 h="623px"
-                borderWidth="1px" // Added to make border visible
-                borderColor={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} // White border
+                borderWidth="1px" 
+                borderColor={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
                 borderRadius={40}
                 overflow="hidden"
                 bg={useColorModeValue("#e9fad7", "transparent")}
@@ -153,7 +153,7 @@ export async function getStaticProps() {
   postData.sort((a, b) => {
     const dateA = a.publishedDate ? new Date(a.publishedDate) : new Date(0);
     const dateB = b.publishedDate ? new Date(b.publishedDate) : new Date(0);
-    return dateB - dateA; // Sort by publishedDate descending, oldest first if null
+    return dateB - dateA; 
   });
 
   return {

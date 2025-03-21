@@ -22,7 +22,7 @@ const ThemeToggleButton = () => {
           icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
           onClick={toggleColorMode}
           _hover={{
-            bg: useColorModeValue(process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_LIGHT, process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_DARK), // Slightly da
+            bg: useColorModeValue(process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_LIGHT, process.env.NEXT_PUBLIC_NAVBAR_BUTTON_HOVER_DARK), 
           }}
         />
       </motion.div>

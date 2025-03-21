@@ -1,4 +1,4 @@
-// components/GlbViewer.jsx
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { Box, Spinner } from '@chakra-ui/react';
 
-// Easing function for smooth animation
+
 function easeInOutQuad(t) {
   return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 }
@@ -14,15 +14,15 @@ function easeInOutQuad(t) {
 const GlbViewer = ({
   src,
   autoRotate = true,
-  cameraPosition = [0, 2, 5], // Closer initial camera position
-  cameraTarget = [0, 0, 0], // Default look-at target [x, y, z]
-  cameraFov = 5, // Field of view for perspective camera
-  lightIntensity = 1, // Intensity of lights
-  backgroundColor = 0x000000, // Background color (default: black)
-  backgroundAlpha = 0, // Background transparency (0 = transparent)
-  enableZoom = true, // Enable/disable zoom
-  enablePan = true, // Enable/disable panning
-  animationDuration = 60, // Duration of initial animation in frames
+  cameraPosition = [0, 2, 5], 
+  cameraTarget = [0, 0, 0], 
+  cameraFov = 5, 
+  lightIntensity = 1, 
+  backgroundColor = 0x000000, 
+  backgroundAlpha = 0, 
+  enableZoom = true, 
+  enablePan = true, 
+  animationDuration = 60, 
 }) => {
   const refContainer = useRef();
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ const GlbViewer = ({
       const scW = container.clientWidth;
       const scH = container.clientHeight;
 
-      // Initialize Renderer
+      
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true,
@@ -64,20 +64,20 @@ const GlbViewer = ({
       container.appendChild(renderer.domElement);
       refRenderer.current = renderer;
 
-      // Initialize Scene
+      
       const scene = new THREE.Scene();
 
-      // Initialize Camera (Perspective Camera)
+      
       const camera = new THREE.PerspectiveCamera(cameraFov, scW / scH, 0.1, 1000);
       camera.position.set(cameraPosition[0], cameraPosition[1], cameraPosition[2]);
       camera.lookAt(new THREE.Vector3(cameraTarget[0], cameraTarget[1], cameraTarget[2]));
       refCamera.current = camera;
 
-      // Lighting (Balanced for both dark and light models)
-      const ambientLight = new THREE.AmbientLight(0xffffff, lightIntensity * 0.8); // Soft ambient light
+      
+      const ambientLight = new THREE.AmbientLight(0xffffff, lightIntensity * 0.8); 
       scene.add(ambientLight);
 
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xaaaaaa, lightIntensity * 0.6); // Gentle gradient light
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xaaaaaa, lightIntensity * 0.6); 
       hemiLight.position.set(0, 5, 0);
       scene.add(hemiLight);
 
@@ -93,11 +93,11 @@ const GlbViewer = ({
       directionalLight.position.set(0, 5, 3);
       scene.add(directionalLight);
 
-      // Orbit Controls
+      
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.target.set(cameraTarget[0], cameraTarget[1], cameraTarget[2]);
       controls.autoRotate = autoRotate;
-      controls.autoRotateSpeed = 1.5; // Slower rotation speed for a smoother effect
+      controls.autoRotateSpeed = 1.5; 
       controls.enableZoom = enableZoom;
       controls.enablePan = enablePan;
       controls.minDistance = 1;
@@ -105,35 +105,35 @@ const GlbViewer = ({
       controls.update();
       refControls.current = controls;
 
-      // Initialize DRACOLoader
+      
       const dracoLoader = new DRACOLoader();
       dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
       dracoLoader.setDecoderConfig({ type: 'js' });
 
-      // Initialize GLTFLoader with DRACOLoader
+      
       const loader = new GLTFLoader();
       loader.setDRACOLoader(dracoLoader);
 
-      // Load GLB Model
+      
       loader.load(
         src,
         (gltf) => {
           const model = gltf.scene;
           refModel.current = model;
 
-          // Center the model
+          
           const box = new THREE.Box3().setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
-          model.position.sub(center); // Center the model at the origin
+          model.position.sub(center); 
 
-          // Scale the model to fit within a reasonable viewing area
+          
           const size = box.getSize(new THREE.Vector3());
           const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 2 / maxDim; // Scale to fit within a 2-unit box
+          const scale = 2 / maxDim; 
           model.scale.set(scale, scale, scale);
 
-          // Adjust camera position based on model size
-          const cameraDistance = Math.max(maxDim * 2, 3); // Ensure camera is close but not too close
+          
+          const cameraDistance = Math.max(maxDim * 2, 3); 
           camera.position.set(0, maxDim * 0.5, cameraDistance);
           controls.minDistance = cameraDistance * 0.5;
           controls.maxDistance = cameraDistance * 2;
@@ -164,8 +164,8 @@ const GlbViewer = ({
           camera.position.y = THREE.MathUtils.lerp(initialCameraPosition.y, initialCameraPosition.y * 0.8, t);
           camera.lookAt(new THREE.Vector3(cameraTarget[0], cameraTarget[1], cameraTarget[2]));
         } else {
-          // Circling animation
-          const angle = frame * 0.01; // Adjust speed of circling
+          
+          const angle = frame * 0.01; 
           camera.position.x = cameraTarget[0] + circlingRadius * Math.cos(angle);
           camera.position.z = cameraTarget[2] + circlingRadius * Math.sin(angle);
           camera.lookAt(new THREE.Vector3(cameraTarget[0], cameraTarget[1], cameraTarget[2]));

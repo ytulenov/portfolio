@@ -18,17 +18,17 @@ export default async function handler(req, res) {
   try {
     const { name, email, subject, message } = result.data;
 
-    // Send email to the user
+    
     await resend.emails.send({
       from: 'yerkin@ytulenov.com',
       to: [email],
       cc: ['yerkin@ytulenov.com'],
-      subject: `Contact Form: ${subject}`, // Use subject in email title
+      subject: `Contact Form: ${subject}`, 
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
       react: ContactFormEmail({ name, email, subject, message }),
     });
 
-    // Send email to you
+    
     await resend.emails.send({
       from: 'yerkin@ytulenov.com',
       to: ['ytulenov@gmail.com'],

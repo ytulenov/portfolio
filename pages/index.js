@@ -5,7 +5,7 @@ import { Global } from '@emotion/react';
 import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ContactFormSchema } from '../lib/schemas'; // From lib folder
+import { ContactFormSchema } from '../lib/schemas'; 
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
 import { GridItem } from '../components/grid-item';
@@ -19,7 +19,7 @@ import WorkExperience from '../components/workexperiencemainpage';
 import React, { useState } from 'react';
 
 
-// Define the fadeInUp animation using keyframes
+
 
 const skills = [
   { name: 'Subcontractor Management', icon: <BiLogoFigma />, color: '#F24E1E' },
@@ -42,24 +42,24 @@ const SkillItem = ({ name, icon, color }) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const baseBrowserWidth = 1800;
-  const baseContainerWidth = 180;  // Base width of each skill card
-  const baseAspectRatio = 183 / 180; // Height/Width ratio from your original 183/180
-  const minContainerWidth = 150;    // Minimum width for smaller screens
-  const maxContainerWidth = 220;    // Maximum width for larger screens
+  const baseContainerWidth = 180;  
+  const baseAspectRatio = 183 / 180; 
+  const minContainerWidth = 150;    
+  const maxContainerWidth = 220;    
 
-  // Calculate responsive dimensions
+  
   const widthScaleFactor = baseContainerWidth / baseBrowserWidth;
   const containerWidth = `clamp(${minContainerWidth}px, ${widthScaleFactor * 100}vw, ${maxContainerWidth}px)`;
   const containerHeight = `calc(${containerWidth} * ${baseAspectRatio})`;
 
-  // Responsive padding
-  const basePaddingVertical = 40;    // Combined top + bottom
+  
+  const basePaddingVertical = 40;    
   const basePaddingHorizontal = 15;
   const paddingScaleFactor = baseContainerWidth / baseBrowserWidth;
   const paddingVertical = `calc(${basePaddingVertical * paddingScaleFactor} * 1vw)`;
   const paddingHorizontal = `calc(${basePaddingHorizontal * paddingScaleFactor} * 1vw)`;
 
-  // Responsive border radius
+  
   const baseBorderRadius = 20;
   const borderRadius = `calc(${baseBorderRadius * paddingScaleFactor} * 1vw)`;
 
@@ -67,7 +67,7 @@ const SkillItem = ({ name, icon, color }) => {
 
   const coloredIcon = React.cloneElement(icon, {
     color: isHovering ? color : textColor,
-    size: 'clamp(40px, 3.5vw, 70px)', // Responsive icon size
+    size: 'clamp(40px, 3.5vw, 70px)', 
     style: { 
       transition: `color ${transitionTiming}`
     }
@@ -84,7 +84,7 @@ const SkillItem = ({ name, icon, color }) => {
       textAlign="center"
       position="relative"
       overflow="hidden"
-      transition={`all ${transitionTiming}`} // Consistent transition for all properties
+      transition={`all ${transitionTiming}`} 
       border="2px solid"
       borderColor={isHovering ? bordercolorishovering : glowColor}
       boxShadow={isHovering ? `0 0 15px ${glowColor}` : 'none'}
@@ -98,8 +98,8 @@ const SkillItem = ({ name, icon, color }) => {
         right={0}
         bottom={0}
         bg={glowColor}
-        opacity={isHovering ? 0.1 : 0} // Added hover state for glow layer
-        transition={`opacity ${transitionTiming}`} // Match main transition
+        opacity={isHovering ? 0.1 : 0} 
+        transition={`opacity ${transitionTiming}`} 
         pointerEvents="none"
       />
       <Box
@@ -108,24 +108,24 @@ const SkillItem = ({ name, icon, color }) => {
         alignItems="center"
         height="calc(100% - 60px)"
         mb={4}
-        transition={`transform ${transitionTiming}`} // Match main transition
+        transition={`transform ${transitionTiming}`} 
         transform={isHovering ? 'scale(1.05)' : 'scale(1)'}
       >
         {coloredIcon}
       </Box>
       <Box
-        fontSize="clamp(12px, 1vw, 16px)" // Responsive text size
+        fontSize="clamp(12px, 1vw, 16px)" 
         color={isHovering ? textcolorishovering : textColor}
         transition={`color ${transitionTiming}`}
         minHeight="clamp(80px, 2.5vw, 100px)"
-        display="flex" // Flex container for text
-        alignItems="center" // Center vertically
-        justifyContent="center" // Center horizontally
-        whiteSpace="normal" // Allow wrapping
+        display="flex" 
+        alignItems="center" 
+        justifyContent="center" 
+        whiteSpace="normal" 
         lineHeight="1.2"
         fontWeight="700"
         pt="clamp(16px, 1vw, 18px)"
-        px={2} // Add some horizontal padding for wrapped text
+        px={2} 
       >
         {name}
       </Box>
@@ -140,8 +140,8 @@ const SkillsSection = () => {
         columns={[2, 3, 6]}
         spacing={['10px', '20px', 'clamp(50px, 1.5vw, 100px)']}
         justifyItems="center"
-        maxW="2900px" // Increased max width for larger screens
-        mx="auto"     // Center the grid
+        maxW="2900px" 
+        mx="auto"     
       >
         {skills.map((skill, index) => (
           <SkillItem
@@ -158,9 +158,9 @@ const SkillsSection = () => {
 
 const experiences = [
   {
-    company: 'Tesla',
-    title: 'React Native Developer',
-    date: 'Jan 2021 - Feb 2022',
+    company: 'Milsan Elektronik',
+    title: 'PCB Designer',
+    date: 'June 2024 - Present',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
       'Collaborated with cross-functional teams including designers, product managers, and developers.',
@@ -216,7 +216,7 @@ const Home = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(ContactFormSchema),
-    defaultValues: { name: '', email: '', subject: '', message: '' }, // Added subject
+    defaultValues: { name: '', email: '', subject: '', message: '' }, 
   });
 
   const onSubmit = async (data) => {
@@ -390,7 +390,7 @@ const Home = () => {
             fontSize="3xl"
             py={14}
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
-            textAlign="center"
+            
             color={useColorModeValue(
               process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
               process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
@@ -403,11 +403,11 @@ const Home = () => {
 
       
       <Section delay={0.3}>
-        <Heading as="h1" variant="section-title" fontSize="3xl" textAlign="center" pt={24}fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
+        <Heading as="h1" variant="section-title" fontSize="3xl" pt={24}fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           SEND ME A MESSAGE TO CONTACT
         </Heading>
-        <Heading fontSize="lg" fontWeight="semibold" as="h3" pt={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} textAlign="center"
+        <Heading fontSize="lg" fontWeight="semibold" as="h3" pt={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           Get in touch with me for collaborations, questions, or just to say hi!
         </Heading>

@@ -8,14 +8,14 @@ import dynamic from "next/dynamic";
 import { promises as fs } from "fs";
 import path from "path";
 
-// Dynamic imports for client-side only components
+
 const CodeBlock = dynamic(() => import("../../components/CodeBlock"), { ssr: false });
 const DataTable = dynamic(() => import("../../components/DataTable"), { ssr: false });
 const ChartComponent = dynamic(() => import("../../components/Chart"), { ssr: false });
 const GlbViewer = dynamic(() => import("../../components/GlbViewer"), { ssr: false });
 const GitHubRepoBrowser = dynamic(() => import("../../components/GitHubRepoBrowser"), { ssr: false });
 
-// Custom HighlightLink component for slightly bold links
+
 const HighlightLink = ({ children, href, ...props }) => (
   <Text
     as="a"
@@ -89,7 +89,7 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
         </Link>
       ),
     HighlightLink,
-    code: CodeBlock, // Map `code` to CodeBlock (instead of `pre`)
+    code: CodeBlock, 
     ol: (props) => (
       <Box
         as="ol"

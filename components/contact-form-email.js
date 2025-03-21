@@ -13,7 +13,7 @@ import {
   } from '@react-email/components';
   import * as React from 'react';
   
-  const baseUrl = 'https://ytulenov.com'; // Use your live website for correct icon paths
+  const baseUrl = 'https://ytulenov.com'; 
   
   const ContactFormEmail = ({ name, email, subject, message }) => {
     return (
@@ -80,23 +80,23 @@ import {
               </Button>
             </Section>
   
-            {/* Social Media Footer */}
+            
             <Section style={{ marginTop: '45px', textAlign: 'center' }}>
               <Text style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>
                 Connect with me:
               </Text>
   
-              {/* Horizontal row for social media icons */}
+            
               <Section
                 style={{
-                  textAlign: 'center', // Center the icons within the section
+                  textAlign: 'center', 
                 }}
               >
                 <Link
                   href="https://www.linkedin.com/in/ytulenov"
                   style={{
                     display: 'inline-block',
-                    margin: '0 12px', // Spacing between icons
+                    margin: '0 12px', 
                   }}
                 >
                   <Img
@@ -111,7 +111,7 @@ import {
                   href="https://github.com/ytulenov?tab=repositories"
                   style={{
                     display: 'inline-block',
-                    margin: '0 12px', // Spacing between icons
+                    margin: '0 12px', 
                   }}
                 >
                   <Img
@@ -126,7 +126,7 @@ import {
                   href="mailto:ytulenov@gmail.com"
                   style={{
                     display: 'inline-block',
-                    margin: '0 12px', // Spacing between icons
+                    margin: '0 12px', 
                   }}
                 >
                   <Img

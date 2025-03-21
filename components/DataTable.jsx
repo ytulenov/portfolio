@@ -59,7 +59,7 @@ export default function DataTable({ children, src }) {
       return <Text color="red.700">Loading Excel data...</Text>;
     }
 
-    // Render header row (first row)
+  
     const headerRow = data[0];
     let rowSpanRemaining = Array(maxCols).fill(0);
     const headerCells = [];
@@ -80,19 +80,19 @@ export default function DataTable({ children, src }) {
             key={`0-${c}`}
             colSpan={colSpan}
             rowSpan={rowSpan}
-            textAlign="center" // Center text in header cells
+            textAlign="center" 
             whiteSpace="nowrap"
             fontSize="md"
             color={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-            bg={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_BG_LIGHT, process.env.NEXT_PUBLIC_DATATABLE_BG_DARK)} // Background to distinguish header
+            bg={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_BG_LIGHT, process.env.NEXT_PUBLIC_DATATABLE_BG_DARK)}
             borderBottom="1px solid"
             borderColor={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
             borderRight="1px solid"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             borderRightColor={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-            position="sticky" // Fix header at top
+            position="sticky"
             top="0"
-            zIndex="1" // Ensure header stays above content
+            zIndex="1"
           >
             {value}
           </Th>
@@ -106,19 +106,19 @@ export default function DataTable({ children, src }) {
         headerCells.push(
           <Th
             key={`0-${c}`}
-            textAlign="center" // Center text in header cells
+            textAlign="center" 
             whiteSpace="nowrap"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             fontSize="md"
             color={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-            bg={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_BG_LIGHT, process.env.NEXT_PUBLIC_DATATABLE_BG_DARK)} // Background to distinguish header
+            bg={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_BG_LIGHT, process.env.NEXT_PUBLIC_DATATABLE_BG_DARK)}
             borderBottom="1px solid"
             borderColor={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
             borderRight="1px solid"
             borderRightColor={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-            position="sticky" // Fix header at top
+            position="sticky"
             top="0"
-            zIndex="1" // Ensure header stays above content
+            zIndex="1" 
           >
             {value}
           </Th>
@@ -127,7 +127,7 @@ export default function DataTable({ children, src }) {
       }
     }
 
-    // Render data rows (remaining rows)
+    
     const dataRows = data.slice(1);
     const tableRows = dataRows.map((row, r) => {
       const rowCells = [];
@@ -149,7 +149,7 @@ export default function DataTable({ children, src }) {
               colSpan={colSpan}
               rowSpan={rowSpan}
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-              textAlign="center" // Center text in data cells
+              textAlign="center" 
               whiteSpace="nowrap"
               color={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
               borderBottom="1px solid"
@@ -169,7 +169,7 @@ export default function DataTable({ children, src }) {
           rowCells.push(
             <Td
               key={`${r + 1}-${c}`}
-              textAlign="center" // Center text in data cells
+              textAlign="center" 
               whiteSpace="nowrap"
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
               color={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
@@ -191,9 +191,9 @@ export default function DataTable({ children, src }) {
       <Box
         my={4}
         maxW="100%"
-        maxH="590px" // Limit height to enable scrolling
+        maxH="590px" 
         overflowX="auto"
-        overflowY="auto" // Enable vertical scrolling
+        overflowY="auto"
         border="1px solid"
         borderColor={useColorModeValue(process.env.NEXT_PUBLIC_DATATABLE_TEXT_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
         borderRadius="2xl"
@@ -212,7 +212,7 @@ export default function DataTable({ children, src }) {
     );
   }
 
-  // Fallback for non-Excel content
+  
   return (
     <Box
       my={4}

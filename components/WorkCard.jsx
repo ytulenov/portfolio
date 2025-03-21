@@ -33,15 +33,15 @@ export default function WorkCard({ work, index }) {
 
       <Flex
         as="div"
-        p={10} // Reduced from 20 to save space
+        p={10} 
         color={useColorModeValue(
           process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
           process.env.NEXT_PUBLIC_OVERALL_BG_DARK
         )}
         transition="background 0.3s"
         w="full"
-        maxW="1800px" // Enforce max width
-        minH="70vh" // Allow growth beyond 70vh
+        maxW="1800px" 
+        minH="70vh" 
         align="center"
         justify="space-between"
         position="relative"
@@ -71,14 +71,14 @@ export default function WorkCard({ work, index }) {
             )}
             borderRadius="15px"
             overflow="hidden"
-            ml={isReversed ? 0 : 4} // Reduced from 100 to 4
-            mr={isReversed ? 4 : 0} // Reduced from 100 to 4
+            ml={isReversed ? 0 : 4} 
+            mr={isReversed ? 4 : 0} 
             flexShrink={0}
             display="flex"
             alignItems="center"
             justifyContent="center"
             style={{ cursor: 'pointer' }}
-            width={{ base: "100%", md: "791px" }} // Responsive width
+            width={{ base: "100%", md: "791px" }} 
             height="450px"
           >
             <Image
@@ -97,13 +97,13 @@ export default function WorkCard({ work, index }) {
         <Box
           flex="1"
           textAlign="center"
-          mr={isReversed ? 0 : 4} // Reduced from 10 to 4
-          ml={isReversed ? 4 : 0} // Reduced from 10 to 4
+          mr={isReversed ? 0 : 4} 
+          ml={isReversed ? 4 : 0} 
           display="flex"
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
-          minW="0" // Prevent overflow
+          minW="0" 
           padding="1rem"
         >
           <Box

@@ -7,23 +7,23 @@ const CodeBlock = ({ children, className, ...props }) => {
   const [SyntaxHighlighter, setSyntaxHighlighter] = useState(null);
   const [code, setCode] = useState('');
 
-  // Log the raw className and props to debug
+  
   useEffect(() => {
     console.log(`Raw className: ${className}`);
     console.log('Props:', props);
   }, [className, props]);
 
-  // Extract language from className
+  
   const language = className?.startsWith('language-')
     ? className.replace(/language-/, '').toLowerCase()
-    : 'text'; // Default to 'text' if className is not in the expected format
+    : 'text'; 
 
-  // Log the detected language
+  
   useEffect(() => {
     console.log(`Detected language: ${language}`);
   }, [language]);
 
-  // Load syntax highlighter dynamically
+  
   useEffect(() => {
     import('react-syntax-highlighter').then((module) => {
       setSyntaxHighlighter(() => module.Prism);
@@ -34,7 +34,7 @@ const CodeBlock = ({ children, className, ...props }) => {
     require('react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple').default
   );
   
-  // Extract code from children
+  
   useEffect(() => {
     let extractedCode = '';
     if (typeof children === 'string') {
@@ -46,13 +46,13 @@ const CodeBlock = ({ children, className, ...props }) => {
     console.log(`Code extracted: ${extractedCode}`);
   }, [children]);
 
-  // Render math with KaTeX
+  
   if (language === 'math') {
     try {
       const html = katex.renderToString(code, {
         displayMode: true,
         throwOnError: true,
-        strict: false, // Allow KaTeX to be more lenient with rendering
+        strict: false, 
       });
       return (
         <Box
@@ -75,8 +75,8 @@ const CodeBlock = ({ children, className, ...props }) => {
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
           )}
-          textAlign="left" // Align content to the left (from previous request)
-          fontStyle="normal" // Ensure no italic styling
+          textAlign="left" 
+          fontStyle="normal" 
         >
           <Box
             position="absolute"
@@ -107,8 +107,8 @@ const CodeBlock = ({ children, className, ...props }) => {
               whiteSpace: 'pre-wrap',
               background: 'none',
               color: 'inherit',
-              textAlign: 'left', // Ensure pre aligns left
-              fontStyle: 'normal', // Remove italic styling
+              textAlign: 'left', 
+              fontStyle: 'normal', 
             }}
           >
             <span
@@ -116,7 +116,7 @@ const CodeBlock = ({ children, className, ...props }) => {
               style={{
                 display: 'block',
                 textAlign: 'left',
-                fontStyle: 'normal', // Remove italic styling from KaTeX output
+                fontStyle: 'normal', 
               }}
             />
           </pre>
@@ -145,8 +145,8 @@ const CodeBlock = ({ children, className, ...props }) => {
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
           )}
-          textAlign="left" // Align content to the left
-          fontStyle="normal" // Ensure no italic styling
+          textAlign="left" 
+          fontStyle="normal" 
         >
           <Box
             position="absolute"
@@ -175,8 +175,8 @@ const CodeBlock = ({ children, className, ...props }) => {
               padding: 0,
               whiteSpace: 'pre-wrap',
               color: 'inherit',
-              textAlign: 'left', // Ensure pre aligns left
-              fontStyle: 'normal', // Remove italic styling
+              textAlign: 'left', 
+              fontStyle: 'normal', 
             }}
           >
             {code}
@@ -185,7 +185,7 @@ const CodeBlock = ({ children, className, ...props }) => {
       );
     }
   }
-  // Fallback while syntax highlighter loads
+  
   if (!SyntaxHighlighter) {
     return (
       <Box position="relative" my={4}>
@@ -215,7 +215,7 @@ const CodeBlock = ({ children, className, ...props }) => {
     );
   }
 
-  // Render code block with syntax highlighting
+  
   return (
     <Box position="relative" my={4} borderRadius="xl" boxShadow="md" fontFamily="monospace">
       <Box
@@ -241,7 +241,7 @@ const CodeBlock = ({ children, className, ...props }) => {
         {language.charAt(0).toUpperCase() + language.slice(1)}
       </Box>
       <SyntaxHighlighter
-        language={language === 'text' ? 'plaintext' : language} // Use 'plaintext' for 'text' to avoid JavaScript highlighting
+        language={language === 'text' ? 'plaintext' : language} 
         style={syntaxStyle} 
         customStyle={{
           margin: 0,
