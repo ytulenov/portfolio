@@ -3,17 +3,24 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { NvidiaSpinner, NvidiaContainer } from './Model-Nvidia-loader';
+import { RateLimiterMemory } from 'rate-limiter-flexible';
 
 function easeOutCirc(x) {
   return Math.sqrt(1 - Math.pow(x - 1, 4));
 }
 
+const rateLimiter = new RateLimiterMemory({
+  points: 5, // 5 requests
+  duration: 3600, // per hour
+});
+let cachedModel = null;
+
 const ModelNvidia = () => {
   const refContainer = useRef();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const refRenderer = useRef();
   const urlNvidiaGLB = process.env.S3_URL;
-  //const urlNvidiaGLB = "/nvidia.glb"
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer;
@@ -33,7 +40,7 @@ const ModelNvidia = () => {
     const scH = container.clientHeight;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(1); // Low quality during load
+    renderer.setPixelRatio(1);
     renderer.setSize(scW, scH);
     renderer.toneMapping = THREE.LinearToneMapping;
     renderer.toneMappingExposure = 2;
@@ -56,34 +63,51 @@ const ModelNvidia = () => {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.autoRotate = true;
     controls.target = target;
-    // Disable zooming
-    controls.enableZoom = false; // Prevents zooming with mouse scroll or pinch gestures
+    controls.enableZoom = false;
 
-    // Load the GLTF model directly
+    const addLights = () => {
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+      scene.add(ambientLight);
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+      scene.add(hemiLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+      directionalLight.position.set(5, 10, 5);
+      scene.add(directionalLight);
+    };
+
     const loader = new GLTFLoader();
-    loader.load(
-      urlNvidiaGLB,
-      (gltf) => {
-        scene.add(gltf.scene);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-        scene.add(ambientLight);
-        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-        scene.add(hemiLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
-        directionalLight.position.set(5, 10, 5);
-        scene.add(directionalLight);
-
-        renderer.setPixelRatio(window.devicePixelRatio); // Full quality
-        animate();
-        setLoading(false);
-      },
-      undefined,
-      (error) => {
-        console.error('GLTF loading error:', error);
-        setLoading(false);
-      }
-    );
+    if (cachedModel) {
+      scene.add(cachedModel);
+      addLights();
+      renderer.setPixelRatio(window.devicePixelRatio);
+      animate();
+      setLoading(false);
+    } else {
+      rateLimiter.consume('model-fetch') // Rate limit by key
+        .then(() => {
+          loader.load(
+            urlNvidiaGLB,
+            (gltf) => {
+              cachedModel = gltf.scene;
+              scene.add(cachedModel);
+              addLights();
+              renderer.setPixelRatio(window.devicePixelRatio);
+              animate();
+              setLoading(false);
+            },
+            undefined,
+            (error) => {
+              console.error('GLTF loading error:', error);
+              setLoading(false);
+              setError('Failed to load model');
+            }
+          );
+        })
+        .catch(() => {
+          setLoading(false);
+          setError('Rate limit exceeded. Try again later.');
+        });
+    }
 
     let req = null;
     let frame = 0;
@@ -119,6 +143,7 @@ const ModelNvidia = () => {
     };
   }, [handleWindowResize]);
 
+  if (error) return <NvidiaContainer ref={refContainer}>{error}</NvidiaContainer>;
   return <NvidiaContainer ref={refContainer}>{loading && <NvidiaSpinner />}</NvidiaContainer>;
 };
 
