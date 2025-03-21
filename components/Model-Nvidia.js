@@ -17,6 +17,7 @@ const ModelNvidia = () => {
   const [error, setError] = useState(null);
   const refRenderer = useRef();
   const urlNvidiaGLB = process.env.S3_URL;
+  const isMounted = useRef(false);
 
   const rateLimiter = useRef(new RateLimiterMemory({
     points: 5,
@@ -34,6 +35,10 @@ const ModelNvidia = () => {
   }, []);
 
   useEffect(() => {
+    if (isMounted.current) return;
+    isMounted.current = true;
+
+    console.log('useEffect running, cachedModel:', !!cachedModel);
     const { current: container } = refContainer;
     if (!container) return;
 
@@ -71,25 +76,29 @@ const ModelNvidia = () => {
       scene.add(ambientLight);
       const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
       scene.add(hemiLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
       directionalLight.position.set(5, 10, 5);
       scene.add(directionalLight);
     };
 
     const loader = new GLTFLoader();
     if (cachedModel) {
+      console.log('Using cached model');
       scene.add(cachedModel);
       addLights();
       renderer.setPixelRatio(window.devicePixelRatio);
       animate();
       setLoading(false);
     } else {
+      console.log('Attempting to consume rate limit');
       rateLimiter.consume('model-fetch')
         .then(() => {
+          console.log('Rate limit passed, loading model');
           loader.load(
             urlNvidiaGLB,
             (gltf) => {
               cachedModel = gltf.scene;
+              console.log('Model loaded, caching');
               scene.add(cachedModel);
               addLights();
               renderer.setPixelRatio(window.devicePixelRatio);
@@ -104,7 +113,8 @@ const ModelNvidia = () => {
             }
           );
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log('Rate limit exceeded:', err);
           setLoading(false);
           setError('Rate limit exceeded. Try again later.');
         });
