@@ -62,6 +62,8 @@ const Main = ({ children, router }) => {
         <meta name="author" content="personal website" />
         <link rel="cpu" href="cpu.png" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
         <title>Yerkin Tulenov - Homepage</title>
       </Head>
 
