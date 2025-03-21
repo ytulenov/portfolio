@@ -12,8 +12,8 @@ const ModelNvidia = () => {
   const refContainer = useRef();
   const [loading, setLoading] = useState(true);
   const refRenderer = useRef();
-  //const urlNvidiaGLB = process.env.NEXT_PUBLIC_S3_URL;
-  const urlNvidiaGLB = "/nvidia.glb"
+  const urlNvidiaGLB = process.env.S3_URL;
+  //const urlNvidiaGLB = "/nvidia.glb"
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer;

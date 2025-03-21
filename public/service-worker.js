@@ -1,7 +1,7 @@
 const CACHE_NAME = 'model-cache-v1';
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url === 'https://yerkin-3d-models.s3.us-east-1.amazonaws.com/nvidia.glb') {
+  if (event.request.url === process.env.S3_URL) {
       event.respondWith(
           caches.match(event.request).then((response) => {
               return response || fetch(event.request).then((networkResponse) => {
