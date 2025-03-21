@@ -72,8 +72,6 @@ dfd
 <GitHubRepoBrowser repoUrl="https://github.com/ytulenov/hackerspacestoreadmin" />
 
 
-#### Update `Chart.jsx` to Handle Scatter Plots
-We need to add support for a `scatter` chart type in the `Chart` component using D3.
 
 ## Data Table
 
@@ -84,11 +82,9 @@ Here's a sample Excel file with detailed statistics:
 ### Statistical Model
 
 ```math
-Production_forecast = β₀ + β₁*Price + β₂*Reserves + β₃*GDP + ε
+Production forecast = β₀ + β₁*Price + β₂*Reserves + β₃*GDP + ε
 ```
 
-#### Update `Chart.jsx` to Handle Scatter Plots
-We need to add support for a `scatter` chart type in the `Chart` component using D3.
 
 ## Data Table
 
@@ -98,6 +94,17 @@ export default function Home() {
 }
 ```
 
+
+```python
+from flask import Flask
+
+app = Flask(__name__)
+def home():
+    return "<h1>Hello, Flask!</h1>"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
 ### VI. Conclusion 
 
 Our research endeavors to understand the determinants of IMDb ratings, employing three distinct models: Multiple Regression, Nonlinear Regression, and Time Fixed Effects. Our final specification is anchored in a diverse set of independent variables such as Release Year, Runtime, Genres, Number of Votes, Gross Profit, Certification, Directors, and Lead Actors. While certain variables exhibit significant effects, such as Release Year, Runtime, Genres, and Number of Votes, others like Age Certification and certain Directors and Actors prove less influential. We decided to stay with model with the less endogeneity problems and adjusted R² of 0.76 

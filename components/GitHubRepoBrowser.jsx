@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Box, Text, Flex, IconButton, Stack, Button, Link, useColorModeValue } from '@chakra-ui/react';
 import { ChevronRightIcon, ChevronDownIcon, ChevronLeftIcon } from '@chakra-ui/icons';
 import SyntaxHighlighter from 'react-syntax-highlighter'; // Ensure this is installed
-import { atomOneDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs'; // Ensure this is installed
+import { xcode, atomOneDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { CopyIcon, DownloadIcon } from '@chakra-ui/icons';
 
 // Custom icons for Maximize/Minimize
@@ -20,6 +20,7 @@ const MaximizeIcon = () => (
   
 
 const GitHubRepoBrowser = ({ repoUrl }) => {
+  const syntaxStyle = useColorModeValue(xcode, atomOneDark);
   const [tree, setTree] = useState([]);
   const [expandedFolders, setExpandedFolders] = useState(new Set()); // Track expanded folders
   const [selectedItem, setSelectedItem] = useState(null);
@@ -353,7 +354,7 @@ const GitHubRepoBrowser = ({ repoUrl }) => {
             {selectedFileContent ? (
               <SyntaxHighlighter
                 language={selectedItem.name.endsWith('.ts') || selectedItem.name.endsWith('.tsx') ? 'typescript' : 'javascript'} // Basic file type detection
-                style={atomOneDark}
+                style={syntaxStyle} 
                 wrapLines
                 showLineNumbers
               >

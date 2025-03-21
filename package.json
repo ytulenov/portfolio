@@ -24,6 +24,7 @@
     "@react-email/components": "^0.0.34",
     "@react-three/drei": "^9.88.2",
     "@react-three/fiber": "^8.16.8",
+    "@svgr/webpack": "^8.1.0",
     "@three-ts/orbit-controls": "^1.4.7",
     "@types/mdx": "^2.0.13",
     "@types/three": "^0.157.0",

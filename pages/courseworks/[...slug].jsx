@@ -88,7 +88,7 @@ export default function CourseworkPage({ source, frontmatter, baseDir, params })
         </Link>
       ),
     HighlightLink,
-    pre: CodeBlock,
+    code: CodeBlock, 
     ol: (props) => (
       <Box
         as="ol"

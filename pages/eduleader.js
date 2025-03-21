@@ -533,6 +533,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
       as="h1"
       fontSize="3xl"
       mb={6}
+      
       fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
       color={useColorModeValue(
         process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
@@ -600,10 +601,10 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
 
         {/* Timeline */}
         <Box textAlign="center" mb={12}>
-          <Heading fontSize="3xl" pb={5} as="h1" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+          <Heading fontSize="3xl" pb={5} as="h1" textAlign="center" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             TIMELINE
           </Heading>
-          <Box position="relative" height="80px">
+          <Box position="relative" height="80px" >
             <Box
               position="absolute"
               top="70%"
@@ -663,7 +664,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         </Box>
 
         {/* Spinning Blocks */}
-        <Box mb={28}>
+        <Box mb={40}>
           <Grid templateColumns="repeat(3, 1fr)" gap={5}>
             {spinningBlocks.map((block, index) => (
               <Box key={index} textAlign="center">
@@ -674,8 +675,8 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         </Box>
 
         {/* Transcript */}
-        <Box mb={28}>
-          <Heading as="h1" fontSize="3xl"  mt={8} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+        <Box mb={40}>
+          <Heading as="h1" fontSize="3xl" pb={8} textAlign="center"  mt={8} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             TRANSCRIPT
           </Heading>
           <DataTable src="/transcript.xlsx" />
@@ -700,11 +701,12 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         </Box>
 
         {/* Courses */}
-        <Box mb={28} minH="600px">
+        <Box mb={40} minH="600px">
             <Heading
               as="h1"
               fontSize="3xl"
-              mb={4}
+              mb={8}
+              textAlign="center"
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
               color={useColorModeValue(
                 process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
@@ -926,7 +928,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
 
         {/* Clubs */}
         <Box> {/* No mb here to ensure no padding after Clubs */}
-          <Heading as="h1" fontSize="3xl"  mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+          <Heading as="h1" fontSize="3xl"   mb={6} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             CLUBS & LEADERSHIP
           </Heading>
           <Flex direction={{ base: "column", md: "row" }} align="start" gap={8}>

@@ -19,13 +19,13 @@ const GitHubRepoBrowser = dynamic(() => import("../../components/GitHubRepoBrows
 const HighlightLink = ({ children, href, ...props }) => (
   <Text
     as="a"
-    href={href} 
-    color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
+    href={href}
+    color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
     fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-    fontWeight="bold" // Bold as per your request (changed from semibold)
+    fontWeight="bold"
     _hover={{ textDecoration: "underline" }}
-    target="_blank" // Open in new tab
-    rel="noopener noreferrer" // Security for external links
+    target="_blank"
+    rel="noopener noreferrer"
     {...props}
   >
     {children}
@@ -35,14 +35,13 @@ const HighlightLink = ({ children, href, ...props }) => (
 const formatDate = (dateString) => {
   if (!dateString) return "";
   const date = new Date(dateString);
-  if (isNaN(date.getTime())) return "Invalid Date"; // Handle invalid dates gracefully
+  if (isNaN(date.getTime())) return "Invalid Date";
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 };
-
 
 const resolvePath = (filePath, baseDir) => {
   if (filePath.startsWith('/')) {
@@ -72,40 +71,42 @@ const resolvePath = (filePath, baseDir) => {
 
 export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
   const components = {
-    h1: (props) => <Heading as="h1" size="2xl" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={6} {...props} />,
-    h2: (props) => <Heading as="h2" size="xl" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={5} {...props} />,
-    h3: (props) => <Heading as="h3" size="lg"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={4} {...props} />,
-    h4: (props) => <Heading as="h4" size="md"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={3} {...props} />,
-    p: (props) => <Text pb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props} />, // Add padding to the bottom of normal text
-    strong: (props) => <Text as="strong" fontWeight="bold"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  my={4} {...props} />,
-    em: (props) => <Text as="em" fontStyle="italic" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={4}{...props} />,
+    h1: (props) => <Heading as="h1" size="2xl" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={6} {...props} />,
+    h2: (props) => <Heading as="h2" size="xl" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={5} {...props} />,
+    h3: (props) => <Heading as="h3" size="lg" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={4} {...props} />,
+    h4: (props) => <Heading as="h4" size="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={3} {...props} />,
+    p: (props) => <Text pb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props} />,
+    strong: (props) => <Text as="strong" fontWeight="bold" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={4} {...props} />,
+    em: (props) => <Text as="em" fontStyle="italic" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} my={4} {...props} />,
     a: ({ href, children, ...props }) =>
       href.startsWith("http") || href.startsWith("#") ? (
-        <a href={href} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  {...props}>
+        <a href={href} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props}>
           {children}
         </a>
       ) : (
         <Link href={href} legacyBehavior>
-          <a fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}  {...props}>{children}</a>
+          <a fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props}>{children}</a>
         </Link>
       ),
     HighlightLink,
-    pre: CodeBlock,
+    code: CodeBlock, // Map `code` to CodeBlock (instead of `pre`)
     ol: (props) => (
       <Box
         as="ol"
-        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
-        pl={6} // Padding-left to align numbers within the container
-        ml={0} // Remove default margin-left
-        style={{ listStylePosition: "outside", paddingLeft: "1.5em" }} // Ensure numbers are outside but aligned
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
+        pl={6}
+        ml={0}
+        style={{ listStylePosition: "outside", paddingLeft: "1.5em" }}
         {...props}
       />
     ),
     li: (props) => (
       <Box
         as="li"
-        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
-        ml={0} // Remove default margin-left on list items
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
+        ml={0}
         {...props}
       />
     ),
@@ -130,54 +131,49 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
       return <GitHubRepoBrowser {...props} />;
     },
   };
+
   const slug = frontmatter.slug || (Array.isArray(params?.slug) ? params.slug.join('/') : params?.slug || '');
 
   return (
     <Container maxW="80%" pb={24} mt={{ base: -20, md: -28 }}>
-    {/* Wrap the Link in a Box with margin-bottom */}
-    <Box mb={6}> {/* Increased spacing to 40px */}
-      <Link href="/projects" legacyBehavior>
-        <Text
-          as="a"
-          _hover={{
-            textDecoration: "underline",
-            color: useColorModeValue(
-              process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
-              process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
-            ),
-          }}
-          fontSize="md"
-          color={useColorModeValue(
-            process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT,
-            process.env.NEXT_PUBLIC_BUTTON_BG_DARK
-          )}
-          fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-        >
-          ← Back to all Projects
-        </Text>
-      </Link>
-    </Box>
-
-    <Box
-      mb={8}
-      rounded="xl"
-      overflow="hidden"
-      style={{ height: "700px", width: "100%" }}
-    >
-      {frontmatter.image ? (
-        <Link href={frontmatter.link || `/projects/${slug}`} passHref legacyBehavior key={slug}>
-          <Box as="a" display="block" height="100%" width="100%">
-            <Image
-              src={resolvePath(frontmatter.image, baseDir)}
-              alt={frontmatter.title || ""}
-              width={1382}
-              height={700}
-              style={{ objectFit: "fill", height: "100%", width: "100%" }}
-            />
-          </Box>
+      <Box mb={6}>
+        <Link href="/projects" legacyBehavior>
+          <Text
+            as="a"
+            _hover={{
+              textDecoration: "underline",
+              color: useColorModeValue(
+                process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
+                process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
+              ),
+            }}
+            fontSize="md"
+            color={useColorModeValue(
+              process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT,
+              process.env.NEXT_PUBLIC_BUTTON_BG_DARK
+            )}
+            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+          >
+            ← Back to all Projects
+          </Text>
         </Link>
-      ) : null}
-    </Box> 
+      </Box>
+
+      <Box mb={8} rounded="xl" overflow="hidden" style={{ height: "700px", width: "100%" }}>
+        {frontmatter.image ? (
+          <Link href={frontmatter.link || `/projects/${slug}`} passHref legacyBehavior key={slug}>
+            <Box as="a" display="block" height="100%" width="100%">
+              <Image
+                src={resolvePath(frontmatter.image, baseDir)}
+                alt={frontmatter.title || ""}
+                width={1382}
+                height={700}
+                style={{ objectFit: "fill", height: "100%", width: "100%" }}
+              />
+            </Box>
+          </Link>
+        ) : null}
+      </Box>
 
       <Heading as="h1" size="2xl" mb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
         {frontmatter.title}
@@ -188,8 +184,8 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
         </Text>
       )}
 
-<Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-{frontmatter.author && `By ${frontmatter.author} `}
+      <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+        {frontmatter.author && `By ${frontmatter.author} `}
         {frontmatter.startedAt && frontmatter.endedAt
           ? `| ${formatDate(frontmatter.startedAt)} - ${formatDate(frontmatter.endedAt)}`
           : frontmatter.startedAt
@@ -254,7 +250,7 @@ export async function getStaticProps({ params }) {
       source,
       frontmatter,
       baseDir,
-      params, // Pass params to the component
+      params,
     },
   };
 }

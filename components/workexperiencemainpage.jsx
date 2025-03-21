@@ -11,7 +11,7 @@ const WorkExperience = ({ experiences }) => {
   const borderColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_DARK); // Border color (was borderBottomColor)
 
   return (
-    <VStack spacing={8} align="stretch" position="relative" py={10}>
+    <VStack spacing={8} align="stretch" position="relative" py={16}>
       {/* Work Experience Title */}
       <MotionBox
         initial={{ x: -100, opacity: 0 }}
@@ -25,7 +25,7 @@ const WorkExperience = ({ experiences }) => {
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           WORK EXPERIENCE
         </Heading>
-        <Heading mt={2} fontSize="lg" fontWeight="semibold" as="h3"  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        <Heading mt={4} fontSize="lg" fontWeight="semibold" as="h3"  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           A journey through my professional roles and achievements.   A journey through my professional roles and achievements.    A journey through my professional roles and achievements.  v   A journey through my professional roles and achievements.    A journey through my professional roles and achievements.    A journey through my professional roles and achievements.    A journey through my professional roles and achievements.  v 
         </Heading>

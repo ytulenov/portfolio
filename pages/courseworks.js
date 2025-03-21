@@ -8,33 +8,73 @@ import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Global } from "@emotion/react";
+import Icon1 from "../public/icons/abstract-1.svg";
+import Icon2 from "../public/icons/abstract-2.svg";
+import Icon3 from "../public/icons/abstract-3.svg";
+import Icon4 from "../public/icons/abstract-4.svg";
+import Icon5 from "../public/icons/abstract-5.svg";
+import Icon6 from "../public/icons/abstract-6.svg";
+import Icon7 from "../public/icons/abstract-7.svg";
+import Icon8 from "../public/icons/abstract-8.svg";
+import Icon9 from "../public/icons/abstract-9.svg";
+import Icon10 from "../public/icons/abstract-10.svg";
+import Icon11 from "../public/icons/abstract-11.svg";
+import Icon12 from "../public/icons/abstract-12.svg";
+import Icon13 from "../public/icons/abstract-13.svg";
+import Icon14 from "../public/icons/abstract-14.svg";
+import Icon15 from "../public/icons/abstract-15.svg";
+import Icon16 from "../public/icons/abstract-16.svg";
+import Icon17 from "../public/icons/abstract-17.svg";
+import Icon18 from "../public/icons/abstract-18.svg";
+import Icon19 from "../public/icons/abstract-19.svg";
+import Icon20 from "../public/icons/abstract-20.svg";
 
-// Custom arrow components for the carousel
-
-// Custom card component for coursework
-// Custom card component for coursework
-// Custom card component for coursework
-// Custom card component for coursework
-// Custom card component for coursework
-// Custom card component for coursework
 const CourseworkCard = ({ title, summary, slug, year, index }) => {
   const lightCardColors = (process.env.NEXT_PUBLIC_COURSEWORKS_COURSECARD_MULTIPLECOLORSELECTION_LIGHT).split(",");
   const darkCardColors = (process.env.NEXT_PUBLIC_COURSEWORKS_COURSECARD_MULTIPLECOLORSELECTION_DARK).split(",");
 
   const cardColors = useColorModeValue(lightCardColors, darkCardColors);
-  const bgColor = cardColors[index % cardColors.length];
+  //const icons = Array.from({ length: 20 }, (_, i) => `/icons/abstract-${i + 1}.svg`);
   const icons = [
-    "/abstract-2.png", // Example icon paths, adjust as needed
-    "/abstract-3.png",
-    "/abstract-shape.png",
-    "/rounded.png",
-    "/abstract.png",
+    Icon1, Icon2, Icon3, Icon4, Icon5, Icon6, Icon7, Icon8, Icon9, Icon10,
+    Icon11, Icon12, Icon13, Icon14, Icon15, Icon16, Icon17, Icon18, Icon19, Icon20,
   ];
-  const iconSrc = icons[Math.floor(Math.random() * icons.length)];
+  // Assign colors and icons based on year and index
+  let colorIndex, iconIndex;
+  switch (year) {
+    case 4:
+      colorIndex = index % 20; // 4th year starts at 1st color (index 0)
+      iconIndex = index % 20;  // 4th year starts at 1st icon (abstract-1.svg)
+      break;
+    case 3:
+      colorIndex = (4 + index) % 20; // 3rd year starts at 5th color (index 4)
+      iconIndex = (4 + index) % 20;  // 3rd year starts at 5th icon (abstract-5.svg)
+      break;
+    case 2:
+      colorIndex = (9 + index) % 20; // 2nd year starts at 10th color (index 9)
+      iconIndex = (9 + index) % 20;  // 2nd year starts at 10th icon (abstract-10.svg)
+      break;
+    case 1:
+      colorIndex = (14 + index) % 20; // 1st year starts at 15th color (index 14)
+      iconIndex = (14 + index) % 20;  // 1st year starts at 15th icon (abstract-15.svg)
+      break;
+    default:
+      colorIndex = index % 20;
+      iconIndex = index % 20;
+  }
+
+  const bgColor = cardColors[colorIndex]
+
+  const iconColor = useColorModeValue(
+    process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT,
+    process.env.NEXT_PUBLIC_OVERALL_BG_DARK
+  );
+
+  const IconComponent = icons[iconIndex]; // Select the SVG component
 
   // Format the number: "01" to "09" for 1-9, "10" and above as is
   const formattedNumber = index + 1 < 10 ? `0${index + 1}` : `${index + 1}`;
-
+ 
   return (
     <Link href={`/courseworks/${slug}`} passHref legacyBehavior>
       <Box
@@ -69,16 +109,13 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
       >
         {/* Icon in top-left */}
         <Box position="absolute" top={10} left={10}>
-          <Image
-            src={iconSrc} // Use specific icons based on index
-            alt="Icon"
-            boxSize="50px"
-            fallback={<Box w="32px" h="32px" bg={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} borderRadius="full" />}
-          />
+   
+          <IconComponent width={50} height={50} fill={iconColor} />
+   
         </Box>
 
         {/* Title and Number (number above title, moves up on hover) */}
-        <Box
+        <Box 
           className="title-container"
           position="absolute"
           top="60%" // Start lower
@@ -190,9 +227,10 @@ export default function Courseworks({ courseworkByYear }) {
     centerMode: true,
     centerPadding: "0px",
     arrows: true, // Explicitly enable arrows
+    initialSlide: 2, // Start from index 1 (second card)
     responsive: [
       { breakpoint: 1600, settings: { slidesToShow: 3 } }, // 3 × 360px = 1080px + padding
-      { breakpoint: 1200, settings: { slidesToShow: 2 } }, // 2 × 360px = 720px + padding
+      { breakpoint: 1210, settings: { slidesToShow: 2 } }, // 2 × 360px = 720px + padding
       { breakpoint: 800, settings: { slidesToShow: 1 } },  // 1 × 360px = 360px + padding
     ],
     className: "custom-slider",
@@ -201,6 +239,7 @@ export default function Courseworks({ courseworkByYear }) {
   const years = [4, 3, 2, 1]; // Reordered to start with 4th year
   const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK); // Dark gray for light mode, white for dark mode
   const activeDotColor = useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK); // Black for light mode, tangerine for dark mode
+  const arrowColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK);
   return (
     <>
     {/* Inject global styles for the slider dots */}
@@ -215,6 +254,30 @@ export default function Courseworks({ courseworkByYear }) {
           color: ${activeDotColor};
           opacity: 1;
         }
+             .custom-slider .slick-prev:before, .custom-slider .slick-next:before {
+            color: ${arrowColor};
+            font-size: 20px; /* Increase size for visibility */
+            opacity: 1; /* Full opacity */
+          }
+             .custom-slider .slick-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .custom-slider .slick-list {
+            overflow: hidden; /* Allow cards to be fully visible */
+            width: 100%;
+          }
+          .custom-slider .slick-track {
+            display: flex;
+            align-items: center; /* Vertically center cards */
+            justify-content: center; /* Horizontally center cards */
+          }
+          .custom-slider .slick-slide {
+            display: flex !important;
+            justify-content: center !important; /* Center each slide */
+            float: none !important; /* Override slick float */
+          }
       `}
     />
     <Box
@@ -320,21 +383,24 @@ export default function Courseworks({ courseworkByYear }) {
   >
     <Slider {...sliderSettings}>
       {courseworkByYear[year].map((coursework, index) => (
-        <Box
-          key={coursework.slug}
-          px={7}
-          boxSizing="border-box"
-          display="inline-block"
-          width={{ base: "100%", md: "300px !important" }} 
-        >
-          <CourseworkCard
-            title={coursework.frontmatter.title}
-            summary={coursework.frontmatter.summary}
-            slug={coursework.slug}
-            year={year}
-            index={index}
-          />
-        </Box>
+       <Box
+       key={coursework.slug}
+       px={7}
+       boxSizing="border-box"
+       display="flex" // Flex to center the card
+       justifyContent="center" // Center card in slide
+       alignItems="center" // Vertically center card
+       width={{ base: "100%", md: "360px" }} // Fixed width
+       minWidth={{ base: "100%", md: "360px" }} // Ensure consistency
+     >
+       <CourseworkCard
+         title={coursework.frontmatter.title}
+         summary={coursework.frontmatter.summary}
+         slug={coursework.slug}
+         year={year}
+         index={index}
+       />
+     </Box>
       ))}
     </Slider>
   </Box>
