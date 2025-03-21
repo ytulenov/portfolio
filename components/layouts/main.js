@@ -61,7 +61,7 @@ const Main = ({ children, router }) => {
         <meta name="author" content="Yerkin Tulenov" />
         <meta name="author" content="personal website" />
         <link rel="cpu" href="cpu.png" />
-        <link rel="icon" href="/cpu.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <title>Yerkin Tulenov - Homepage</title>
       </Head>
 
