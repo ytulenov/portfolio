@@ -9,10 +9,6 @@ function easeOutCirc(x) {
   return Math.sqrt(1 - Math.pow(x - 1, 4));
 }
 
-const rateLimiter = new RateLimiterMemory({
-  points: 5, // 5 requests
-  duration: 3600, // per hour
-});
 let cachedModel = null;
 
 const ModelNvidia = () => {
@@ -21,6 +17,11 @@ const ModelNvidia = () => {
   const [error, setError] = useState(null);
   const refRenderer = useRef();
   const urlNvidiaGLB = process.env.S3_URL;
+
+  const rateLimiter = useRef(new RateLimiterMemory({
+    points: 5,
+    duration: 3600,
+  })).current;
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer;
@@ -83,7 +84,7 @@ const ModelNvidia = () => {
       animate();
       setLoading(false);
     } else {
-      rateLimiter.consume('model-fetch') // Rate limit by key
+      rateLimiter.consume('model-fetch')
         .then(() => {
           loader.load(
             urlNvidiaGLB,
