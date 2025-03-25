@@ -1,14 +1,11 @@
 import NextLink from 'next/link';
-import {Link,Container,Heading,Box,SimpleGrid,Button,List,ListItem,FormControl,FormLabel,Input,Textarea,useColorModeValue, useToast, useColorMode,
-} from '@chakra-ui/react';
-import { Global } from '@emotion/react';
-import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons';
+import {Link,Container,Heading,Box,SimpleGrid,Button,FormControl,FormLabel,Input,Textarea,useColorModeValue, useToast} from '@chakra-ui/react';
+import {EmailIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactFormSchema } from '../lib/schemas'; 
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
-import { GridItem } from '../components/grid-item';
 import { FaSketch, FaWordpress, FaReact,  } from 'react-icons/fa';
 import { BiLogoFigma } from "react-icons/bi";
 import { SiAdobexd } from "react-icons/si";
@@ -159,19 +156,21 @@ const SkillsSection = () => {
 const experiences = [
   {
     company: 'Milsan Elektronik',
-    title: 'PCB Designer',
-    date: 'June 2024 - Present',
+    title: 'PCB Designer Intern',
+    link: 'milsan',
+    date: 'May 2024 - Sep 2024',
     description: [
-      'Developed and maintained web applications using React.js and other related technologies.',
-      'Collaborated with cross-functional teams including designers, product managers, and developers.',
-      'Implemented responsive design and ensured cross-browser compatibility.',
-      'Participated in code reviews and provided constructive feedback to other developers.',
+      'Designed 2-layer PCBs for coffee makers and ovens using HT66F004 and SC95F8523M28U microcontrollers with transformerless AC/DC converters (230V to 5V/18V DC)',
+      'Implemented 4 capacitive touch sensors, 15-pin LED display (oven), temperature and water level sensors (coffee maker) for safety',
+      'Routed high-speed signals (16MHz) with impedance matching; validated designs in EasyEDA',
+      'Programmed microcontrollers in C++ with PID controllers; developed BOMs, Gerber files, sourcing components from 15+ manufacturers'
     ],
-    logo: 'bosk.png',
+    logo: 'milsanmainpage.png',
   },
   {
     company: 'Starbucks',
     title: 'React.js Developer',
+    link: 'milsan',
     date: 'March 2020 - April 2021',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
@@ -184,6 +183,7 @@ const experiences = [
   {
     company: 'Starbucks',
     title: 'React.js Developer',
+    link: 'milsan',
     date: 'March 2020 - April 2021',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
@@ -196,6 +196,7 @@ const experiences = [
   {
     company: 'Starbucks',
     title: 'React.js Developer',
+    link: 'milsan',
     date: 'March 2020 - April 2021',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
@@ -220,13 +221,17 @@ const Home = () => {
   });
 
   const onSubmit = async (data) => {
+    console.log('Form submitted with data:', data); // Log form data before sending
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
+      console.log('Response status:', response.status); // Log HTTP status
+      const responseData = await response.json(); // Parse response body
+      console.log('Response data:', responseData); // Log response body
+  
       if (!response.ok) {
         throw new Error('Failed to send email');
       }
@@ -239,6 +244,7 @@ const Home = () => {
       });
       reset();
     } catch (error) {
+      console.error('Submission error:', error.message); // Log any errors
       toast({
         title: 'An error occurred!',
         description: 'Please try again.',
@@ -335,7 +341,7 @@ const Home = () => {
             <Link as={NextLink} href="/posts" passHref scroll={false}   fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
               Posts
             </Link>
-            , and finally access the source code, designs and schematics — including EDA and CAD designs —{' '}
+            , and finally access the source codes, designs and schematics — including EDA and CAD designs —{' '}
             <Link
               as={NextLink}
               href="https://github.com/ytulenov?tab=repositories"
@@ -354,7 +360,7 @@ const Home = () => {
     ),}}
     color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
            fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}  bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}>
-            My portfolio
+            My Portfolio
           </Button>
           <Button as={NextLink} href="/Yerkin_Tulenov_CV.pdf"  _hover={{
     bg: useColorModeValue(
@@ -368,18 +374,141 @@ const Home = () => {
       </Section>
 
       <Section delay={0.2}>
-        <Heading as="h1" variant="section-title" fontSize="3xl" pt={14}fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} 
+      <Heading as="h1" fontSize="3xl" variant="section-title" pt={20} mb={2}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           EDUCATION
         </Heading>
+
+        <Box ml={0}>
+          <Heading
+            fontSize="lg"
+            fontWeight="semibold"
+            as="h3"
+            lineHeight="1.5"
+            pt={4}
+            
+            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+            color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
+          >
+      Bachelor of Applied Science in Electrical Engineering
+    </Heading>
+
+    <Heading
+      fontSize="md"
+      mt={2}
+      color={useColorModeValue(
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+      )}
+      opacity={0.6}
+      fontWeight="normal"
+      fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+    >
+      Sep 2021 - Jun 2025
+    </Heading>
+
+    <Heading
+      fontSize="md"
+      mt={1}
+      opacity={0.6}
+      fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+      color={useColorModeValue(
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+      )}
+      fontWeight="medium"
+      fontStyle="italic"
+    >
+      University of British Columbia, BC, Canada
+    </Heading>
+
+    <Box mt={4}>
+      <Heading
+        fontSize="lg"
+        fontWeight="semibold"
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        color={useColorModeValue(
+          process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+          process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+        )}
+      >
+        Related Coursework:
+      </Heading>
+      <Heading
+        fontSize="md"
+        mt={1}
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        color={useColorModeValue(
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+        process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+      )}
+      opacity={0.6}
+        fontWeight="normal"
+        lineHeight="1.6"
+      >
+        Embedded Systems, VLSI Design, Control Systems, and PCB Prototyping
+      </Heading>
+    </Box>
+
+    <Box display="flex" justifyContent="center" alignItems="center" pt={8}>
+    <Button
+        as={NextLink} href="/eduleader" scroll={false}
+        mx={2}
+        fontSize= "18px"
+        fontWeight="bold"
+        borderRadius="md"
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        bg={useColorModeValue(
+          process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT,
+          process.env.NEXT_PUBLIC_BUTTON_BG_DARK
+        )}
+        color={useColorModeValue(
+          process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT,
+          process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK
+        )}
+        _hover={{
+          bg: useColorModeValue(
+            process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
+            process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
+          ),
+        }}
+      >
+         Academic Journey
+      </Button>
+      <Button
+        as={NextLink}
+        href="/Yerkin's Transcript.xlsx"
+        download
+        mx={2}
+        fontSize= "18px"
+        fontWeight="bold"
+        borderRadius="md"
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+        bg={useColorModeValue(
+          process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT,
+          process.env.NEXT_PUBLIC_BUTTON_BG_DARK
+        )}
+        color={useColorModeValue(
+          process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT,
+          process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK
+        )}
+        _hover={{
+          bg: useColorModeValue(
+            process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
+            process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
+          ),
+         
+        }}
         
-          <Heading fontSize="lg" mt={4} fontWeight="semibold" as="h3"  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-            color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-            Sep 2021-Jun 2025 Electrical Engineering at the University of British Columbia, Kelowna.
-            Related Coursework: Transcript Button:
-          </Heading>
         
-      </Section>
+      >
+        Download Transcript
+      </Button>
+     
+    </Box>
+  </Box>
+</Section>
+
 
       <WorkExperience experiences={experiences} />
 
