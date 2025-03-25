@@ -1,4 +1,4 @@
-import { Box, Flex, Text, VStack, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, VStack, Heading, useColorModeValue } from '@chakra-ui/react';
 import WorkCard from '/components/WorkCard';
 import { promises as fs } from 'fs';
 import path from 'path';

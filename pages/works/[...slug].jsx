@@ -101,86 +101,99 @@ export default function WorkSlug({ source, frontmatter }) {
       >
         {/* Left Side: Images */}
         <Box
-          flex={{ base: "100%", md: "65x%" }}
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          p={{ base: 4, md: 6 }}
-          minH={{ base: "50vh", md: `${totalImagesHeightPx}px` }} 
-          position="relative"
-          overflow="hidden"
-          bg={useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}
-        >
-          {images.length > 0 ? (
-            <VStack spacing={8} w="100%">
-              {images.map((imageSrc, index) => (
-                <Box
-                  key={index}
-                  position="relative"
-                  w={{ base: "100%", md: "70%" }}
-                  h={{ base: "40vh", md: "250px" }}
-                  ml={index % 2 === 0 ? { md: "-10%" } : { md: "10%" }}
-                  mr={index % 2 === 0 ? { md: "10%" } : { md: "-10%" }}
-                  pt={index === 0 ? 6 : undefined} 
-                  pb={index === images.length - 1 ? 6 : (index === 1 ? 0 : undefined)} 
-                 
-                  border="1px solid"
-                  borderColor={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
-                  borderRadius="lg"
-                  boxShadow="md"
-                  overflow="hidden"
-                  _hover={{ "& img": { transform: "scale(1.05)" }, boxShadow: "lg" }}
-                  transition="box-shadow 0.3s ease"
-                >
-                  <Image
-                    src={imageSrc}
-                    alt={`${frontmatter.companyname} image ${index + 1}`}
-                    fill={true}
-                    sizes="(max-width: 68px) 100vw, 40vw"
-                    style={{
-                      objectFit: "cover",
-                      transition: "transform 0.5s ease",
-                    }}
-                    onError={(e) => console.error(`Failed to load image: ${imageSrc}`)}
-                    onLoad={() => console.log(`Successfully loaded image: ${imageSrc}`)}
-                    priority={index === 0}
-                  />
-                  <Box
-                    position="absolute"
-                    top={0}
-                    left={0}
-                    right={0}
-                    bottom={0}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    bg="gray.800"
-                    color="white"
-                    fontSize="sm"
-                    textAlign="center"
-                    opacity={0}
-                    _groupHover={{ opacity: 1 }}
-                  >
-                    <Text>Image Not Found: {imageSrc}</Text>
-                  </Box>
-                </Box>
-              ))}
-            </VStack>
-          ) : (
+  flex={{ base: "100%", md: "65%" }}
+  display="flex"
+  flexDirection="column"
+  justifyContent="center"
+  alignItems="center"
+  p={{ base: 4, md: 6 }}
+  minH={{ base: "auto", md: "auto" }} // Adjusted to allow dynamic height
+  position="relative"
+  overflow="hidden"
+  bg={useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}
+>
+  {images.length > 0 ? (
+    <VStack spacing={8} w="100%">
+      {images.map((imageSrc, index) => {
+        // Map index to the corresponding aspect ratio from metadata
+        const aspectRatios = [
+          frontmatter.image1AspectRatio,
+          frontmatter.image2AspectRatio,
+          frontmatter.image3AspectRatio,
+          frontmatter.image4AspectRatio,
+          frontmatter.image5AspectRatio,
+        ];
+        const aspectRatio = aspectRatios[index] || "3/2"; // Fallback to 3:2 if not specified
+        return (
+          <Box
+            key={index}
+            position="relative"
+            w={{ base: "100%", md: "70%" }}
+            aspectRatio={aspectRatio} // Dynamically set the aspect ratio
+            ml={index % 2 === 0 ? { md: "-10%" } : { md: "10%" }}
+            mr={index % 2 === 0 ? { md: "10%" } : { md: "-10%" }}
+            pt={index === 0 ? 6 : undefined}
+            pb={index === images.length - 1 ? 6 : (index === 1 ? 0 : undefined)}
+            border="2px solid"
+            borderColor={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
+            borderRadius="lg"
+            boxShadow="md"
+            overflow="hidden"
+            bg={useColorModeValue("gray.300", "white")}
+            _hover={{ "& img": { transform: "scale(1.05)" }, boxShadow: "lg" }}
+            transition="box-shadow 0.3s ease"
+          >
+            <Image
+              src={imageSrc}
+              alt={`${frontmatter.companyname} image ${index + 1}`}
+              fill={true}
+              sizes="(max-width: 740px) 100vw, 40vw"
+              style={{
+                objectFit: "cover", // Still ensures the image is fully contained
+                transition: "transform 0.5s ease",
+                width: "100%",
+                height: "100%",
+              }}
+              onError={(e) => console.error(`Failed to load image: ${imageSrc}`)}
+              onLoad={() => console.log(`Successfully loaded image: ${imageSrc}`)}
+              priority={index === 0}
+            />
             <Box
-              position="relative"
-              height={{ base: "50vh", md: "100%" }}
+              position="absolute"
+              top={0}
+              left={0}
+              right={0}
+              bottom={0}
               display="flex"
               alignItems="center"
               justifyContent="center"
               bg="gray.800"
               color="white"
+              fontSize="sm"
+              textAlign="center"
+              opacity={0}
+              _groupHover={{ opacity: 1 }}
             >
-              <Text>No Images Provided</Text>
+              <Text>Image Not Found: {imageSrc}</Text>
             </Box>
-          )}
-        </Box>
+          </Box>
+        );
+      })}
+    </VStack>
+  ) : (
+    <Box
+      position="relative"
+      height={{ base: "50vh", md: "100%" }}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bg="gray.800"
+      color="white"
+    >
+      <Text>No Images Provided</Text>
+    </Box>
+  )}
+</Box>
 
         {/* Right Side: Text and Content */}
         <Box
@@ -283,7 +296,7 @@ export default function WorkSlug({ source, frontmatter }) {
                 transition="all 0.3s ease"
                 _focus={{ outline: "none" }}
               >
-                Visit→
+                Company Website
               </Button>
             </Flex>
           </VStack>

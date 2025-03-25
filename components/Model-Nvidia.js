@@ -17,6 +17,7 @@ const ModelNvidia = () => {
   const [error, setError] = useState(null);
   const refRenderer = useRef();
   const urlNvidiaGLB = process.env.NEXT_PUBLIC_S3_URL;
+  //const urlNvidiaGLB = "/nvidia.glb"
   const isMounted = useRef(false);
 
   const rateLimiter = useRef(new RateLimiterMemory({

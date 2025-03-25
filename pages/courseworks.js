@@ -1,4 +1,4 @@
-import { Box, Text, Heading, Flex, Image, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, Heading, Flex, useColorModeValue } from "@chakra-ui/react";
 
 import Slider from "react-slick";
 import { promises as fs } from "fs";
@@ -300,7 +300,7 @@ export default function Courseworks({ courseworkByYear }) {
           Coursework Through the Years
         </Heading>
         <Text fontSize="lg" mt={4} maxW="600px" mx="auto" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}>
-          Explore my academic journey with projects from each year of college.
+          Explore my academic journey with projects and lab work from each year of college
         </Text>
       </Box>
 

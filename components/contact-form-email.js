@@ -1,19 +1,7 @@
-import {
-    Body,
-    Button,
-    Container,
-    Head,
-    Heading,
-    Html,
-    Img,
-    Link,
-    Preview,
-    Section,
-    Text,
-  } from '@react-email/components';
+import {Body,Button,Container,Head,Heading,Html,Img,Link,Preview,Section,Text,} from '@react-email/components';
   import * as React from 'react';
   
-  const baseUrl = 'https://ytulenov.com'; 
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ytulenov.com' : 'http://localhost:3000';
   
   const ContactFormEmail = ({ name, email, subject, message }) => {
     return (

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Box, Flex, Text, Image, Grid, Card, CardBody, Heading, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
 import matter from 'gray-matter';

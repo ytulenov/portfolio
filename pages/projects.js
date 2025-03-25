@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Text, Image, Grid, Card, CardBody, Container, Button, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Text, Image, Container, Button, Heading, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link'; 
 import matter from 'gray-matter'; 
 import { IoLogoGithub } from 'react-icons/io5';

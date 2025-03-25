@@ -5,7 +5,6 @@ import matter from "gray-matter";
 import {Box,Container,Text,Heading,Grid,Image,Button,Flex,useColorModeValue,} from "@chakra-ui/react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { HamburgerIcon } from "@chakra-ui/icons";
 import { Global } from "@emotion/react";
 import SpinningBlock from "../components/SpinnerBlock";
 import Slider from "react-slick";
@@ -385,7 +384,7 @@ const getTranscriptData = async () => {
   try {
     const { promises: fs } = await import("fs"); 
     const path = await import("path");
-    const transcriptPath = path.join(process.cwd(), "public", "transcript.xlsx");
+    const transcriptPath = path.join(process.cwd(), "public", "Yerkin's Transcript.xlsx");
     const buffer = await fs.readFile(transcriptPath);
     const XLSX = await import("xlsx");
     const workbook = XLSX.read(buffer, { type: "array" });
@@ -395,7 +394,7 @@ const getTranscriptData = async () => {
     console.log("Server-side parsed transcript data:", jsonData);
     return jsonData;
   } catch (error) {
-    console.error("Error loading transcript.xlsx:", error);
+    console.error("Error loading Yerkin's Transcript.xlsx:", error);
     return [["Error loading transcript data"]];
   }
 };
@@ -543,7 +542,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
       UBC
     </Heading>
     <Text
-      mb={16}
+      mb={4}
       fontSize="md"
       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
       color={useColorModeValue(
@@ -551,11 +550,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
       )}
     >
-      I pursued my education at the University of British Columbia (UBC), where I enrolled in the
-      Bachelor of Computer Science program... I pursued my education at the University of British
-      Columbia (UBC), where I enrolled in the Bachelor of Computer Science program... I pursued my
-      education at the University of British Columbia (UBC), where I enrolled in the Bachelor of
-      Computer Science program...
+      I am currently pursuing a Bachelor of Applied Science in Electrical Engineering at the University of British Columbia (UBC), and in my fourth year, I’m diving into some fascinating areas of the field. I’m exploring power electronics, focusing on efficient energy management in systems, and modern control techniques, which help optimize how devices and processes function. I’m also delving into applied machine learning, looking at how it can tackle complex engineering challenges. My capstone design project ties it all together, letting me apply sustainable design principles, circuit analysis, and system dynamics to create a practical solution. This builds on a solid base from earlier years—things like electricity, magnetism, and computational tools—and it’s giving me the skills to make a real impact in electrical engineering
     </Text>
   </Box>
   <Box
@@ -679,12 +674,12 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
           <Heading as="h1" fontSize="3xl" pb={8} textAlign="center"  mt={8} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             TRANSCRIPT
           </Heading>
-          <DataTable src="/transcript.xlsx" />
+          <DataTable src="/Yerkin's Transcript.xlsx" />
           <Box textAlign="center" mt={6}>
           <Button
       as={Link}
-      href="/transcript.xlsx"
-      download="transcript.xlsx" 
+      href="/Yerkin's Transcript.xlsx"
+      download="Yerkin's Transcript.xlsx" 
       fontSize="18px"
       variant="solid"
       _hover={{
@@ -809,10 +804,10 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
                       />
                     )}
                     <Image
-                      src={`/courses/${courseItem.slug}.jpg`}
+                      src={`/courses/${courseItem.slug}.png`}
                       h={{ base: 12, xl: 16 }}
                       w={{ base: 12, xl: 16 }}
-                      borderRadius="full"
+                      borderRadius="xl"
                       alt={`${courseItem.frontmatter.title} Logo`}
                     />
                     <Text
@@ -1016,10 +1011,30 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
 
 export async function getStaticProps() {
   const courses = await getCourseMDXFiles();
-  await getTranscriptData();
+
+  
+  const sortedCourses = courses.sort((a, b) => {
+    const dateA = a.frontmatter.endedAt ? new Date(a.frontmatter.endedAt) : null;
+    const dateB = b.frontmatter.endedAt ? new Date(b.frontmatter.endedAt) : null;
+
+    
+    if (!dateA && !dateB) return 0;
+
+    
+    if (!dateA) return 1;
+
+    
+    if (!dateB) return -1;
+
+    
+    return dateB - dateA;
+  });
+
+  await getTranscriptData(); 
+
   return {
     props: {
-      courses,
+      courses: sortedCourses,
     },
   };
 }
