@@ -1,4 +1,5 @@
-import { Box, Heading, Text, VStack, HStack, Image as ChakraImage, useColorModeValue } from '@chakra-ui/react';
+import { Box, Heading, VStack, HStack, Image as ChakraImage, useColorModeValue } from '@chakra-ui/react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const MotionBox = motion(Box);
@@ -11,7 +12,7 @@ const WorkExperience = ({ experiences }) => {
   const borderColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_BORDERCOLOR_DARK); 
 
   return (
-    <VStack spacing={8} align="stretch" position="relative" py={16}>
+    <VStack spacing={8} align="stretch" position="relative" py={20}>
       {/* Work Experience Title */}
       <MotionBox
         initial={{ x: -100, opacity: 0 }}
@@ -27,7 +28,7 @@ const WorkExperience = ({ experiences }) => {
         </Heading>
         <Heading mt={4} fontSize="lg" fontWeight="semibold" as="h3"  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-          A journey through my professional roles and achievements.   A journey through my professional roles and achievements.    A journey through my professional roles and achievements.  v   A journey through my professional roles and achievements.    A journey through my professional roles and achievements.    A journey through my professional roles and achievements.    A journey through my professional roles and achievements.  v 
+           An overview of my work history, spotlighting impactful positions and achievements along the way
         </Heading>
       </MotionBox>
 
@@ -83,8 +84,10 @@ const WorkExperience = ({ experiences }) => {
               {/* Left Side (Date or Experience) */}
               {alignLeft ? (
                 <>
+                <Link href={`/works/${exp.link}`} passHref legacyBehavior>
                   {/* Experience Card */}
                   <Box
+                  as="a"
                     w="50%"
                     p={4}
                     bg={boxBg}
@@ -93,6 +96,14 @@ const WorkExperience = ({ experiences }) => {
                     position="relative"
                     border="6px solid"
                     borderColor={borderColor}
+                    _hover={{
+                      boxShadow: "lg",
+                      cursor: "pointer",
+                      "& h1": { // Target the Heading (h1) inside the Box on hover
+                        textDecoration: "underline",
+                      },
+                    }}
+                    transition="box-shadow 0.3s ease, text-decoration 0.3s ease"
                   >
                     <Heading
                       fontSize="xl" 
@@ -115,7 +126,7 @@ const WorkExperience = ({ experiences }) => {
                     >
                       {exp.company}
                     </Heading>
-                    <VStack spacing={1} mt={3} align="flex-start">
+                    <VStack spacing={3} mt={3} align="flex-start">
                       {exp.description.map((desc, i) => (
                         <Heading
                           key={i}
@@ -130,6 +141,7 @@ const WorkExperience = ({ experiences }) => {
                       ))}
                     </VStack>
                   </Box>
+                  </Link>
 
                   {/* Logo with line connection */}
                   <VStack position="relative">
@@ -194,21 +206,32 @@ const WorkExperience = ({ experiences }) => {
                   </VStack>
 
                   {/* Experience Card */}
+                  <Link href={`/works/${exp.link}`} passHref legacyBehavior>
                   <Box
                     w="50%"
                     p={4}
+                    as="a"
                     bg={boxBg}
                     borderRadius="2xl"
                     boxShadow="md"
                     position="relative"
                     border="4px solid" 
+                    _hover={{
+                      boxShadow: "lg",
+                      cursor: "pointer",
+                      "& h1": { // Target the Heading (h1) inside the Box on hover
+                        textDecoration: "underline",
+                      },
+                    }}
+                     transition="box-shadow 0.3s ease, text-decoration 0.3s ease"
                     borderColor={borderColor} 
                   >
                     <Heading
                       fontSize="xl" 
-                      fontWeight="extrabold" 
+                      fontWeight="1000" 
                       as="h1"
                       mt={1}
+                     
                       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
                       color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_TEXT_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_TEXT_DARK)}
                     >
@@ -216,16 +239,16 @@ const WorkExperience = ({ experiences }) => {
                     </Heading>
                     <Heading
                       fontSize="lg"
-                      fontWeight="medium" 
-                      as="h3"
                       textAlign="left"
-                      mt={1}
+                      fontWeight="600" 
+                      as="h3"
+                      mt={3}
                       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
                       color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_TEXT_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_WORKEXPERIENCE_TEXT_DARK)}
                     >
                       {exp.company}
                     </Heading>
-                    <VStack spacing={1} mt={1} align="flex-start">
+                    <VStack spacing={3} mt={3} align="flex-start">
                       {exp.description.map((desc, i) => (
                         <Heading
                           key={i}
@@ -239,7 +262,7 @@ const WorkExperience = ({ experiences }) => {
                         </Heading>
                       ))}
                     </VStack>
-                  </Box>
+                  </Box></Link>
                 </>
               )}
             </HStack>
