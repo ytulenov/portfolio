@@ -66,7 +66,7 @@ export default function Posts({ Posts }) {
                 <Box w="560px" h="399px" borderRadius={40} overflow="hidden">
                   <Image
                     className="post-image"
-                    src={`/${post.image}`}
+                    src={`/images/posts/${post.image}`}
                     alt={post.title}
                     objectFit="cover"
                     w="100%"
