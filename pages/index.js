@@ -10,25 +10,25 @@ import { FaSketch, FaWordpress, FaReact,  } from 'react-icons/fa';
 import { BiLogoFigma } from "react-icons/bi";
 import { SiAdobexd } from "react-icons/si";
 import { TbBrandJavascript } from "react-icons/tb";
-
+import Slider from "react-slick";
 import Image from 'next/image';
+import { Icon } from '@iconify/react';
 import WorkExperience from '../components/workexperiencemainpage';
 import React, { useState } from 'react';
 
 
 
-
 const skills = [
-  { name: 'Subcontractor Management', icon: <BiLogoFigma />, color: '#F24E1E' },
-  { name: 'Sketch', icon: <FaSketch />, color: '#F7B500' },
-  { name: 'XD', icon: <SiAdobexd />, color: '#FF61F6' },
-  { name: 'WordPress', icon: <FaWordpress />, color: '#21759B' },
-  { name: 'React', icon: <FaReact />, color: '#61DAFB' },
-  { name: 'JavaScript', icon: <TbBrandJavascript />, color: '#F7DF1E' },
-  
+  { name: 'Bash', icon: <Icon icon="devicon:bash"  style={{ width: '48px', height: '48px' }} />, color: '#F24E1E', isSvg: true }, // Custom SVG
+  { name: 'Electrical System Installation', icon: <BiLogoFigma />, color: '#F24E1E', isSvg: false }, // Custom SVG
+  { name: 'Sketch', icon: <FaSketch />, color: '#F7B500', isSvg: false },
+  { name: 'XD', icon: <SiAdobexd />, color: '#FF61F6', isSvg: false },
+  { name: 'WordPress', icon: <FaWordpress />, color: '#21759B', isSvg: false },
+  { name: 'React', icon: <FaReact />, color: '#61DAFB', isSvg: false },
+  { name: 'JavaScript', icon: <TbBrandJavascript />, color: '#F7DF1E', isSvg: false },
 ];
 
-const SkillItem = ({ name, icon, color }) => {
+const SkillItem = ({ name, icon, color, isSvg }) => {
   const bgColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_BGCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_BGCOLOR_DARK);
   const textColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_TEXTCOLOR_DARK);
   const glowColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_GLOWCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_GLOWCOLOR_DARK)
@@ -61,15 +61,55 @@ const SkillItem = ({ name, icon, color }) => {
   const borderRadius = `calc(${baseBorderRadius * paddingScaleFactor} * 1vw)`;
 
   const transitionTiming = '0.2s ease-in-out';
+  const iconSize = 'clamp(40px, 3.5vw, 70px)';
 
-  const coloredIcon = React.cloneElement(icon, {
-    color: isHovering ? color : textColor,
-    size: 'clamp(40px, 3.5vw, 70px)', 
-    style: { 
-      transition: `color ${transitionTiming}`
-    }
-  });
-  const isTwoLineText = name.length > 15 || name.includes(' ');
+  const renderedIcon = isSvg ? (
+    <Box
+      as="span"
+      sx={{
+        display: 'inline-block',
+        width: iconSize,
+        height: iconSize,
+        lineHeight: 0, // Prevent spacing issues
+        '& svg': {
+          width: iconSize,
+          height: iconSize,
+          maxWidth: '100%',
+          maxHeight: '100%',
+          display: 'block', // Per documentation for unset dimensions
+          ...(isHovering
+            ? {} // No filter, show original palette
+            : {
+                filter: `grayscale(100%) brightness(${
+                  textColor === '#ffffff' ? '1000%' : '0%'
+                })`, // Match textColor
+                opacity: 0.9,
+              }),
+          transition: `filter ${transitionTiming}, opacity ${transitionTiming}`,
+        },
+      }}
+    >
+      {React.cloneElement(icon, {
+        width: 'unset', // Remove inline dimensions, per documentation
+        height: 'unset',
+        style: {
+          width: iconSize,
+          height: iconSize,
+        },
+      })}
+    </Box>
+  ) : (
+    React.cloneElement(icon, {
+      color: isHovering ? color : textColor,
+      size: iconSize,
+      style: {
+        transition: `color ${transitionTiming}`,
+        width: iconSize,
+        height: iconSize,
+      },
+    })
+  );
+
   return (
     <Box
       w={containerWidth}
@@ -81,7 +121,7 @@ const SkillItem = ({ name, icon, color }) => {
       textAlign="center"
       position="relative"
       overflow="hidden"
-      transition={`all ${transitionTiming}`} 
+      transition={`all ${transitionTiming}`}
       border="2px solid"
       borderColor={isHovering ? bordercolorishovering : glowColor}
       boxShadow={isHovering ? `0 0 15px ${glowColor}` : 'none'}
@@ -95,8 +135,8 @@ const SkillItem = ({ name, icon, color }) => {
         right={0}
         bottom={0}
         bg={glowColor}
-        opacity={isHovering ? 0.1 : 0} 
-        transition={`opacity ${transitionTiming}`} 
+        opacity={isHovering ? 0.1 : 0}
+        transition={`opacity ${transitionTiming}`}
         pointerEvents="none"
       />
       <Box
@@ -105,24 +145,24 @@ const SkillItem = ({ name, icon, color }) => {
         alignItems="center"
         height="calc(100% - 60px)"
         mb={4}
-        transition={`transform ${transitionTiming}`} 
+        transition={`transform ${transitionTiming}`}
         transform={isHovering ? 'scale(1.05)' : 'scale(1)'}
       >
-        {coloredIcon}
+        {renderedIcon}
       </Box>
       <Box
-        fontSize="clamp(12px, 1vw, 16px)" 
+        fontSize="clamp(12px, 1vw, 16px)"
         color={isHovering ? textcolorishovering : textColor}
         transition={`color ${transitionTiming}`}
         minHeight="clamp(80px, 2.5vw, 100px)"
-        display="flex" 
-        alignItems="center" 
-        justifyContent="center" 
-        whiteSpace="normal" 
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        whiteSpace="normal"
         lineHeight="1.2"
         fontWeight="700"
         pt="clamp(16px, 1vw, 18px)"
-        px={2} 
+        px={2}
       >
         {name}
       </Box>
@@ -131,6 +171,7 @@ const SkillItem = ({ name, icon, color }) => {
 };
 
 const SkillsSection = () => {
+  
   return (
     <Box px={['10px', '20px', "0px"]}> {/* Responsive section padding */}
       <SimpleGrid
@@ -161,9 +202,9 @@ const experiences = [
     date: 'May 2024 - Sep 2024',
     description: [
       'Designed 2-layer PCBs for coffee makers and ovens using HT66F004 and SC95F8523M28U microcontrollers with transformerless AC/DC converters (230V to 5V/18V DC)',
-      'Implemented 4 capacitive touch sensors, 15-pin LED display (oven), temperature and water level sensors (coffee maker) for safety',
+      'Implemented 4 capacitive touch sensors, LED display (oven), temperature and water level sensors (coffee maker) for safety',
       'Routed high-speed signals (16MHz) with impedance matching; validated designs in EasyEDA',
-      'Programmed microcontrollers in C++ with PID controllers; developed BOMs, Gerber files, sourcing components from 15+ manufacturers'
+      'Programmed microcontrollers in C and C++ with PID controllers; developed BOMs, Gerber files, sourcing components from 15+ manufacturers'
     ],
     logo: 'milsanmainpage.png',
   },
@@ -323,7 +364,7 @@ const Home = () => {
           >
             Hi, I’m Yerkin Tulenov — a hands-on learner and Bachelor of Applied Science candidate at the University of British Columbia, deeply engaged in PCB design, FPGA prototyping, and VLSI systems. I’m passionate about transforming theoretical concepts into practical solutions and developing high-speed, efficient systems that balance performance and functionality. You can check my work experience using this link{' '}
             <Link as={NextLink} href="/works" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
-              Work
+              Work Experience
             </Link>
             , find out more about my education at UBC here{' '}
             <Link as={NextLink} href="/eduleader" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
@@ -335,7 +376,7 @@ const Home = () => {
             </Link>
             , lab reports and coursework following this link{' '}
             <Link as={NextLink} href="/courseworks" passHref scroll={false}   fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
-              Coursework
+              Courseworks
             </Link>
             , posts here{' '}
             <Link as={NextLink} href="/posts" passHref scroll={false}   fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>

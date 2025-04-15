@@ -2,14 +2,13 @@ import { Box, Text, Flex, Image, Button, useColorModeValue } from '@chakra-ui/re
 import Link from 'next/link';
 
 export default function WorkCard({ work, index }) {
-  const { companyname, mainpagesummary, startedAt, endedAt, position, companylink, image, mainpagecolor } = work.frontmatter;
+  const { companyname, mainpagesummary, startedAt, endedAt, position, companylink, image, mainpagecolor, location } = work.frontmatter;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
     const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
+    return `${month}/${year}`;
   };
 
   const isReversed = index % 2 === 1;
@@ -128,6 +127,7 @@ export default function WorkCard({ work, index }) {
               )}
               textTransform="uppercase"
               textAlign="center"
+              mb={2}
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             >
               {companyname.toUpperCase()}
@@ -141,7 +141,18 @@ export default function WorkCard({ work, index }) {
               mb={2}
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             >
-              Position: {position || 'UI/UX Designer'}
+              Position: {position || 'Engineer'}
+            </Text>
+            <Text
+              fontSize="md"
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+              )}
+              mb={2}
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+            >
+              {location}
             </Text>
             <Text
               fontSize="sm"
@@ -150,6 +161,7 @@ export default function WorkCard({ work, index }) {
                 process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
               )}
               mb={2}
+              fontStyle="italic"
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             >
               {formatDate(startedAt)} - {endedAt ? formatDate(endedAt) : 'Present'}

@@ -1,7 +1,10 @@
 const CACHE_NAME = 'model-cache-v1';
+const MODEL_URL = process.env.NODE_ENV === 'production'
+  ? process.env.NEXT_PUBLIC_S3_URL
+  : '/nvidia.glb';
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url === process.env.NEXT_PUBLIC_S3_URL) {
+  if (event.request.url === MODEL_URL) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         const fetchPromise = fetch(event.request).then((networkResponse) => {
@@ -13,14 +16,12 @@ self.addEventListener('fetch', (event) => {
           console.error('Fetch failed:', error);
           return cachedResponse; 
         });
-
         
         return cachedResponse || fetchPromise;
       })
     );
   }
 });
-
 
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];

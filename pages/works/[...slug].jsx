@@ -30,7 +30,6 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
-    day: "numeric",
   });
 };
 
@@ -236,7 +235,26 @@ export default function WorkSlug({ source, frontmatter }) {
             >
               {frontmatter.companyname}
             </Heading>
-
+            <Text
+              fontSize="lg"
+              color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
+              fontWeight="800"
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
+              textAlign="center"
+            >
+              Position: {frontmatter.position || "Engineer"}
+            </Text>
+            <Text
+              fontSize="18px"
+              fontWeight="800"
+              color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
+              
+              transition="color 0.3s ease"
+              textAlign="center"
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
+            >
+              {frontmatter.location}
+            </Text>
             {/* Centered Date */}
             <Text
               fontSize="18px"
@@ -252,15 +270,7 @@ export default function WorkSlug({ source, frontmatter }) {
             </Text>
 
             {/* Centered Position */}
-            <Text
-              fontSize="lg"
-              color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
-              fontWeight="800"
-              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} 
-              textAlign="center"
-            >
-              Position: {frontmatter.position || "UI/UX Designer"}
-            </Text>
+            
 
             {/* MDX Content (Left-Aligned) */}
             <Box
