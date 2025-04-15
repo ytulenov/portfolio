@@ -37,7 +37,7 @@ const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   });
 };
@@ -182,7 +182,7 @@ export default function CourseworkPage({ source, frontmatter, baseDir, params })
         </Text>
       )}
 
-      <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+      <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontStyle="italic" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
         {frontmatter.author && `By ${frontmatter.author} `}
         {frontmatter.publishedDate ? `| ${formatDate(frontmatter.publishedDate)}` : 'N/A'}
       </Text>

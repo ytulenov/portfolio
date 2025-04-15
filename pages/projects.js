@@ -50,7 +50,7 @@ const ProjectBlock = ({ project }) => {
           onMouseLeave={() => setHovered(false)}
         >
           <Image
-            src={`/${project.image}`}
+            src={`/images/projects/${project.image}`}
             alt={project.title}
             position="absolute"
             top="0"
@@ -61,7 +61,7 @@ const ProjectBlock = ({ project }) => {
             transform={hovered ? 'scale(1.05)' : 'scale(1)'}
             transition="transform 0.3s ease"
             style={{
-              aspectRatio: '1280 / 720',
+              aspectRatio: '1382 / 700',
               maxWidth: '674px',
               maxHeight: '379px',
             }}
@@ -167,7 +167,7 @@ const FirstProjectLayout = ({ project }) => {
           onMouseLeave={() => setHovered(false)}
         >
           <Image
-            src={`/${project.image}`}
+            src={`/images/projects/${project.image}`}
             alt={project.title}
             position="absolute"
             top="0"

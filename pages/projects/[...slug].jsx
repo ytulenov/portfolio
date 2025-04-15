@@ -38,7 +38,7 @@ const formatDate = (dateString) => {
   if (isNaN(date.getTime())) return "Invalid Date";
   return date.toLocaleDateString("en-US", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   });
 };
@@ -110,6 +110,19 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
         {...props}
       />
     ),
+    img: ({ src, alt, ...props }) => {
+      const resolvedSrc = resolvePath(src, baseDir); 
+      return (
+        <Image
+          src={resolvedSrc}
+          alt={alt || ''}
+          width={1382}
+          height={700}
+          style={{ objectFit: "fill", height: "100%", width: "100%", aspectRatio: '1382 / 700' }}
+          {...props}
+        />
+      );
+    },
     table: (props) => {
       const resolvedSrc = props.src ? resolvePath(props.src, baseDir) : undefined;
       console.log(`Rendering DataTable with src: ${resolvedSrc}`);
@@ -168,7 +181,8 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
                 alt={frontmatter.title || ""}
                 width={1382}
                 height={700}
-                style={{ objectFit: "fill", height: "100%", width: "100%" }}
+
+                style={{ objectFit: "fill", height: "100%", width: "100%", aspectRatio: '1382 / 700' }}
               />
             </Box>
           </Link>
@@ -184,7 +198,7 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
         </Text>
       )}
 
-      <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+      <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontStyle="italic" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
         {frontmatter.author && `By ${frontmatter.author} `}
         {frontmatter.startedAt && frontmatter.endedAt
           ? `| ${formatDate(frontmatter.startedAt)} - ${formatDate(frontmatter.endedAt)}`

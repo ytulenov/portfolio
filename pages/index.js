@@ -6,38 +6,102 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactFormSchema } from '../lib/schemas'; 
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
-import { FaSketch, FaWordpress, FaReact,  } from 'react-icons/fa';
-import { BiLogoFigma } from "react-icons/bi";
-import { SiAdobexd } from "react-icons/si";
-import { TbBrandJavascript } from "react-icons/tb";
-import Slider from "react-slick";
 import Image from 'next/image';
-import { Icon } from '@iconify/react';
 import WorkExperience from '../components/workexperiencemainpage';
 import React, { useState } from 'react';
+import { VscTerminalBash } from "react-icons/vsc";
+import { TbBrandPowershell,  TbBrandJavascript} from "react-icons/tb";
+import { FaPython } from "react-icons/fa";
+import { SiCplusplus, SiC } from "react-icons/si";
+import { FaRProject } from "react-icons/fa";
+import { FaReact } from "react-icons/fa";
+import { TbFileTypeSql } from "react-icons/tb";
+import { SiTypescript } from "react-icons/si";
+import { TbBrandOauth } from "react-icons/tb";
 
 
 
 const skills = [
-  { name: 'Bash', icon: <Icon icon="devicon:bash"  style={{ width: '48px', height: '48px' }} />, color: '#F24E1E', isSvg: true }, // Custom SVG
-  { name: 'Electrical System Installation', icon: <BiLogoFigma />, color: '#F24E1E', isSvg: false }, // Custom SVG
-  { name: 'Sketch', icon: <FaSketch />, color: '#F7B500', isSvg: false },
-  { name: 'XD', icon: <SiAdobexd />, color: '#FF61F6', isSvg: false },
-  { name: 'WordPress', icon: <FaWordpress />, color: '#21759B', isSvg: false },
-  { name: 'React', icon: <FaReact />, color: '#61DAFB', isSvg: false },
-  { name: 'JavaScript', icon: <TbBrandJavascript />, color: '#F7DF1E', isSvg: false },
+  { name: 'Bash', icon: <VscTerminalBash />, color: '#2f3a3e'}, // Custom SVG
+  { name: 'C', icon: <SiC />, color: '#03599c'}, // Custom SVG
+  { name: 'C++', icon: <SiCplusplus />, color: '#659ad2'},
+  { name: 'JS/HTML/CSS', icon: <TbBrandJavascript />, color: '#f7df1e'},
+  { name: 'Powershell', icon: <TbBrandPowershell />, color: '#0277bd'},
+  { name: 'Python', icon: <FaPython />, color: '#ffe873'},
+  { name: 'R/RStudio', icon: <FaRProject />, color: '#2167ba'},
+  { name: 'React', icon: <FaReact />, color: '#61dafb'},
+  { name: 'SQL', icon: <TbFileTypeSql />, color: '#df6c20'},
+  { name: 'Typescript', icon: <SiTypescript />, color: '#3178c6'},
+  /*{ name: 'ClerkAuth', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Cloudinary', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'NextJs', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'NodeJs', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Prisma', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Tailwind', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'ShadcnUI', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'AutoCAD', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'AWS', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'EasyEDA', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Excel', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Git/Github', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Google Colab', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'InduSoft Web', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Jupyter Notebook', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'KiCAD EDA', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'LTSpice', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'KiCAD', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'MS Office', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'MySQL', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'PFsense+', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Raspberry PI', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'REVIT', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'SolidWorks', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'VS Code', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Json', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Keras', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Labelme', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Matplotlib', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'NumPy', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'OpenCV', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'OpenPyxl', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'PlanetScale', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Pandas', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Pytorch', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Selenium', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'TensorFlow', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Arduino', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'ARM Assembly', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Circuit Design/Components', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Quartus', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Verilog', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'AWS IAM', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'DMZ', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'EAC 2021', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'EC2', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Net Metering', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'NIST CSF', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'REST API', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'VPC', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Suricata IPS/IDS', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Daily Reports', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'EAC Compliance', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Electrical System Installation', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'GOST Compliance', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'HMI', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'PLC', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Process Automation', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Schedule Development', icon: <SiTypescript />, color: '#3178c6'},
+  { name: 'Subcontractor Management', icon: <SiTypescript />, color: '#3178c6'},*/
 ];
 
-const SkillItem = ({ name, icon, color, isSvg }) => {
+const SkillItem = ({ name, icon, color }) => {
   const bgColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_BGCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_BGCOLOR_DARK);
   const textColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_TEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_TEXTCOLOR_DARK);
   const glowColor = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_GLOWCOLOR_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_GLOWCOLOR_DARK)
   const bordercolorishovering = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_BORDERCOLORISHOVERING_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_BORDERCOLORISHOVERING_DARK)
   const textcolorishovering = useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_TEXTCOLORISHOVERING_LIGHT, process.env.NEXT_PUBLIC_MAINPAGE_SKILLSSECTION_TEXTCOLORISHOVERING_DARK)
-
-
   const [isHovering, setIsHovering] = useState(false);
-
+  
   const baseBrowserWidth = 1800;
   const baseContainerWidth = 180;  
   const baseAspectRatio = 183 / 180; 
@@ -55,6 +119,7 @@ const SkillItem = ({ name, icon, color, isSvg }) => {
   const paddingScaleFactor = baseContainerWidth / baseBrowserWidth;
   const paddingVertical = `calc(${basePaddingVertical * paddingScaleFactor} * 1vw)`;
   const paddingHorizontal = `calc(${basePaddingHorizontal * paddingScaleFactor} * 1vw)`;
+  
 
   
   const baseBorderRadius = 20;
@@ -63,42 +128,7 @@ const SkillItem = ({ name, icon, color, isSvg }) => {
   const transitionTiming = '0.2s ease-in-out';
   const iconSize = 'clamp(40px, 3.5vw, 70px)';
 
-  const renderedIcon = isSvg ? (
-    <Box
-      as="span"
-      sx={{
-        display: 'inline-block',
-        width: iconSize,
-        height: iconSize,
-        lineHeight: 0, // Prevent spacing issues
-        '& svg': {
-          width: iconSize,
-          height: iconSize,
-          maxWidth: '100%',
-          maxHeight: '100%',
-          display: 'block', // Per documentation for unset dimensions
-          ...(isHovering
-            ? {} // No filter, show original palette
-            : {
-                filter: `grayscale(100%) brightness(${
-                  textColor === '#ffffff' ? '1000%' : '0%'
-                })`, // Match textColor
-                opacity: 0.9,
-              }),
-          transition: `filter ${transitionTiming}, opacity ${transitionTiming}`,
-        },
-      }}
-    >
-      {React.cloneElement(icon, {
-        width: 'unset', // Remove inline dimensions, per documentation
-        height: 'unset',
-        style: {
-          width: iconSize,
-          height: iconSize,
-        },
-      })}
-    </Box>
-  ) : (
+  const renderedIcon = (
     React.cloneElement(icon, {
       color: isHovering ? color : textColor,
       size: iconSize,
@@ -212,7 +242,7 @@ const experiences = [
     company: 'Starbucks',
     title: 'React.js Developer',
     link: 'milsan',
-    date: 'March 2020 - April 2021',
+    date: 'Mar 2020 - Apr 2021',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
       'Collaborated with cross-functional teams including designers, product managers, and developers.',
@@ -225,7 +255,7 @@ const experiences = [
     company: 'Starbucks',
     title: 'React.js Developer',
     link: 'milsan',
-    date: 'March 2020 - April 2021',
+    date: 'Mar 2020 - Apr 2021',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
       'Collaborated with cross-functional teams including designers, product managers, and developers.',
@@ -238,7 +268,7 @@ const experiences = [
     company: 'Starbucks',
     title: 'React.js Developer',
     link: 'milsan',
-    date: 'March 2020 - April 2021',
+    date: 'Mar 2020 - Apr 2021',
     description: [
       'Developed and maintained web applications using React.js and other related technologies.',
       'Collaborated with cross-functional teams including designers, product managers, and developers.',
@@ -362,27 +392,31 @@ const Home = () => {
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
           >
-            Hi, I’m Yerkin Tulenov — a hands-on learner and Bachelor of Applied Science candidate at the University of British Columbia, deeply engaged in PCB design, FPGA prototyping, and VLSI systems. I’m passionate about transforming theoretical concepts into practical solutions and developing high-speed, efficient systems that balance performance and functionality. You can check my work experience using this link{' '}
+            Hi, there! <br /><br />
+            My name is Yerkin Tulenov. I am an electrical engineer, that is passionate about everything from nanoscale chips to full-stack applications. My favorite work lies at the intersection of design and development, particularly in creating PCBs with robust firmware, FPGA development, and VLSI designs. Whether it’s programming microcontrollers or designing analog circuits, I’m passionate about using theory knowledge in real-world applications.<br /><br />      
+            Ever since I was 3 years old, I have been fascinated by the world of math. It wasn’t just a subject to me; it felt like an entirely new realm filled with endless possibilities. By the time I got to physics in 7th grade,  I realized how intuitive my understanding of how the world works truly was, and that's when my passion for engineering took off. Currently, I'm an Electrical Engineering student and a Bachelor of Applied Science candidate At UBC. I’ve been diving into everything from circuits and control systems to signal processing, VLSI systems, and machine learning.<br /><br />
+            Beyond engineering, I enjoy playing the piano, soccer, and chess, which keep my mind sharp. Kickboxing is my go-to for staying focused and pushing my limits.<br /><br />
+            If you’re curious about what I’ve been up to, you can: <br /> •{"  "}Check out my {" "}
             <Link as={NextLink} href="/works" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
               Work Experience
             </Link>
-            , find out more about my education at UBC here{' '}
+            {"  "}to see what I’ve done so far; <br /> •{"  "}Explore my{' '}
             <Link as={NextLink} href="/eduleader" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
-              Education
+              Education Journey
             </Link>
-            , explore my projects here{' '}
+            {"  "} at UBC; <br /> •{"  "}Dive into my {' '}
             <Link as={NextLink} href="/projects" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
               Projects
             </Link>
-            , lab reports and coursework following this link{' '}
+            { "  "} and see what I’ve been building; <br /> •{"  "}Look at my{' '}
             <Link as={NextLink} href="/courseworks" passHref scroll={false}   fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
-              Courseworks
+            { "  "}Lab Reports & Coursework
             </Link>
-            , posts here{' '}
+            {"  "}  if you’re into the details; <br /> •{"  "} Read my {' '}
             <Link as={NextLink} href="/posts" passHref scroll={false}   fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
               Posts
             </Link>
-            , and finally access the source codes, designs and schematics — including EDA and CAD designs —{' '}
+            { "  "} -  a mix of thoughts, ideas, and lessons learned; <br /> •{"  "} Or head to my {' '}
             <Link
               as={NextLink}
               href="https://github.com/ytulenov?tab=repositories"
@@ -390,7 +424,7 @@ const Home = () => {
               target="_blank"
               fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
               GitHub
-            </Link>.
+            </Link> {"  "} to explore Source Codes, Designs, and Schematics (including EDA and CAD designs);
           </Heading>
         </Box>
         <Box display="flex" justifyContent="center" alignItems="center" pt={8}>
@@ -487,7 +521,7 @@ const Home = () => {
         fontWeight="normal"
         lineHeight="1.6"
       >
-        Embedded Systems, VLSI Design, Control Systems, and PCB Prototyping
+        Introduction to VLSI Systems, Analog Integrated Circuits, Microwave Engineering, Applied Machine Learning for Engineers, Power Electronics
       </Heading>
     </Box>
 

@@ -439,11 +439,11 @@ export default function EduLeaderPage({ courses }) {
   const carouselSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1800,
+    autoplaySpeed: 2500,
     fade: true,
     arrows: true,
     className: "custom-slider",
@@ -497,6 +497,55 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
             <div>
               <img
                 src="/ubc1.jpg"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc2.jpg"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc3.jpg"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc4.jpg"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc5.webp"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc6.jpg"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc7.png"
+                alt="UBC Campus 2"
+                style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
+              />
+            </div>
+            <div>
+              <img
+                src="/ubc8.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
