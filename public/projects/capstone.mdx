@@ -95,27 +95,12 @@ I led the risk assessment for the electrical system, focusing on risks that coul
 - For Engineers: My design achieved 100 apples/minute sorting, integrated with the AI vision system, and met IP66 standards. The PCBs ensured reliable operation, with stable power and safety features, all within budget.
 
 **CAD Model Showcase**: See the full system in action—our final CAD model highlights the conveyor, tilting trays, and bin tilters I helped bring to life with my PCBs.  
-<div  style={{ textAlign: "center"}} height="100%" width="100%">
-  <video
-    autoPlay
-    loop
-    muted
-    style={{
-      objectFit: "fill",
-      height: "100%",
-      width: "100%",
-      aspectRatio: "1382 / 700",
-      borderRadius: "8px",
-    }}
-    poster="/images/projects/cad_model_poster.jpg"
-  >
-    <source src="/images/projects/capstonefootage/Capstone_Video_1.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-</div>
-<div style={{ textAlign: "center", fontStyle: "italic", fontSize: "0.9em", color: "#666", marginBottom: "20px" }}>
-  CAD model showcase—visualizing the sorter’s mechanics, powered by my electrical design.
-</div>
+import FastVideo from '../components/FastVideo';
+
+<FastVideo
+  src="/images/projects/capstonefootage/Capstone_Video_1.mp4"
+  poster="/images/projects/cad_model_poster.jpg"
+/>
 
 This project taught me PCB design, risk management, and system integration. I learned to iterate through challenges, balance technical and ethical priorities, and design for real-world needs—skills I’ll carry into my automation career.
 
@@ -131,23 +116,11 @@ Thank you to Dr. Louzanne Bam and Sulman Ali of JA Orchards LTD for their guidan
 
 Want to read more about my personal growth and lessons learned from this project? Check out my reflection below.
 
-<div textAlign="center">
-  <a
-    href="/posts/capstone"
-    style={{
-      display: "inline-block",
-      padding: "12px 24px",
-      backgroundColor: "#007bff",
-      color: "#fff",
-      borderRadius: "6px",
-      textDecoration: "none",
-      fontSize: "1.1em",
-      fontWeight: "bold",
-      transition: "background-color 0.3s",
-    }}
-    onMouseOver={(e) => (e.target.style.backgroundColor = "#0056b3")}
-    onMouseOut={(e) => (e.target.style.backgroundColor = "#007bff")}
-  >
+
+import MDXButton from '../components/MDXButton';
+
+<div style={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
+  <MDXButton href="/posts/capstone">
     Read My Reflection
-  </a>
+  </MDXButton>
 </div>

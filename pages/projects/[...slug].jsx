@@ -8,7 +8,8 @@ import dynamic from "next/dynamic";
 import { promises as fs } from "fs";
 import path from "path";
 
-
+import FastVideo from "../../components/FastVideo"; // Adjust path if needed
+import MDXButton from "../../components/MDXButton";
 const CodeBlock = dynamic(() => import("../../components/CodeBlock"), { ssr: false });
 const DataTable = dynamic(() => import("../../components/DataTable"), { ssr: false });
 const ChartComponent = dynamic(() => import("../../components/Chart"), { ssr: false });
@@ -143,6 +144,8 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
       console.log(`Rendering GitHubRepoBrowser with repoUrl: ${props.repoUrl}`);
       return <GitHubRepoBrowser {...props} />;
     },
+    FastVideo,
+    MDXButton,
   };
 
   const slug = frontmatter.slug || (Array.isArray(params?.slug) ? params.slug.join('/') : params?.slug || '');

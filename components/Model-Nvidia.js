@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { NvidiaSpinner, NvidiaContainer } from './Model-Nvidia-loader';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
@@ -9,17 +10,19 @@ function easeOutCirc(x) {
   return Math.sqrt(1 - Math.pow(x - 1, 4));
 }
 
-let cachedModel = null;
+// Use a module-scoped cache to persist across component instances
+const modelCache = {
+  model: null,
+};
 
 const ModelNvidia = () => {
   const refContainer = useRef();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const refRenderer = useRef();
-  const urlNvidiaGLB = process.env.NODE_ENV === 'production' 
-  ? process.env.NEXT_PUBLIC_S3_URL 
-  : '/nvidia.glb';
-  const isMounted = useRef(false);
+  const urlNvidiaGLB = process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_S3_URL
+    : '/nvidia.glb';
 
   const rateLimiter = useRef(new RateLimiterMemory({
     points: 5,
@@ -37,10 +40,6 @@ const ModelNvidia = () => {
   }, []);
 
   useEffect(() => {
-    if (isMounted.current) return;
-    isMounted.current = true;
-
-    console.log('useEffect running, cachedModel:', !!cachedModel);
     const { current: container } = refContainer;
     if (!container) return;
 
@@ -78,15 +77,19 @@ const ModelNvidia = () => {
       scene.add(ambientLight);
       const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
       scene.add(hemiLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
       directionalLight.position.set(5, 10, 5);
       scene.add(directionalLight);
     };
 
     const loader = new GLTFLoader();
-    if (cachedModel) {
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
+    loader.setDRACOLoader(dracoLoader);
+
+    if (modelCache.model) {
       console.log('Using cached model');
-      scene.add(cachedModel);
+      scene.add(modelCache.model);
       addLights();
       renderer.setPixelRatio(window.devicePixelRatio);
       animate();
@@ -99,24 +102,24 @@ const ModelNvidia = () => {
           loader.load(
             urlNvidiaGLB,
             (gltf) => {
-              cachedModel = gltf.scene;
+              modelCache.model = gltf.scene;
               console.log('Model loaded, caching');
-              scene.add(cachedModel);
+              scene.add(modelCache.model);
               addLights();
               renderer.setPixelRatio(window.devicePixelRatio);
               animate();
               setLoading(false);
             },
             undefined,
-            (error) => {
-              console.error('GLTF loading error:', error);
+            (loadError) => {
+              console.error('GLTF loading error:', loadError);
               setLoading(false);
               setError('Failed to load model');
             }
           );
         })
-        .catch((err) => {
-          console.log('Rate limit exceeded:', err);
+        .catch((rateError) => {
+          console.error('Rate limit exceeded:', rateError);
           setLoading(false);
           setError('Rate limit exceeded. Try again later.');
         });
@@ -146,6 +149,7 @@ const ModelNvidia = () => {
       cancelAnimationFrame(req);
       renderer.domElement.remove();
       renderer.dispose();
+      dracoLoader.dispose();
     };
   }, []);
 
