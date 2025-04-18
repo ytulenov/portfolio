@@ -73,13 +73,23 @@ const ModelNvidia = () => {
     controls.enableZoom = false;
 
     const addLights = () => {
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-      scene.add(ambientLight);
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-      scene.add(hemiLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
-      directionalLight.position.set(5, 10, 5);
-      scene.add(directionalLight);
+      // First Directional Light
+      const directionalLight1 = new THREE.DirectionalLight(0xffffff, 25.0);
+      directionalLight1.position.set(5000, 10000, 7500);
+      directionalLight1.castShadow = true;
+      directionalLight1.shadow.bias = 0.000000;
+      directionalLight1.shadow.normalBias = 0.0;
+      directionalLight1.shadow.radius = 1.0;
+      scene.add(directionalLight1);
+    
+      // Second Directional Light
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 10.0);
+      directionalLight2.position.set(-2599, -7752, 2265);
+      directionalLight2.castShadow = true;
+      directionalLight2.shadow.bias = 0.000000;
+      directionalLight2.shadow.normalBias = 0.0;
+      directionalLight2.shadow.radius = 1.0;
+      scene.add(directionalLight2);
     };
 
     const loader = new GLTFLoader();
