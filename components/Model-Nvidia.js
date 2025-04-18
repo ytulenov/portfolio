@@ -63,9 +63,15 @@ const ModelNvidia = () => {
     );
 
     const scale = scH * 0.005 + 4.8;
-    const camera = new THREE.OrthographicCamera(-scale, scale, scale, -scale, 0.01, 50000);
-    camera.position.copy(initialCameraPosition);
-    camera.lookAt(target);
+    const camera = new THREE.PerspectiveCamera(
+      50, // fov
+      scW / scH, // aspect (dynamic based on container size)
+      0.01, // near
+      1000 // far
+    );
+    camera.position.set(-0.0838, 8.522, 9.579); // From JSON matrix
+    // Set rotation or lookAt to match JSON orientation
+    camera.lookAt(0, 0, 0); // Adjust target as needed (JSON doesn't specify lookAt point)
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.autoRotate = true;
@@ -74,7 +80,7 @@ const ModelNvidia = () => {
 
     const addLights = () => {
       // First Directional Light
-      const directionalLight1 = new THREE.DirectionalLight(0xffffff, 15.0);
+      const directionalLight1 = new THREE.DirectionalLight(0xffffff, 7.5);
       directionalLight1.position.set(5, 10, 7.5);
       directionalLight1.castShadow = false;
       directionalLight1.shadow.bias = 0.000000;
@@ -83,7 +89,7 @@ const ModelNvidia = () => {
       scene.add(directionalLight1);
     
       // Second Directional Light
-      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 5.0);
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 2.5);
       directionalLight2.position.set(-2.599, -7.752, 2.265);
       directionalLight2.castShadow = false;
       directionalLight2.shadow.bias = 0.000000;
