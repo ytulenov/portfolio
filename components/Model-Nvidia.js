@@ -55,23 +55,17 @@ const ModelNvidia = () => {
     refRenderer.current = renderer;
 
     const scene = new THREE.Scene();
-    const target = new THREE.Vector3(-0.5, 1.2, 0);
+    const target = new THREE.Vector3(0.1, 1.2, 0);
     const initialCameraPosition = new THREE.Vector3(
       20 * Math.sin(0.2 * Math.PI),
       10,
-      20 * Math.cos(0.2 * Math.PI)
+      5 * Math.cos(0.2 * Math.PI)
     );
 
-    const scale = scH * 0.005 + 4.8;
-    const camera = new THREE.PerspectiveCamera(
-      50, // fov
-      scW / scH, // aspect (dynamic based on container size)
-      0.01, // near
-      1000 // far
-    );
-    camera.position.set(-0.0838, 8.522, 9.579); // From JSON matrix
-    // Set rotation or lookAt to match JSON orientation
-    camera.lookAt(0, 0, 0); // Adjust target as needed (JSON doesn't specify lookAt point)
+    const scale = scH * 0.0037 + 4.8;
+    const camera = new THREE.OrthographicCamera(-scale, scale, scale, -scale, 0.01, 500);
+    camera.position.copy(initialCameraPosition);
+    camera.lookAt(target);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.autoRotate = true;
@@ -79,22 +73,15 @@ const ModelNvidia = () => {
     controls.enableZoom = false;
 
     const addLights = () => {
-      // First Directional Light
-      const directionalLight1 = new THREE.DirectionalLight(0xffffff, 7.5);
-      directionalLight1.position.set(5, 10, 7.5);
-      directionalLight1.castShadow = false;
-      directionalLight1.shadow.bias = 0.000000;
-      directionalLight1.shadow.normalBias = 0.0;
-      directionalLight1.shadow.radius = 1.0;
-      scene.add(directionalLight1);
-    
-      // Second Directional Light
-      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 2.5);
-      directionalLight2.position.set(-2.599, -7.752, 2.265);
-      directionalLight2.castShadow = false;
-      directionalLight2.shadow.bias = 0.000000;
-      directionalLight2.shadow.normalBias = 0.0;
-      directionalLight2.shadow.radius = 1.0;
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+      scene.add(ambientLight);
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+      scene.add(hemiLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+      directionalLight.position.set(5, 10, 5);
+      scene.add(directionalLight);
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 3.5);
+      directionalLight.position.set(-5, -10, -5);
       scene.add(directionalLight2);
     };
 
