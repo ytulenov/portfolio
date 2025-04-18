@@ -74,18 +74,18 @@ const ModelNvidia = () => {
 
     const addLights = () => {
       // First Directional Light
-      const directionalLight1 = new THREE.DirectionalLight(0xffffff, 25.0);
-      directionalLight1.position.set(5000, 10000, 7500);
-      directionalLight1.castShadow = true;
+      const directionalLight1 = new THREE.DirectionalLight(0xffffff, 15.0);
+      directionalLight1.position.set(5, 10, 7.5);
+      directionalLight1.castShadow = false;
       directionalLight1.shadow.bias = 0.000000;
       directionalLight1.shadow.normalBias = 0.0;
       directionalLight1.shadow.radius = 1.0;
       scene.add(directionalLight1);
     
       // Second Directional Light
-      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 10.0);
-      directionalLight2.position.set(-2599, -7752, 2265);
-      directionalLight2.castShadow = true;
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 5.0);
+      directionalLight2.position.set(-2.599, -7.752, 2.265);
+      directionalLight2.castShadow = false;
       directionalLight2.shadow.bias = 0.000000;
       directionalLight2.shadow.normalBias = 0.0;
       directionalLight2.shadow.radius = 1.0;
