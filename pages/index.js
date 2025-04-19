@@ -371,6 +371,7 @@ const Home = () => {
               alt="Profile image"
               width={200}
               height={200}
+              priority
             />
           </Box>
         </Box>

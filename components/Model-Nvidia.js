@@ -85,6 +85,27 @@ const ModelNvidia = () => {
       scene.add(directionalLight2);
     };
 
+    
+    let req = null;
+    let frame = 0;
+    const animate = () => {
+      req = requestAnimationFrame(animate);
+      frame = frame <= 100 ? frame + 1 : frame;
+
+      if (frame <= 100) {
+        const p = initialCameraPosition;
+        const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20;
+        camera.position.y = 25;
+        camera.position.x = p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed);
+        camera.position.z = p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed);
+        camera.lookAt(target);
+      } else {
+        controls.update();
+      }
+
+      renderer.render(scene, camera);
+    };
+
     const loader = new GLTFLoader();
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
@@ -127,26 +148,6 @@ const ModelNvidia = () => {
           setError('Rate limit exceeded. Try again later.');
         });
     }
-
-    let req = null;
-    let frame = 0;
-    const animate = () => {
-      req = requestAnimationFrame(animate);
-      frame = frame <= 100 ? frame + 1 : frame;
-
-      if (frame <= 100) {
-        const p = initialCameraPosition;
-        const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20;
-        camera.position.y = 25;
-        camera.position.x = p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed);
-        camera.position.z = p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed);
-        camera.lookAt(target);
-      } else {
-        controls.update();
-      }
-
-      renderer.render(scene, camera);
-    };
 
     return () => {
       cancelAnimationFrame(req);

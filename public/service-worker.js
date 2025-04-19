@@ -1,7 +1,7 @@
 const CACHE_NAME = 'model-cache-v1';
-const MODEL_URL = process.env.NODE_ENV === 'production'
-  ? process.env.NEXT_PUBLIC_S3_URL
-  : '/nvidia.glb';
+//const MODEL_URL = '/nvidia.glb'; // Hardcoded URL
+const MODEL_URL = "https://yerkin-3d-models.s3.us-east-1.amazonaws.com/nvidia.glb"
+
 
 self.addEventListener('fetch', (event) => {
   if (event.request.url === MODEL_URL) {
