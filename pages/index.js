@@ -611,10 +611,23 @@ const Home = () => {
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
           SEND ME A MESSAGE TO CONTACT
         </Heading>
-        <Heading fontSize="lg" fontWeight="semibold" as="h3" pt={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-            color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-          Get in touch with me for collaborations, questions, or just to say hi!
-        </Heading>
+        <Heading
+    fontSize="lg"
+    fontWeight="semibold"
+    as="h3"
+    pt={4}
+    fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+    color={useColorModeValue(
+      process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+      process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+    )}
+  >
+    Get in touch with me for collaborations, questions, or just to say hi!{' '}
+    
+    <Link as={NextLink} href="/privacy" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
+    View my Privacy Policy
+            </Link>
+  </Heading>
         <Box maxW="80%" mx="auto" pt={8}>
         <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl id="name" mb={6} isRequired isInvalid={!!errors.name}>

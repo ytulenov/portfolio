@@ -25,7 +25,7 @@ const ModelNvidia = () => {
     : '/nvidia.glb';
 
   const rateLimiter = useRef(new RateLimiterMemory({
-    points: 5,
+    points: 20,
     duration: 3600,
   })).current;
 

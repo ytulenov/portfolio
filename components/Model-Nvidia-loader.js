@@ -17,7 +17,7 @@ export const NvidiaContainer = forwardRef(({ children }, ref) => (
     ref={ref}
     ratio={13 / 7}
     w="100%"             
-    maxW={{ base: "100%", md: "90vw", lg: "1300px" }} // Increased from 1300px, responsive   
+    maxW={{ base: "100%", md: "90vw", lg: "1400px" }} // Increased from 1300px, responsive   
     mt={['-20px', '-60px', '-150px']}
     mb={['-40px', '-140px', '-200px']} 
     position="relative"

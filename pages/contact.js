@@ -118,7 +118,9 @@ const Contact = () => {
               process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
             )}
           >
-            Get in touch with me for collaborations, questions, or just to say hi!
+            Get in touch with me for collaborations, questions, or just to say hi!{" "} <Link as={NextLink} href="/privacy" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
+    View my Privacy Policy
+            </Link>
           </Heading>
 
           <Box maxW="80%" mx="auto" pt={8}>

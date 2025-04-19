@@ -21,6 +21,7 @@ export default async function handler(req, res) {
   }
 
   const result = ContactFormSchema.safeParse(req.body);
+  console.log('Schema validation result:', result);
   if (!result.success) {
     console.error('Validation failed:', result.error.format());
     return res.status(400).json({ error: 'Invalid input', details: result.error.format() });
@@ -30,16 +31,16 @@ export default async function handler(req, res) {
     const { name, email, subject, message } = result.data;
     console.log('Validated data:', { name, email, subject, message });
 
-    const fromEmail = 'yerkin@ytulenov.com'; // Use this for testing
+    const fromEmail = 'yerkin@ytulenov.com'; // Ensure this is verified in Resend
 
     console.log('Sending email 1 to:', email);
     await resend.emails.send({
       from: fromEmail,
       to: [email],
       cc: ['yerkin@ytulenov.com'],
-      subject: `Contact Form: ${subject}`,
+      subject: "Thank you for your message!",
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
-      react: ContactFormEmail({ name, email, subject, message }),
+      react: ContactFormEmail({ name, email, subject, message })
     });
 
     console.log('Sending email 2 to: ytulenov@gmail.com');
@@ -47,7 +48,7 @@ export default async function handler(req, res) {
       from: fromEmail,
       to: ['ytulenov@gmail.com'],
       cc: ['yerkin@ytulenov.com'],
-      subject: `Contact Form: ${subject}`,
+      subject: "Thank you for your message!",
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
       react: ContactFormEmail({ name, email, subject, message }),
     });
@@ -55,7 +56,11 @@ export default async function handler(req, res) {
     console.log('Emails sent successfully');
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.error('Email sending error:', error.message, error.stack);
-    return res.status(500).json({ error: 'Failed to send email', details: error.message });
+    console.error('Email sending error:', error);
+    return res.status(500).json({
+      error: 'Failed to send email',
+      details: error.message,
+      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+    });
   }
 }
