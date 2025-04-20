@@ -9,6 +9,7 @@ import { Global } from "@emotion/react";
 import SpinningBlock from "../components/SpinnerBlock";
 import Slider from "react-slick";
 import { keyframes } from "@emotion/react"; 
+import Section from "../components/section"; // Import Section component
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -478,6 +479,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         />
     <Container maxW="80%" pb={0} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}> {/* Changed pb={20} to pb={0} */}
       {/* Carousel Before the Heading */}
+      <Section delay={0.1}>
       <Box
           mb={4}
           width={{ base: "100%", md: "1400px" }} 
@@ -552,7 +554,9 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
             </div>
           </Slider>
         </Box>
+        </Section>
 
+<Section delay={0.2}>
       {/* Education & Leadership Heading */}
       <Heading  as="h1"
       size="4xl"
@@ -562,7 +566,9 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
       lineHeight="1.1" textAlign="center" mb={14}>
         Education & Leadership
       </Heading>
+      </Section>
 
+<Section delay={0.3}>
       {/* UBC Section */}
       <Box >
       <Flex
@@ -1054,6 +1060,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
           </Flex>
         </Box>
       </Box>
+      </Section>
     </Container></>
   );
 }

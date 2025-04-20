@@ -26,6 +26,7 @@ import Icon15 from "../public/icons/abstract-15.svg";
 import Icon16 from "../public/icons/abstract-16.svg";
 import Icon17 from "../public/icons/abstract-17.svg";
 import Icon18 from "../public/icons/abstract-18.svg";
+import Section from "../components/section"; // Import Section component
 import Icon19 from "../public/icons/abstract-19.svg";
 import Icon20 from "../public/icons/abstract-20.svg";
 
@@ -107,6 +108,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
           },
         }}
       >
+        
         {/* Icon in top-left */}
         <Box position="absolute" top={10} left={10}>
    
@@ -288,6 +290,8 @@ export default function Courseworks({ courseworkByYear }) {
       px={{ base: 4, md: 8 }}
       position="relative"
     >
+              <Section delay={0.1}>
+
       <Box textAlign="center" mb={16}>
         <Heading
           as="h1"
@@ -303,7 +307,9 @@ export default function Courseworks({ courseworkByYear }) {
           Explore my academic journey with projects and lab work from each year of college
         </Text>
       </Box>
+      </Section>
 
+<Section delay={0.2}>
       <Flex
         direction={{ base: "column", md: "row" }}
         justify="center"
@@ -348,8 +354,8 @@ export default function Courseworks({ courseworkByYear }) {
           <Box w="60px" h="2px" bg={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mx="auto" mt={3} />
         </Box>
       </Flex>
-
-      {years.map((year) => {
+      </Section>
+      {years.map((year, index) => {
         const numItems = courseworkByYear[year]?.length || 0;
         const sliderSettings = {
           ...baseSliderSettings,
@@ -359,6 +365,7 @@ export default function Courseworks({ courseworkByYear }) {
         };
 
         return (
+          <Section key={year} delay={0.3 + index * 0.1}>
           <Box key={year} mb={8} position="relative" px={4}>
             <Text
               fontSize="3xl"
@@ -414,8 +421,11 @@ export default function Courseworks({ courseworkByYear }) {
       Debug: courseworkByYear[{year}] = {JSON.stringify(courseworkByYear[year] || [])}
     </Text>
   </Box>
+  
 )}
         </Box>
+        </Section>
+
       );
     })}
   </Box></>

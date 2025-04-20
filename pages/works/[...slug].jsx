@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { promises as fs } from "fs";
 import path from "path";
+import Section from "../../components/section"; // Import Section component
 
 
 const HighlightLink = ({ children, href, ...props }) => (
@@ -73,6 +74,8 @@ export default function WorkSlug({ source, frontmatter }) {
 
   return (
     <Container maxW="80%" px={{ base: 4, md: 0 }} mt={{ base: -20, md: -28 }}>
+            <Section delay={0.1}>
+
       <Box mb={6}>
         <Link href="/works">
           <Text
@@ -86,7 +89,9 @@ export default function WorkSlug({ source, frontmatter }) {
           </Text>
         </Link>
       </Box>
+      </Section>
 
+<Section delay={0.2}>
       {/* Split-Screen Layout */}
       <Flex
         direction={{ base: "column", md: "row" }}
@@ -312,6 +317,7 @@ export default function WorkSlug({ source, frontmatter }) {
           </VStack>
         </Box>
       </Flex>
+      </Section>
     </Container>
   );
 }

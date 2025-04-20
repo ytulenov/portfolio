@@ -3,6 +3,7 @@ import WorkCard from '/components/WorkCard';
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import Section from '../components/section'; // Import Section component
 
 export default function Works({ works }) {
   return (
@@ -14,6 +15,8 @@ export default function Works({ works }) {
       mt={{ base: -10, md: -14 }}
       position="relative"
     >
+            <Section delay={0.1}>
+
       <Heading
       as="h1"
       size="4xl"
@@ -29,6 +32,8 @@ export default function Works({ works }) {
       >
         Work Experience
       </Heading>
+      </Section>
+      <Section delay={0.2}>
       <Box maxW="100%" w="full" overflowY="auto" h="100vh" flex="1">
         <VStack spacing={0} align="stretch">
         {works.map((work, index) => (
@@ -36,6 +41,8 @@ export default function Works({ works }) {
       ))}
         </VStack>
       </Box>
+      </Section>
+
     </Flex>
   );
 }

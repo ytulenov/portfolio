@@ -328,6 +328,7 @@ const Home = () => {
   return (
   <Layout>
     <Container maxW="80%" px={4} pt={24} >
+    <Section delay={0.1}>
       <Box display={{ md: 'flex' }} alignItems="center">
         <Box flexGrow={1}>
           <Heading 
@@ -376,7 +377,7 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
-
+      </ Section>
       <Section delay={0.1}>
         <Heading as="h1" fontSize="3xl" variant="section-title" pt={20} mb={2}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}
             color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>

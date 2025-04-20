@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Image, Grid, Card, CardBody, Heading, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
 import matter from 'gray-matter';
+import Section from '../components/section'; // Import Section component
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString("en-US", {
@@ -13,6 +14,8 @@ const formatDate = (dateString) => {
 export default function Posts({ Posts }) {
   return (
     <Flex direction="column" minH="100vh" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+            <Section delay={0.1}>
+
       <Heading
         as="h1"
           size="4xl"
@@ -26,6 +29,8 @@ export default function Posts({ Posts }) {
       >
         Posts
       </Heading>
+      </Section>
+      <Section delay={0.2}>
       <Box maxW="1200px" mx="auto" bg="transparent" pb={8}>
         <Grid
           templateColumns="repeat(2, 1fr)"
@@ -125,6 +130,7 @@ export default function Posts({ Posts }) {
           ))}
         </Grid>
       </Box>
+      </Section>
     </Flex>
   );
 }

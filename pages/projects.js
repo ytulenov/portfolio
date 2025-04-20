@@ -3,7 +3,7 @@ import { Box, Flex, Text, Image, Container, Button, Heading, useColorModeValue }
 import Link from 'next/link'; 
 import matter from 'gray-matter'; 
 import { IoLogoGithub } from 'react-icons/io5';
-
+import Section from '../components/section'; // Import Section component
 
 
 const ProjectBlock = ({ project }) => {
@@ -255,6 +255,7 @@ export default function Projects({ projects }) {
   const renderAllAsFirstProject = (projects.length - 2) % 3 === 0;
   return (
     <>
+          <Section delay={0.1}>
     <Heading      as="h1"
           size="4xl"
           textTransform="uppercase"
@@ -264,29 +265,40 @@ export default function Projects({ projects }) {
           lineHeight="1.1" mb={10} textAlign="center"   mt={{ base: -10, md: -14 }}>
         Projects
       </Heading>
-     
+      </Section>
+
     {projects.map((project, index) => {
       if (renderAllAsFirstProject) {
         
         return (
+          <Section key={index} delay={0.2 + index * 0.1}>
+
           <Box key={index} position="relative" h="auto" pb={32}>
             <FirstProjectLayout project={project} />
           </Box>
+          </Section>
+
         );
       }
 
       if (index % 3 === 0) {
         
         return (
+          <Section key={index} delay={0.2 + (index / 3) * 0.1}>
+
           <Box key={index} position="relative" h="auto" py={20}>
             <FirstProjectLayout project={project} />
           </Box>
+          </Section>
+
         );
       }
 
       if (index % 3 === 1) {
         
         return (
+          <Section key={`row-${index}`} delay={0.2 + (Math.floor(index / 3) + 1) * 0.1}>
+
           <Flex
             key={`row-${index}`}
             maxW="1640px"
@@ -302,6 +314,8 @@ export default function Projects({ projects }) {
               <ProjectBlock project={projects[index + 1]} />
             )}
           </Flex>
+          </Section>
+
         );
       }
 

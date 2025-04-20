@@ -7,6 +7,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { promises as fs } from "fs";
 import path from "path";
+import Section from "../../components/section"; // Import Section component
 
 
 const CodeBlock = dynamic(() => import("../../components/CodeBlock"), { ssr: false });
@@ -134,6 +135,8 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) {
 
   return (
     <Container maxW="80%"pb={24} mt={{ base: -20, md: -28 }}>
+            <Section delay={0.1}>
+
       <Box mb={6}>
     <Link href="/posts" legacyBehavior>
   <Text
@@ -156,7 +159,9 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) {
   </Text>
 </Link>
 </Box>
-     
+</Section>
+
+<Section delay={0.2}>
       <Box mb={8} rounded="xl" overflow="hidden" style={{ height: "700px", width: "100%" }}>
   {frontmatter.image ? (
     <Link href={frontmatter.link || `/posts/${slug}`} passHref legacyBehavior key={slug}>
@@ -172,6 +177,9 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) {
     </Link>
   ) : null}
 </Box>
+</Section>
+
+<Section delay={0.3}>
       <Heading as="h1" size="2xl" mb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
         {frontmatter.title}
       </Heading>
@@ -185,10 +193,13 @@ export default function PostsPage({ source, frontmatter, baseDir, params }) {
         {frontmatter.author && `By ${frontmatter.author} `}
         {frontmatter.publishedDate ? `| ${formatDate(frontmatter.publishedDate)}` : 'N/A'} 
       </Text>
+      </Section>
 
+<Section delay={0.4}>
       <Box mt={8}>
         <MDXRemote {...source} components={components} />
       </Box>
+      </Section>
     </Container>
   );
 }
