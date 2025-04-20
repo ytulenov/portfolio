@@ -1,4 +1,4 @@
-import { Container, Heading, Box, Text, Button, useColorModeValue } from '@chakra-ui/react';
+import { Container, Heading, Box, Text, Button, useColorModeValue, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
@@ -135,7 +135,10 @@ const Privacy = () => {
                 >
                   contact form
                 </Text>
-              </NextLink>.
+              </NextLink>{' '}(messages are sent to ytulenov@gmail.com) or directly via{' '}<Link as={NextLink} href="mailto:ytulenov@gmail.com" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
+              ytulenov@gmail.com
+
+            </Link>.
             </Text>
 
             <Heading as="h2" fontSize="xl" mb={4} fontWeight="semibold">
@@ -168,7 +171,10 @@ const Privacy = () => {
                 >
                   contact form
                 </Text>
-              </NextLink>.
+              </NextLink>{' '}(messages are sent to ytulenov@gmail.com) or directly via{' '}<Link as={NextLink} href="mailto:ytulenov@gmail.com" passHref scroll={false}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_LINK_COLOR_LIGHT, process.env.NEXT_PUBLIC_LINK_COLOR_DARK)}>
+              ytulenov@gmail.com
+
+            </Link>.
             </Text>
 
             <Text fontStyle="italic" mt={6}>
