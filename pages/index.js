@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import {Link,Container,Heading,Box,SimpleGrid,Button,FormControl,FormLabel,Input,Textarea,useColorModeValue, useToast} from '@chakra-ui/react';
+import {Link,Container,Heading,Box,SimpleGrid,Button,HStack,FormControl,FormLabel,Input,Textarea,useColorModeValue, useToast} from '@chakra-ui/react';
 import {EmailIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,88 +10,105 @@ import Image from 'next/image';
 import WorkExperience from '../components/workexperiencemainpage';
 import React, { useState } from 'react';
 import { VscTerminalBash } from "react-icons/vsc";
-import { TbBrandPowershell,  TbBrandJavascript} from "react-icons/tb";
-import { FaPython } from "react-icons/fa";
-import { SiCplusplus, SiC } from "react-icons/si";
-import { FaRProject } from "react-icons/fa";
-import { FaReact } from "react-icons/fa";
-import { TbFileTypeSql } from "react-icons/tb";
-import { SiTypescript } from "react-icons/si";
-import { TbBrandOauth } from "react-icons/tb";
-
-
+import { TbBrandPowershell,  TbBrandJavascript, TbBrandOauth, TbFileTypeSql, TbApi, TbReport, TbSettingsAutomation} from "react-icons/tb";
+import { SiAutocad, SiAmazonaws, SiArduino, SiGithub, SiGooglecolab, SiJupyter, SiMicrosoft, SiMysql, SiNumpy, SiOpencv, SiPandas, SiPytorch, SiRaspberrypi, SiSelenium, SiSolidworks, SiTensorflow, SiVisualstudiocode } from "react-icons/si"; // Added icons for additional skills
+import { FaPython, FaReact, FaRProject, FaNetworkWired, FaFileExcel, FaProjectDiagram } from "react-icons/fa";
+import { SiCplusplus, SiC, SiTypescript, SiPrisma, SiShadcnui, SiCloudinary, SiAmazoniam, SiKicad, SiLtspice, SiPfsense, SiAutodeskrevit, SiKeras, SiPlanetscale, SiArm, SiVelog, SiAmazonec2, SiAmazons3, SiCyberdefenders, SiOpenvpn } from "react-icons/si";
+import { RiNextjsFill, RiTailwindCssLine } from "react-icons/ri";
+import { DiNodejs } from "react-icons/di";
+import { GiCircuitry, GiElectricalSocket, GiElectricalCrescent } from "react-icons/gi";
+import { PiMicrosoftExcelLogoFill, PiCircuitryFill, PiDetectiveDuotone } from "react-icons/pi";
+import { BsFiletypeJson, BsPcDisplayHorizontal } from "react-icons/bs";
+import { FcScatterPlot } from "react-icons/fc";
+import { CiMicrochip } from "react-icons/ci";
+import { MdOutlinePrivateConnectivity, MdOutlineElectricMeter, MdElectricalServices, MdOutlinePrecisionManufacturing } from "react-icons/md";
+import { IoIosCloud } from "react-icons/io";
+import { GrSchedulePlay } from "react-icons/gr";
 
 const skills = [
-  { name: 'Bash', icon: <VscTerminalBash />, color: '#2f3a3e'}, // Custom SVG
-  { name: 'C', icon: <SiC />, color: '#03599c'}, // Custom SVG
-  { name: 'C++', icon: <SiCplusplus />, color: '#659ad2'},
-  { name: 'JS/HTML/CSS', icon: <TbBrandJavascript />, color: '#f7df1e'},
-  { name: 'Powershell', icon: <TbBrandPowershell />, color: '#0277bd'},
-  { name: 'Python', icon: <FaPython />, color: '#ffe873'},
-  { name: 'R/RStudio', icon: <FaRProject />, color: '#2167ba'},
-  { name: 'React', icon: <FaReact />, color: '#61dafb'},
-  { name: 'SQL', icon: <TbFileTypeSql />, color: '#df6c20'},
-  { name: 'Typescript', icon: <SiTypescript />, color: '#3178c6'},
-  /*{ name: 'ClerkAuth', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Cloudinary', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'NextJs', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'NodeJs', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Prisma', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Tailwind', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'ShadcnUI', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'AutoCAD', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'AWS', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'EasyEDA', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Excel', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Git/Github', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Google Colab', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'InduSoft Web', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Jupyter Notebook', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'KiCAD EDA', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'LTSpice', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'KiCAD', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'MS Office', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'MySQL', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'PFsense+', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Raspberry PI', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'REVIT', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'SolidWorks', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'VS Code', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Json', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Keras', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Labelme', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Matplotlib', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'NumPy', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'OpenCV', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'OpenPyxl', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'PlanetScale', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Pandas', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Pytorch', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Selenium', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'TensorFlow', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Arduino', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'ARM Assembly', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Circuit Design/Components', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Quartus', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Verilog', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'AWS IAM', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'DMZ', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'EAC 2021', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'EC2', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Net Metering', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'NIST CSF', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'REST API', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'VPC', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Suricata IPS/IDS', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Daily Reports', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'EAC Compliance', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Electrical System Installation', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'GOST Compliance', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'HMI', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'PLC', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Process Automation', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Schedule Development', icon: <SiTypescript />, color: '#3178c6'},
-  { name: 'Subcontractor Management', icon: <SiTypescript />, color: '#3178c6'},*/
+  { name: 'Bash', icon: <VscTerminalBash />, color: '#2f3a3e', category: 'Programming Languages & Web Development' },
+  { name: 'C', icon: <SiC />, color: '#03599c', category: 'Programming Languages & Web Development' },
+  { name: 'C++', icon: <SiCplusplus />, color: '#659ad2', category: 'Programming Languages & Web Development' },
+  { name: 'JS/HTML/CSS', icon: <TbBrandJavascript />, color: '#f7df1e', category: 'Programming Languages & Web Development' },
+  { name: 'Powershell', icon: <TbBrandPowershell />, color: '#0277bd', category: 'Programming Languages & Web Development' },
+  { name: 'Python', icon: <FaPython />, color: '#ffe873', category: 'Programming Languages & Web Development' },
+  { name: 'R/RStudio', icon: <FaRProject />, color: '#2167ba', category: 'Programming Languages & Web Development' },
+  { name: 'React', icon: <FaReact />, color: '#61dafb', category: 'Programming Languages & Web Development' },
+  { name: 'SQL', icon: <TbFileTypeSql />, color: '#df6c20', category: 'Programming Languages & Web Development' },
+  { name: 'Typescript', icon: <SiTypescript />, color: '#3178c6', category: 'Programming Languages & Web Development' },
+  { name: 'Verilog', icon: <SiVelog />, color: '#000000', category: 'Programming Languages & Web Development' },
+  { name: 'ClerkAuth', icon: <TbBrandOauth />, color: '#9fbddf', category: 'Programming Languages & Web Development' },
+  //{ name: 'NextJs', icon: <RiNextjsFill />, color: '#3178c6', category: 'Programming Languages & Web Development' },
+  { name: 'NodeJs', icon: <DiNodejs />, color: '#83cd29', category: 'Programming Languages & Web Development' },
+  { name: 'Prisma', icon: <SiPrisma />, color: '#123a51', category: 'Programming Languages & Web Development' },
+  //{ name: 'Tailwind', icon: <RiTailwindCssLine />, color: '#3178c6', category: 'Programming Languages & Web Development' },
+  //{ name: 'ShadcnUI', icon: <SiShadcnui />, color: '#3178c6', category: 'Programming Languages & Web Development' },
+  //{ name: 'Cloudinary', icon: <SiCloudinary />, color: '#3178c6', category: 'Programming Languages & Web Development' },
+
+  // Software Tools
+  //{ name: 'AutoCAD', icon: <SiAutocad />, color: '#3178c6', category: 'Software Tools' },
+  { name: 'EasyEDA', icon: <GiCircuitry />, color: '#5588ff', category: 'Software Tools' },
+  { name: 'Excel', icon: <PiMicrosoftExcelLogoFill />, color: '#138147', category: 'Software Tools' },
+  { name: 'Git/Github', icon: <SiGithub />, color: '#712789', category: 'Software Tools' },
+  { name: 'Google Colab', icon: <SiGooglecolab />, color: '#fea602', category: 'Software Tools' },
+  { name: 'InduSoft Web', icon: <FaNetworkWired />, color: '#039547', category: 'Software Tools' },
+  { name: 'Jupyter Notebook', icon: <SiJupyter />, color: '#f37726', category: 'Software Tools' },
+  { name: 'KiCAD EDA', icon: <SiKicad />, color: '#314cb0', category: 'Software Tools' },
+  { name: 'LTSpice', icon: <SiLtspice />, color: '#900029', category: 'Software Tools' },
+  { name: 'MS Office', icon: <SiMicrosoft />, color: '#737373', category: 'Software Tools' },
+  { name: 'MySQL', icon: <SiMysql />, color: '#e48e00', category: 'Software Tools' },
+  { name: 'PFsense+', icon: <SiPfsense />, color: '#2b40b5', category: 'Software Tools' },
+  { name: 'REVIT', icon: <SiAutodeskrevit />, color: '#186bff', category: 'Software Tools' },
+  //{ name: 'SolidWorks', icon: <SiSolidworks />, color: '#3178c6', category: 'Software Tools' },
+  { name: 'VS Code', icon: <SiVisualstudiocode />, color: '#22a5f1', category: 'Software Tools' },
+
+  // Libraries & Frameworks
+  { name: 'Json', icon: <BsFiletypeJson />, color: '#194485', category: 'Libraries & Frameworks' },
+  { name: 'Keras', icon: <SiKeras />, color: '#d00000', category: 'Libraries & Frameworks' },
+  //{ name: 'Labelme', icon: <SiTypescript />, color: '#3178c6', category: 'Libraries & Frameworks' },
+  //{ name: 'Matplotlib', icon: <FcScatterPlot />, color: '#11557c', category: 'Libraries & Frameworks' },
+  //{ name: 'NumPy', icon: <SiNumpy />, color: '#3178c6', category: 'Libraries & Frameworks' },
+  { name: 'OpenCV', icon: <SiOpencv />, color: '#ff2a44', category: 'Libraries & Frameworks' },
+  { name: 'OpenPyxl', icon: <FaFileExcel />, color: '#237047', category: 'Libraries & Frameworks' },
+  { name: 'PlanetScale', icon: <SiPlanetscale />, color: '#000000', category: 'Libraries & Frameworks' },
+  { name: 'Pandas', icon: <SiPandas />, color: '#130754', category: 'Libraries & Frameworks' },
+  { name: 'Pytorch', icon: <SiPytorch />, color: '#ef4c2a', category: 'Libraries & Frameworks' },
+  { name: 'Selenium', icon: <SiSelenium />, color: '#00b400', category: 'Libraries & Frameworks' },
+  { name: 'TensorFlow', icon: <SiTensorflow />, color: '#ff9000', category: 'Libraries & Frameworks' },
+
+  // Hardware and Electronics
+  { name: 'Arduino', icon: <SiArduino />, color: '#00979c', category: 'Hardware and Electronics' },
+  { name: 'ARM Assembly', icon: <SiArm />, color: '#0092be', category: 'Hardware and Electronics' },
+  { name: 'Circuit Design/Components', icon: <PiCircuitryFill />, color: '#009730', category: 'Hardware and Electronics' },
+  { name: 'Quartus', icon: <CiMicrochip />, color: '#b6cae5', category: 'Hardware and Electronics' },
+  { name: 'Raspberry PI', icon: <SiRaspberrypi />, color: '#bd1143', category: 'Hardware and Electronics' },
+  { name: 'Verilog', icon: <SiVelog />, color: '#000000', category: 'Hardware and Electronics' },
+  { name: 'KiCAD', icon: <SiKicad />, color: '#314cb0', category: 'Hardware and Electronics' },
+
+  // Standards & Infrastructure
+  { name: 'AWS', icon: <SiAmazonaws />, color: '#ff9900', category: 'Standards & Infrastructure' },
+  { name: 'AWS IAM', icon: <SiAmazoniam />, color: '#759c3e', category: 'Standards & Infrastructure' },
+  { name: 'DMZ', icon: <MdOutlinePrivateConnectivity />, color: '#5737fc', category: 'Standards & Infrastructure' },
+  { name: 'CSA 2021', icon: <GiElectricalSocket />, color: '#0171ba', category: 'Standards & Infrastructure' },
+  { name: 'EC2', icon: <SiAmazonec2 />, color: '#e97b0c', category: 'Standards & Infrastructure' },
+  { name: 'S3', icon: <SiAmazons3 />, color: '#3f8624', category: 'Standards & Infrastructure' },
+  { name: 'Net Metering', icon: <MdOutlineElectricMeter />, color: '#fdc358', category: 'Standards & Infrastructure' },
+  { name: 'NIST CSF', icon: <SiCyberdefenders />, color: '#0231b5', category: 'Standards & Infrastructure' },
+  { name: 'REST API', icon: <TbApi />, color: '#594ed2', category: 'Standards & Infrastructure' },
+  { name: 'VPC', icon: <IoIosCloud />, color: '#7847d6', category: 'Standards & Infrastructure' },
+  { name: 'OpenVPN', icon: <SiOpenvpn />, color: '#ed7f22', category: 'Standards & Infrastructure' },
+  { name: 'Suricata IPS/IDS', icon: <PiDetectiveDuotone />, color: '#d8582b', category: 'Standards & Infrastructure' },
+
+  // Engineering and Project Management
+  { name: 'Daily Reports', icon: <TbReport />, color: '#FFC0CB', category: 'Engineering and Project Management' },
+  { name: 'CSA Compliance', icon: <GiElectricalSocket />, color: '#0171ba', category: 'Engineering and Project Management' },
+  { name: 'Electrical System Installation', icon: <MdElectricalServices />, color: '#b5fdff', category: 'Engineering and Project Management' },
+  { name: 'GOST Compliance', icon: <GiElectricalCrescent />, color: '#cae7d3', category: 'Engineering and Project Management' },
+  { name: 'HMI', icon: <BsPcDisplayHorizontal />, color: '#f70100', category: 'Engineering and Project Management' },
+  { name: 'PLC', icon: <MdOutlinePrecisionManufacturing />, color: '#ffc826', category: 'Engineering and Project Management' },
+  { name: 'Process Automation', icon: <TbSettingsAutomation />, color: '#d49137', category: 'Engineering and Project Management' },
+  { name: 'Schedule Development', icon: <GrSchedulePlay />, color: '#019938', category: 'Engineering and Project Management' },
+  { name: 'Subcontractor Management', icon: <FaProjectDiagram />, color: '#FFD700', category: 'Engineering and Project Management' },
 ];
 
 const SkillItem = ({ name, icon, color }) => {
@@ -201,25 +218,99 @@ const SkillItem = ({ name, icon, color }) => {
 };
 
 const SkillsSection = () => {
-  
+  const categories = [
+    'Programming Languages & Web Development',
+    'Software Tools',
+    'Libraries & Frameworks',
+    'Hardware and Electronics',
+    'Standards & Infrastructure',
+    'Engineering and Project Management',
+  ];
+  const [activeCategory, setActiveCategory] = useState(categories[0]); // Default to first category
+
   return (
-    <Box px={['10px', '20px', "0px"]}> {/* Responsive section padding */}
-      <SimpleGrid
-        columns={[2, 3, 6]}
-        spacing={['10px', '20px', 'clamp(50px, 1.5vw, 100px)']}
-        justifyItems="center"
-        maxW="2900px" 
-        mx="auto"     
+    <Box px={['10px', '20px', '0px']}>
+      {/* Category Buttons */}
+      <HStack
+        spacing={['2', '4']}
+        justify="center"
+        mb={10}
+        flexWrap="wrap"
+        gap={['2', '4']}
       >
-        {skills.map((skill, index) => (
-          <SkillItem
-            key={index}
-            name={skill.name}
-            icon={skill.icon}
-            color={skill.color}
-          />
+        {categories.map((category) => (
+          <Button
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            variant={activeCategory === category ? 'solid' : 'outline'}
+            size="lg"
+            fontSize={['md', 'lg']}
+            fontWeight="bold"
+            borderRadius="lg"
+            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+            bg={
+              activeCategory === category
+                ? useColorModeValue(
+                    process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT,
+                    process.env.NEXT_PUBLIC_BUTTON_BG_DARK
+                  )
+                : 'transparent'
+            }
+            color={
+              activeCategory === category
+                ? useColorModeValue(
+                    process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT,
+                    process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK
+                  )
+                : useColorModeValue(
+                    process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                    process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+                  )
+            }
+            borderColor={useColorModeValue(
+              process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_LIGHT,
+              process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_BORDERCOLOR_DARK
+            )}
+            _hover={{
+              bg: useColorModeValue(
+                process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
+                process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
+              ),
+              color: useColorModeValue(
+                process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT,
+                process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK
+              ),
+            }}
+            px={['3', '6']}
+            py={['2', '4']}
+          >
+            {category}
+          </Button>
         ))}
-      </SimpleGrid>
+      </HStack>
+
+      {/* Skills Grid for Active Category */}
+      <Box>
+        
+        <SimpleGrid
+          columns={[2, 3, 6]}
+          spacing={['10px', '20px', 'clamp(50px, 1.5vw, 100px)']}
+          justifyItems="center"
+          maxW="2900px"
+          mx="auto"
+        >
+          {skills
+            .filter((skill) => skill.category === activeCategory)
+            .map((skill, index) => (
+              <SkillItem
+                key={index}
+                name={skill.name}
+                icon={skill.icon}
+                color={skill.color}
+              />
+            ))}
+        </SimpleGrid>
+      </Box>
     </Box>
   );
 };
@@ -236,7 +327,33 @@ const experiences = [
       'Routed high-speed signals (16MHz) with impedance matching; validated designs in EasyEDA',
       'Programmed microcontrollers in C and C++ with PID controllers; developed BOMs, Gerber files, sourcing components from 15+ manufacturers'
     ],
-    logo: 'milsanmainpage.png',
+    logo: '/images/works/milsanmainpage.png',
+  },
+  {
+    company: 'Bosk Bioproducts',
+    title: 'Security Network Engineer',
+    link: 'boskbioproducts',
+    date: 'May 2023 - Aug 2023',
+    description: [
+      'Designed a hybrid AWS network with DMZ and VPC, integrating Bell’s modem and PfSense+ router',
+      'Mitigated a phishing attack, reducing risks by 25% using Suricata IDS/IPS and firewall updates',
+      'Boosted network speed by 40% with Wi-Fi 6 mesh and subnet segmentation for 30+ devices',
+      'Enabled remote lab access for 10+ instruments, optimizing processes for the FLEX department',
+    ],
+    logo: '/images/works/boskmainpage.png',
+  },
+  {
+    company: 'ECO2 Magnesia',
+    title: 'IT Support',
+    link: 'eco2',
+    date: 'May 2023 - Aug 2023',
+    description: [
+      'Collaborated with Head Geoengineer to gather requirements and design a MySQL database for PLC/HMI systems across three production lines using AVEVA InduSoft Web Studio v8.1',
+      'Researched InduSoft Web Studio (v7.1/v8.1) functionality, design creation, and database integration using official guides to support system enhancements',
+      'Enabled local data transmission without internet by interfacing with a keyboardless/mouseless HMI system, connecting to a local router for PLC communication',
+      'Explored cloud database integration options (AWS, Azure, Google Cloud) to enable future real-time monitoring in a French-language environment with limited site access'
+    ],     
+    logo: '/images/works/eco2mainpage.png',
   },
   {
     company: 'Starbucks',
@@ -249,33 +366,7 @@ const experiences = [
       'Implemented responsive design and ensured cross-browser compatibility.',
       'Participated in code reviews and provided constructive feedback to other developers.',
     ],
-    logo: 'koktobe.jpg',
-  },
-  {
-    company: 'Starbucks',
-    title: 'React.js Developer',
-    link: 'milsan',
-    date: 'Mar 2020 - Apr 2021',
-    description: [
-      'Developed and maintained web applications using React.js and other related technologies.',
-      'Collaborated with cross-functional teams including designers, product managers, and developers.',
-      'Implemented responsive design and ensured cross-browser compatibility.',
-      'Participated in code reviews and provided constructive feedback to other developers.',
-    ],
-    logo: 'koktobe.jpg',
-  },
-  {
-    company: 'Starbucks',
-    title: 'React.js Developer',
-    link: 'milsan',
-    date: 'Mar 2020 - Apr 2021',
-    description: [
-      'Developed and maintained web applications using React.js and other related technologies.',
-      'Collaborated with cross-functional teams including designers, product managers, and developers.',
-      'Implemented responsive design and ensured cross-browser compatibility.',
-      'Participated in code reviews and provided constructive feedback to other developers.',
-    ],
-    logo: 'eco2.jpg',
+    logo: '',
   },
 ];
 
@@ -439,7 +530,7 @@ const Home = () => {
            fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}  bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}>
             My Portfolio
           </Button>
-          <Button as={NextLink} href="/Yerkin_Tulenov_CV.pdf"  _hover={{
+          <Button as={NextLink} href="/files/Yerkin_Tulenov_CV.pdf"  _hover={{
     bg: useColorModeValue(
       process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
       process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
@@ -554,7 +645,7 @@ const Home = () => {
       </Button>
       <Button
         as={NextLink}
-        href="/Yerkin's Transcript.xlsx"
+        href="/files/Yerkin's Transcript.xlsx"
         download
         mx={2}
         fontSize= "18px"

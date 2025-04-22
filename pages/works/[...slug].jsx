@@ -57,15 +57,15 @@ export default function WorkSlug({ source, frontmatter }) {
 
   
   const images = [];
-  for (let i = 1; i <= 6; i++) {
-    const imageKey = `image${i}`;
-    if (frontmatter[imageKey]) {
-      const imageSrc = frontmatter[imageKey].startsWith('/')
-        ? frontmatter[imageKey]
-        : `/images/works/${frontmatter[imageKey]}`;
-      images.push(imageSrc);
-    }
-  }
+let i = 1;
+while (frontmatter[`image${i}`]) {
+  const imageKey = `image${i}`;
+  const imageSrc = frontmatter[imageKey].startsWith('/')
+    ? frontmatter[imageKey]
+    : `${frontmatter.imageBasePath || '/images/works/'}${frontmatter[imageKey]}`;
+  images.push(imageSrc);
+  i++;
+}
 
   
   const imageHeightPx = 200; 
@@ -114,20 +114,26 @@ export default function WorkSlug({ source, frontmatter }) {
   minH={{ base: "auto", md: "auto" }} // Adjusted to allow dynamic height
   position="relative"
   overflow="hidden"
-  bg={useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}
+  //bg={useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}
+  bg={useColorModeValue(process.env.NEXT_PUBLIC_OVERALL_BG_LIGHT, process.env.NEXT_PUBLIC_OVERALL_BG_DARK)}
+  _before={{
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    bgGradient: `linear(to-r, transparent, ${useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}, transparent, ${useColorModeValue(process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_LIGHT, process.env.NEXT_PUBLIC_WORKSSLUGPAGE_IMAGEFIELD_BG_COLOR_DARK)}, transparent)`,
+    opacity: 0.05,
+    zIndex: 0,
+  }}
 >
   {images.length > 0 ? (
     <VStack spacing={8} w="100%">
       {images.map((imageSrc, index) => {
         // Map index to the corresponding aspect ratio from metadata
-        const aspectRatios = [
-          frontmatter.image1AspectRatio,
-          frontmatter.image2AspectRatio,
-          frontmatter.image3AspectRatio,
-          frontmatter.image4AspectRatio,
-          frontmatter.image5AspectRatio,
-        ];
-        const aspectRatio = aspectRatios[index] || "3/2"; // Fallback to 3:2 if not specified
+       
+        const aspectRatio = frontmatter[`image${index + 1}AspectRatio`] || "3/2"; // Fallback to 3:2
         return (
           <Box
             key={index}

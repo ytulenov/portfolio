@@ -25,7 +25,7 @@ export default function WorkCard({ work, index }) {
           100% {
             width: 150px;
             height: 60px;
-            opacity: 0;
+            opacity: 0; 
           }
         }
       `}</style>
@@ -81,7 +81,7 @@ export default function WorkCard({ work, index }) {
             height="450px"
           >
             <Image
-              src={image || '/images/works/default.png'}
+              src={`/images/works/${image}`}
               alt={`${companyname} image`}
               width="791"
               height="450"

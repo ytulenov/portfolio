@@ -34,7 +34,7 @@ export default function Works({ works }) {
       </Heading>
       </Section>
       <Section delay={0.2}>
-      <Box maxW="100%" w="full" overflowY="auto" h="100vh" flex="1">
+      <Box maxW="100%" w="full" overflowY="auto" flex="1">
         <VStack spacing={0} align="stretch">
         {works.map((work, index) => (
         <WorkCard key={work.slug} work={work} index={index} />

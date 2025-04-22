@@ -148,7 +148,7 @@ function DynamicBackgroundBox() {
         px={{ base: 5, sm: 16 }} 
         py={10} 
         pb={12} 
-        bgImage="url('/eduleaderbackgroundforclub.png')" 
+        bgImage="url('/eduleader/eduleaderbackgroundforclub.png')" 
         bgRepeat="no-repeat" 
         bgSize={bgSize} 
         bgPos={{ base: "center 10%", md: "40% 40%" }} 
@@ -202,7 +202,7 @@ function DynamicBackgroundBox() {
           justifyContent="space-between"
         >
           <Image
-            src="/light-bulb.png" 
+            src="/eduleader/light-bulb.png" 
             alt="Light Bulb"
             h={10} 
             w={10}
@@ -233,7 +233,7 @@ function DynamicBackgroundBox() {
           justifyContent="space-between"
         >
           <Image
-            src="/password.png" 
+            src="/eduleader/password.png" 
             alt="Example"
             h={10} 
             w={10}
@@ -247,7 +247,7 @@ function DynamicBackgroundBox() {
             fontWeight="1000"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-            Another Skill
+            Secure Payment with Stripe
           </Text>
         </Box>
 
@@ -265,7 +265,37 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/palette.png" 
+            src="/eduleader/palette.png" 
+            alt="Example 2"
+            h={10} 
+            w={10}
+            objectFit="cover"
+            borderRadius="md"
+          />
+          <Text
+            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
+            fontSize={{ base: "xs", md: "sm" }}
+            letterSpacing="wide"
+            fontWeight="1000"
+            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+          >
+            UX/UI design
+          </Text>
+        </Box>
+        <Box
+          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
+          borderRadius="4rem"
+          w={{ base: 40, md: 44 }}
+          h={{ base: 40, md: 44 }}
+          p={7}
+          flexDirection="column"
+          alignItems="start"
+          justifyContent="space-between"
+          display="flex"
+          
+        >
+          <Image
+            src="/eduleader/blueprint.png" 
             alt="Example 2"
             h={10} 
             w={10}
@@ -295,37 +325,7 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/blueprint.png" 
-            alt="Example 2"
-            h={10} 
-            w={10}
-            objectFit="cover"
-            borderRadius="md"
-          />
-          <Text
-            color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_TEXTINSIDE_DARK)} 
-            fontSize={{ base: "xs", md: "sm" }}
-            letterSpacing="wide"
-            fontWeight="1000"
-            fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-          >
-            Third Skill Third Skil Third Skil Third Skil 
-          </Text>
-        </Box>
-        <Box
-          bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
-          borderRadius="4rem"
-          w={{ base: 40, md: 44 }}
-          h={{ base: 40, md: 44 }}
-          p={7}
-          flexDirection="column"
-          alignItems="start"
-          justifyContent="space-between"
-          display="flex"
-          
-        >
-          <Image
-            src="/relax.png" 
+            src="/eduleader/api.png" 
             alt="Example 2"
             h={10} 
             w={10}
@@ -355,7 +355,7 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/biceps.png" 
+            src="/eduleader/biceps.png" 
             alt="Example 2"
             h={10} 
             w={10}
@@ -369,7 +369,7 @@ function DynamicBackgroundBox() {
             letterSpacing="wide"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-            Third Skill Third Skil Third Skil Third Skil 
+PCB Workshop
           </Text>
         </Box>
       </Box>
@@ -491,63 +491,63 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
           <Slider {...carouselSettings}>
             <div>
               <img
-                src="/ubc.jpg"
+                src="/eduleader/ubc.jpg"
                 alt="UBC Campus 1"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc1.jpg"
+                src="/eduleader/ubc1.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc2.jpg"
+                src="/eduleader/ubc2.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc3.jpg"
+                src="/eduleader/ubc3.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc4.jpg"
+                src="/eduleader/ubc4.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc5.webp"
+                src="/eduleader/ubc5.webp"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc6.jpg"
+                src="/eduleader/ubc6.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc7.png"
+                src="/eduleader/ubc7.png"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
-                src="/ubc8.jpg"
+                src="/eduleader/ubc8.jpg"
                 alt="UBC Campus 2"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
@@ -621,7 +621,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
     mr={{ base: 0, md: -10 }} 
   >
     <Image
-      src="/ubclogo.png"
+      src="/eduleader/ubclogo.png"
       alt="UBC Logo"
       height={{ base: "10rem", xl: "16rem" }}
       sx={{
@@ -729,11 +729,11 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
           <Heading as="h1" fontSize="3xl" pb={8} textAlign="center"  mt={8} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             TRANSCRIPT
           </Heading>
-          <DataTable src="/Yerkin's Transcript.xlsx" />
+          <DataTable src="/files/Yerkin's Transcript.xlsx" />
           <Box textAlign="center" mt={6}>
           <Button
       as={Link}
-      href="/Yerkin's Transcript.xlsx"
+      href="/files/Yerkin's Transcript.xlsx"
       download="Yerkin's Transcript.xlsx" 
       fontSize="18px"
       variant="solid"
@@ -996,7 +996,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
               alignItems="center"
             >
               <Image
-                src={useColorModeValue("/hackerspacelogolight.png", "/hackerspacelogodark.png")}
+                src={useColorModeValue("/eduleader/hackerspacelogolight.png", "/eduleader/hackerspacelogodark.png")}
                 alt="UBC Logo"
                 height="16rem"
                 sx={{

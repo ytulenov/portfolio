@@ -1,0 +1,55 @@
+---
+position: "Security Network Engineer"
+companyname: "Bosk Bioproducts"
+companylink: "https://www.bosk-bioproducts.com"
+image: "bosk.png"
+image1: "bosk.png"
+image1AspectRatio: "1317/804"
+image2: "bosk2.png"
+image2AspectRatio: "947/438"
+image3: "bosk3.png"
+image3AspectRatio: "1100/546"
+image4: "bosk4.png"
+image4AspectRatio: "2366/1338"
+image5: "bosk5.png"
+image5AspectRatio: "1964/1126"
+image6: "bosk6.png"
+image6AspectRatio: "2362/1324"
+image7: "bosk7.png"
+image7AspectRatio: "2302/1332"
+image8: "bosk8.jpg"
+image8AspectRatio: "7436/3643"
+image9: "bosk9.jpg"
+image9AspectRatio: "1875/938"
+image10: "bosk10.png"
+image10AspectRatio: "1183/523"
+image11: "bosk11.png"
+image11AspectRatio: "1755/753"
+mainpagecolor: "#027941"
+location: "Quebec City, Canada 🇨🇦"
+mainpagesummary: "Designed and secured a hybrid network infrastructure, mitigated phishing attacks, and optimized connectivity for biochemical engineers at a bioproducts innovator"
+startedAt: "2023-05"
+endedAt: "2023-08"
+---
+
+### Overview
+In May 2023, I stepped into a role of a Security Network Engineer at Bosk Bioproducts. Bosk, an innovative company in the biochemical industry, had developed a groundbreaking method to produce PHA—an environmentally friendly bioplastic—in a fast, cost-effective way. Their innovation was tightly guarded under patent protection. But a recent cyberattack had exposed a outrageous vulnerability: the company’s network was nothing more than a basic Bell modem, leaving their sensitive data at risk. If another breach occurred, Bosk could lose their competitive edge, and years of research could be compromised. I was hired for a four-month contract to build a secure, efficient network from the ground up, protect their intellectual property, and enable their biochemical engineers to work faster with remote access.
+
+### My Role
+The challenge was alarming. The existing setup was minimal, with no proper firewall, no segmentation, and no secure file-sharing system. The company’s VoIP phones relied on Bell’s modem, but there was no infrastructure to support secure internet access or remote operations. On top of that, the team needed a network that could connect lab instrumentation for real-time data collection, allowing engineers to monitor experiments remotely. I started by sketching out network schematics, envisioning a hybrid infrastructure that could balance security with functionality. I proposed integrating a DMZ, a Restricted Zone, and an AWS VPC with public and private subnets—a setup that would isolate sensitive data while allowing seamless operations. To ensure the VoIP phones worked without disruption, I configured a NETGATE 6100 MAX router running PfSense+ software in bridge mode using PPPoE, allowing it to coexist with Bell’s modem. This design was the foundation of a robust network, and after presenting it to the CEO through a detailed PowerPoint, I secured approval to migrate the company’s IT infrastructure to AWS.
+
+Security was my top priority. Just weeks into the project, a phishing attack targeted the lead chemical engineer. I immediately isolated her computer from the network, diving into Suricata IDS/IPS logs to analyze the malicious packets. I requested email logs from Gmail to understand the nature of the attack, updated firewall configurations, rebooted the system, and refreshed all SSH keys to prevent further intrusion. This quick response, combined with the deployment of PfSense+ with Suricata, deep packet inspection, web filtering, anti-spam, and antivirus protection, reduced phishing risks by 25%. I also secured 30+ office devices across Windows, Linux, and macOS, ensuring compliance with NIST CSF practices to safeguard Bosk’s patented process.
+
+Performance was another critical focus. The company’s REGEN and FLEX divisions needed reliable, high-speed connectivity to collaborate effectively.  I discovered a chaotic wiring setup—devices were disconnected from the internet, and Ethernet cables were a tangled mess. I took on the physical challenge, patching and organizing Ethernet cables, and routing them strategically to connect all devices to NETGEAR switches. This ensured stable, high-speed connections across both office floors. I then segmented the network into subnets for each division and deployed a Wi-Fi 6 mesh system, boosting internet speed by 40%. Using PowerShell and Bash scripting, I configured router, firewall, and 30+ devices, ensuring seamless WAN and LAN connectivity. For the FLEX department, I connected 10+ lab instruments to the network and linked all lab computers to the engineers’ devices, enabling secure remote access by managing VPN connections with OpenVPN and handling the necessary certifications. This optimization allowed them to run processes outside regular hours and monitor experiments overnight, significantly improving their workflow efficiency.
+
+Collaboration was key to success. I engaged with 10+ stakeholders across departments to understand their needs, addressing issues like unreliable file transfers. I surveyed 15 employees to gather feedback, which helped me design a more user-friendly system. To secure file sharing, I deployed a FileCloud instance on AWS EC2 with IAM access and data synchronization, facilitating a safe migration from Gmail for sensitive communications. I also collaborated with over 10 vendors—Bell, Fortinet, Splunk, Cisco, Palo Alto Networks, and others—evaluating their solutions through presentations and quotes. This research informed a comprehensive strategy I presented to the CEO, including recommendations for Fortinet NGFW, Splunk SIEM, DUO MFA, VPNs, cloud firewalls, managed switches, and a VMware engine for local servers. Although my contract ended before these could be implemented, my cost breakdown and report paved the way for Bosk to continue strengthening their infrastructure.
+
+Reflecting on my four months at Bosk Bioproducts, I’m proud of the impact I made. I transformed a vulnerable network into a secure, high-performing system, and protected a groundbreaking innovation. This experience reinforced my passion for solving complex problems with technology, and it taught me the importance of balancing security, performance, and user needs in high-stakes environments. I left Bosk with a stronger network, a safer environment, and a blueprint for their future growth—a legacy I’m honored to have contributed to.
+
+
+### Skills Acquired
+- Expertise in hybrid network design with AWS VPC, DMZ, and subnet segmentation
+- Proficiency in network security tools like PfSense+, Suricata IDS/IPS, and NIST CSF compliance 
+- Experience with scripting for network automation using PowerShell and Bash
+- Strong stakeholder collaboration and vendor evaluation for strategic IT solutions
+
