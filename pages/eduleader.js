@@ -10,6 +10,7 @@ import SpinningBlock from "../components/SpinnerBlock";
 import Slider from "react-slick";
 import { keyframes } from "@emotion/react"; 
 import Section from "../components/section"; // Import Section component
+import { parse, format } from "date-fns";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -37,15 +38,15 @@ const HighlightLink = ({ children, href, ...props }) => (
   </Text>
 );
 
-
 const formatDate = (dateString) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  if (!dateString || typeof dateString !== "string") return "";
+  try {
+    const date = parse(dateString, "yyyy-MM-dd", new Date());
+    return format(date, "MMMM d, yyyy");
+  } catch (error) {
+    console.error(`Invalid date format for: ${dateString}`, error);
+    return "";
+  }
 };
 
 const translateYanimationUBClogo = keyframes`
@@ -451,7 +452,7 @@ export default function EduLeaderPage({ courses }) {
   };
 
   const startDate = new Date("2021-09-01");
-  const endDate = new Date("2025-06-05");
+  const endDate = new Date("2025-06-06");
   const today = getToday();
   const totalDurationMs = endDate - startDate;
   const elapsedMs = today - startDate;
@@ -690,12 +691,12 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
               <Box textAlign="center">
                 <Text fontSize="sm"fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>Today</Text>
                 <Text fontSize="lg" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontWeight="bold" color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_TIMELINE_GREEN_COLOR_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_TIMELINE_GREEN_COLOR_DARK)}>
-                  {formatDate(getToday())}
+                {format(today, "MMMM d, yyyy")}
                 </Text>
               </Box>
               <Box textAlign="center">
                 <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>End</Text>
-                <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontWeight="bold" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>Jun 5, 2025</Text>
+                <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontWeight="bold" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>Jun 6, 2025</Text>
               </Box>
             </Flex>
             <Box
