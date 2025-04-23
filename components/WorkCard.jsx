@@ -1,14 +1,19 @@
 import { Box, Text, Flex, Image, Button, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
+import { parse, format } from "date-fns";
 
 export default function WorkCard({ work, index }) {
   const { companyname, mainpagesummary, startedAt, endedAt, position, companylink, image, mainpagecolor, location } = work.frontmatter;
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}/${year}`;
+    if (!dateString || typeof dateString !== 'string') return '';
+    try {
+      const date = parse(dateString, 'yyyy-MM', new Date());
+      return format(date, 'MM/yyyy');
+    } catch (error) {
+      console.error(`Invalid date format for: ${dateString}`, error);
+      return '';
+    }
   };
 
   const isReversed = index % 2 === 1;
@@ -24,7 +29,7 @@ export default function WorkCard({ work, index }) {
           }
           100% {
             width: 150px;
-            height: 60px;
+            height: 60px; 
             opacity: 0; 
           }
         }

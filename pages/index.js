@@ -359,7 +359,7 @@ const experiences = [
     company: 'KH Stroy',
     title: 'Head Manager Assistant',
     link: 'khstroy',
-    date: 'May 2022 - Apr 2022',
+    date: 'May 2022 - Aug 2022',
     description: [
       'Designed a 25-part schedule in MS Project for 21 residential buildings, coordinating 20+ subcontractors to complete concrete pouring before the rainy season, avoiding a 6-month delay',
       'Automated 120+ daily progress reports and 10+ custom Excel reports using Python (Openpyxl, Matplotlib, Pandas), achieving 90% efficiency gains across 27 construction sites',

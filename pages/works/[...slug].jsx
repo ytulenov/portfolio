@@ -8,6 +8,7 @@ import Link from "next/link";
 import { promises as fs } from "fs";
 import path from "path";
 import Section from "../../components/section"; // Import Section component
+import { parse, format } from "date-fns"; // Add date-fns import
 
 
 const HighlightLink = ({ children, href, ...props }) => (
@@ -26,13 +27,16 @@ const HighlightLink = ({ children, href, ...props }) => (
 );
 
 const formatDate = (dateString) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-  });
+  if (!dateString || typeof dateString !== "string") return "";
+  try {
+    const date = parse(dateString, "yyyy-MM", new Date());
+    return format(date, "MMMM yyyy");
+  } catch (error) {
+    console.error(`Invalid date format for: ${dateString}`, error);
+    return "";
+  }
 };
+
 
 export default function WorkSlug({ source, frontmatter }) {
   const components = {
