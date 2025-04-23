@@ -103,7 +103,7 @@ const skills = [
   { name: 'Daily Reports', icon: <TbReport />, color: '#FFC0CB', category: 'Engineering and Project Management' },
   { name: 'CSA Compliance', icon: <GiElectricalSocket />, color: '#0171ba', category: 'Engineering and Project Management' },
   { name: 'Electrical System Installation', icon: <MdElectricalServices />, color: '#b5fdff', category: 'Engineering and Project Management' },
-  { name: 'GOST Compliance', icon: <GiElectricalCrescent />, color: '#cae7d3', category: 'Engineering and Project Management' },
+  //{ name: 'GOST Compliance', icon: <GiElectricalCrescent />, color: '#cae7d3', category: 'Engineering and Project Management' },
   { name: 'HMI', icon: <BsPcDisplayHorizontal />, color: '#f70100', category: 'Engineering and Project Management' },
   { name: 'PLC', icon: <MdOutlinePrecisionManufacturing />, color: '#ffc826', category: 'Engineering and Project Management' },
   { name: 'Process Automation', icon: <TbSettingsAutomation />, color: '#d49137', category: 'Engineering and Project Management' },
@@ -356,17 +356,17 @@ const experiences = [
     logo: '/images/works/eco2mainpage.png',
   },
   {
-    company: 'Starbucks',
-    title: 'React.js Developer',
-    link: 'milsan',
-    date: 'Mar 2020 - Apr 2021',
+    company: 'KH Stroy',
+    title: 'Head Manager Assistant',
+    link: 'khstroy',
+    date: 'May 2022 - Apr 2022',
     description: [
-      'Developed and maintained web applications using React.js and other related technologies.',
-      'Collaborated with cross-functional teams including designers, product managers, and developers.',
-      'Implemented responsive design and ensured cross-browser compatibility.',
-      'Participated in code reviews and provided constructive feedback to other developers.',
+      'Designed a 25-part schedule in MS Project for 21 residential buildings, coordinating 20+ subcontractors to complete concrete pouring before the rainy season, avoiding a 6-month delay',
+      'Automated 120+ daily progress reports and 10+ custom Excel reports using Python (Openpyxl, Matplotlib, Pandas), achieving 90% efficiency gains across 27 construction sites',
+      'Generated 10+ AutoCAD reports on pile-filling and foundation concrete, and compiled predictive reports for 1,000+ tasks to optimize project timelines',
+      'Orchestrated communication between engineering teams, supervisors, and head office, creating an organization chart and presenting project outcomes to stakeholders'
     ],
-    logo: '',
+    logo: '/images/works/khstroymainpage.png',
   },
 ];
 

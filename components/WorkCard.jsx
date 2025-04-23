@@ -73,6 +73,8 @@ export default function WorkCard({ work, index }) {
             ml={isReversed ? 0 : 4} 
             mr={isReversed ? 4 : 0} 
             flexShrink={0}
+            borderWidth="4px"
+            borderColor={mainpagecolor}
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -84,6 +86,7 @@ export default function WorkCard({ work, index }) {
               src={`/images/works/${image}`}
               alt={`${companyname} image`}
               width="791"
+              bg="#ffffff"
               height="450"
               objectFit="fill"
               transition="all 0.6s ease"
