@@ -428,13 +428,12 @@ export default function EduLeaderPage({ courses }) {
 
   
   const spinningBlocks = [
-    { label: "Cumulative Average", finalValue: 76.9, generateRandom: generateRandomDecimal },
-    { label: "GPA", finalValue: 3.4, generateRandom: generateRandomDecimal },
-    { label: "Class Average", finalValue: 71.41, generateRandom: generateRandomDecimal },
-    
-    { label: "Cumulative Credits Earned", finalValue: "127/145", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
+    { label: "Cumulative Average", finalValue: 77.7, generateRandom: generateRandomDecimal },
+    { label: "GPA", finalValue: 3.47, generateRandom: generateRandomDecimal },
+    { label: "Class Average", finalValue: 71.41, generateRandom: generateRandomDecimal }, // average for first 3 years. the way you calculate is (4*(63.72)+3(72.69+80.24+72.65+61.29+72.89+63.01+69.01+69.64+70.88+77.3+71.7+64.7+81+76+73.7+74+79.3+72+70.3+59.2+66.8+77.8+81.4+68.2+76.6+67.7+68.5+72.5+77.5+67.7+65.9+75.2+69.5))/(4+3(9+12+12)) по нарастающей. первый курс APSC 169, потом APSC 171 до ENGR 378
+    { label: "Cumulative Credits Earned", finalValue: "148/148", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
     { label: "Current Year", finalValue: 4, generateRandom: generateRandomSmallInteger },
-    { label: "Courses Passed", finalValue: "37/41", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
+    { label: "Courses Passed", finalValue: "41/41", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
   ];
 
   
@@ -452,7 +451,7 @@ export default function EduLeaderPage({ courses }) {
   };
 
   const startDate = new Date("2021-09-01");
-  const endDate = new Date("2025-06-06");
+  const endDate = new Date("2025-04-30");
   const today = getToday();
   const totalDurationMs = endDate - startDate;
   const elapsedMs = today - startDate;
@@ -606,8 +605,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
       )}
     >
-      I am currently pursuing a Bachelor of Applied Science in Electrical Engineering at the University of British Columbia (UBC), and in my fourth year, I’m diving into some fascinating areas of the field. I’m exploring power electronics, focusing on efficient energy management in systems, and modern control techniques, which help optimize how devices and processes function. I’m also delving into applied machine learning, looking at how it can tackle complex engineering challenges. My capstone design project ties it all together, letting me apply sustainable design principles, circuit analysis, and system dynamics to create a practical solution. This builds on a solid base from earlier years—things like electricity, magnetism, and computational tools—and it’s giving me the skills to make a real impact in electrical engineering
-    </Text>
+I recently completed my Bachelor of Applied Science in Electrical Engineering at the University of British Columbia (UBC). In my final year, I had been diving into some fascinating areas of the field. I explored power electronics, focusing on efficient energy management in systems, and modern control techniques, which help optimize how devices and processes function. I also have been delving into applied machine learning, looking at how it can tackle complex engineering challenges. My capstone design project tied it together, letting me apply sustainable design principles, circuit analysis, and system dynamics to create a practical solution. This was built on a solid base from earlier years—things like electricity, magnetism, and computational tools—and it gave me the skills to make a real impact in electrical engineering    </Text>
   </Box>
   <Box
     flexShrink={0}
@@ -653,7 +651,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
         {/* Timeline */}
         <Box textAlign="center" mb={12}>
           <Heading fontSize="3xl" pb={5} as="h1" textAlign="center" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-            TIMELINE
+            EDUCATION TIMELINE
           </Heading>
           <Box position="relative" height="80px" >
             <Box
@@ -696,7 +694,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
               </Box>
               <Box textAlign="center">
                 <Text fontSize="sm" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>End</Text>
-                <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontWeight="bold" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>Jun 6, 2025</Text>
+                <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} fontWeight="bold" color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>Apr 30, 2025</Text>
               </Box>
             </Flex>
             <Box
