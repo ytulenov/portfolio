@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import matter from "gray-matter";
-import {Box,Container,Text,Heading,Grid,Image,Button,Flex,useColorModeValue,} from "@chakra-ui/react";
+import { FaLinkedin, FaEnvelope, FaGlobe } from "react-icons/fa";
+import { FaSquareInstagram } from "react-icons/fa6";
+import {Box,Container,Text,Heading,Grid,Image,Button,Flex,useColorModeValue,IconButton} from "@chakra-ui/react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Global } from "@emotion/react";
@@ -60,10 +62,10 @@ const translateYanimationUBClogo = keyframes`
 
 const translateYanimationhackerspacelogo = keyframes`
   0% {
-    transform: translateY(-4.5rem);
+    transform: translateY(-1rem);
   }
   100% {
-    transform: translateY(-6rem);
+    transform: translateY(-3rem);
   }
 `;
 
@@ -93,6 +95,8 @@ function DynamicBackgroundBox() {
     const [bgSize, setBgSize] = useState("170% auto"); 
     const [overlayOpacity, setOverlayOpacity] = useState(0); 
     const boxRef = useRef(null);
+    const iconSize = "2xl";
+  const customIconSize = "24px";
   
     useEffect(() => {
       let rafId = null;
@@ -149,7 +153,7 @@ function DynamicBackgroundBox() {
         px={{ base: 5, sm: 16 }} 
         py={10} 
         pb={12} 
-        bgImage="url('/eduleader/eduleaderbackgroundforclub.png')" 
+        bgImage={useColorModeValue("url('/eduleader/eduleaderbackgroundforclublight.png')","url('/eduleader/eduleaderbackgroundforclub.png')")}
         bgRepeat="no-repeat" 
         bgSize={bgSize} 
         bgPos={{ base: "center 10%", md: "40% 40%" }} 
@@ -172,15 +176,64 @@ function DynamicBackgroundBox() {
         />
   
         {/* Content (above overlay) */}
-        <Box position="relative" zIndex={2}>
-          <Heading as="h1" size="lg" mb={2} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-            UBC Tech Club
-          </Heading>
-          <Text mb={2} fontWeight="1000" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue("#4369fa", process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}>Active Member | 2022 - Present</Text>
-          <Text mb={4}  fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT,process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-          Skills Acquired
-          </Text>
-        </Box>
+        <Box position="relative" zIndex={2} w="100%">
+  <Flex justifyContent="space-between" alignItems="center" w="100%">
+    <Link href="https://linktr.ee/ubcoieee" target="_blank" rel="noopener noreferrer">
+    <Heading as="h1" size="lg" mb={2}     _hover={{ textDecoration: "underline", cursor: "pointer" }}
+ fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+      IEEE UBC Okanagan Student Branch
+    </Heading>
+    </Link>
+    <Flex gap={4}>
+       <IconButton
+            as={Link}
+            href="https://www.linkedin.com/company/ieee-okanagan-student-chapter/"
+            aria-label="LinkedIn"
+            icon={<FaLinkedin fontSize={customIconSize} />}
+            size={iconSize}
+            variant="ghost"
+color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}            _hover={{ opacity: 1 }}
+            isExternal
+          />
+      <IconButton
+            as={Link}
+            href="https://www.instagram.com/ubcoieee/"
+            aria-label="LinkedIn"
+            icon={<FaSquareInstagram fontSize={customIconSize} />}
+            size={iconSize}
+            variant="ghost"
+color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}            _hover={{ opacity: 1 }}
+            isExternal
+          />
+      <IconButton
+            as={Link}
+            href="https://linktr.ee/ubcoieee"
+            aria-label="LinkedIn"
+            icon={<FaGlobe fontSize={customIconSize} />}
+            size={iconSize}
+            variant="ghost"
+color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}            _hover={{ opacity: 1 }}
+            isExternal
+          />
+          <IconButton
+            as={Link}
+            href="mailto:mlrc.hackerspace@gmail.com"
+            aria-label="LinkedIn"
+            icon={<FaEnvelope fontSize={customIconSize} />}
+            size={iconSize}
+            variant="ghost"
+color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}            _hover={{ opacity: 1 }}
+            isExternal
+          />
+    </Flex>
+  </Flex>
+  <Text mb={2} fontWeight="1000" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_DATECOLOR_INSIDE_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}>
+    Past Member | 2023 - 2025
+  </Text>
+  <Text mb={4} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_MAINPAGE_CONTACTFORM_PLACEHOLDERTEXTCOLOR_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+    Skills Acquired
+  </Text>
+</Box>
         <Box
         position="relative"
         mt={{ base: 40, md: 10 }} 
@@ -203,8 +256,8 @@ function DynamicBackgroundBox() {
           justifyContent="space-between"
         >
           <Image
-            src="/eduleader/light-bulb.png" 
-            alt="Light Bulb"
+            src="/eduleader/code.png" 
+            alt="Full-Stack Development"
             h={10} 
             w={10}
             objectFit="cover"
@@ -217,8 +270,7 @@ function DynamicBackgroundBox() {
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             fontWeight="1000"
           >
-            Building stuff from scratch
-          </Text>
+Built scalable platforms using Next.js & APIs          </Text>
         </Box>
 
         {/* Card 2 */}
@@ -234,8 +286,8 @@ function DynamicBackgroundBox() {
           justifyContent="space-between"
         >
           <Image
-            src="/eduleader/password.png" 
-            alt="Example"
+            src="/eduleader/database.png" 
+            alt="Database Management"
             h={10} 
             w={10}
             objectFit="cover"
@@ -248,8 +300,7 @@ function DynamicBackgroundBox() {
             fontWeight="1000"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-            Secure Payment with Stripe
-          </Text>
+Maintained automated databases         </Text>
         </Box>
 
         {/* Card 3 (visible on sm+) */}
@@ -266,8 +317,8 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/eduleader/palette.png" 
-            alt="Example 2"
+            src="/eduleader/payment.png" 
+            alt="Online Payment"
             h={10} 
             w={10}
             objectFit="cover"
@@ -280,8 +331,7 @@ function DynamicBackgroundBox() {
             fontWeight="1000"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-            UX/UI design
-          </Text>
+Integrated Stripe for secure payment systems          </Text>
         </Box>
         <Box
           bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
@@ -296,8 +346,8 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/eduleader/blueprint.png" 
-            alt="Example 2"
+            src="/eduleader/bugs.png" 
+            alt="Bugs resolution"
             h={10} 
             w={10}
             objectFit="cover"
@@ -310,8 +360,7 @@ function DynamicBackgroundBox() {
             fontWeight="1000"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-            Third Skill Third Skil Third Skil Third Skil 
-          </Text>
+Resolved 1,000+ bugs for smooth UX          </Text>
         </Box>
         <Box
           bg={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_DYNAMIC_BG_SIXITEMS_BGINSIDE_WITH_OPACITY_DARK)} 
@@ -326,8 +375,8 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/eduleader/api.png" 
-            alt="Example 2"
+            src="/eduleader/biceps.png" 
+            alt="PCB"
             h={10} 
             w={10}
             objectFit="cover"
@@ -340,7 +389,7 @@ function DynamicBackgroundBox() {
             fontWeight="1000"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-            Third Skill Third Skil Third Skil Third Skil 
+            Designed & led hands-on PCB workshops
           </Text>
         </Box>
         <Box
@@ -356,8 +405,8 @@ function DynamicBackgroundBox() {
           
         >
           <Image
-            src="/eduleader/biceps.png" 
-            alt="Example 2"
+            src="/eduleader/ux.png" 
+            alt="UX"
             h={10} 
             w={10}
             objectFit="cover"
@@ -370,7 +419,7 @@ function DynamicBackgroundBox() {
             letterSpacing="wide"
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
           >
-PCB Workshop
+Enhanced UX based on user feedback
           </Text>
         </Box>
       </Box>
@@ -506,49 +555,49 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
             <div>
               <img
                 src="/eduleader/ubc2.jpg"
-                alt="UBC Campus 2"
+                alt="UBC Campus 3"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
                 src="/eduleader/ubc3.jpg"
-                alt="UBC Campus 2"
+                alt="UBC Campus 4"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
                 src="/eduleader/ubc4.jpg"
-                alt="UBC Campus 2"
+                alt="UBC Campus 5"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
                 src="/eduleader/ubc5.webp"
-                alt="UBC Campus 2"
+                alt="UBC Campus 6"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
                 src="/eduleader/ubc6.jpg"
-                alt="UBC Campus 2"
+                alt="UBC Campus 7"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
                 src="/eduleader/ubc7.png"
-                alt="UBC Campus 2"
+                alt="UBC Campus 8"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
             <div>
               <img
                 src="/eduleader/ubc8.jpg"
-                alt="UBC Campus 2"
+                alt="UBC Campus 9"
                 style={{ width: "100%", height: "650px", objectFit: "cover", borderRadius: "15px" }}
               />
             </div>
@@ -607,6 +656,7 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
     >
 I recently completed my Bachelor of Applied Science in Electrical Engineering at the University of British Columbia (UBC). In my final year, I had been diving into some fascinating areas of the field. I explored power electronics, focusing on efficient energy management in systems, and modern control techniques, which help optimize how devices and processes function. I also have been delving into applied machine learning, looking at how it can tackle complex engineering challenges. My capstone design project tied it together, letting me apply sustainable design principles, circuit analysis, and system dynamics to create a practical solution. This was built on a solid base from earlier years—things like electricity, magnetism, and computational tools—and it gave me the skills to make a real impact in electrical engineering    </Text>
   </Box>
+  
   <Box
     flexShrink={0}
     position="relative"
@@ -619,15 +669,21 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
     ml={{ base: 0, md: "auto" }} 
     mr={{ base: 0, md: -10 }} 
   >
+         <Link href="https://ok.ubc.ca" passHref legacyBehavior>
     <Image
       src="/eduleader/ubclogo.png"
       alt="UBC Logo"
       height={{ base: "10rem", xl: "16rem" }}
+       _hover={{
+                opacity: 0.7,
+        cursor: "pointer",
+      }}
       sx={{
         animation: `${translateYanimationUBClogo} 5s ease-in-out infinite alternate`,
         transform: "rotateX(50deg)",
       }}
     />
+    </Link>
     <Text
       fontFamily={process.env.NEXT_PUBLIC_UBC_MOTTO_FONT}
       fontSize="2xl"
@@ -982,10 +1038,12 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
           </Heading>
           <Flex direction={{ base: "column", md: "row" }} align="start" gap={8}>
             <Box flex="1">
-              <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-                As the Webmaster Executive for the IEEE UBCO Student Branch... As the Webmaster Executive for the IEEE UBCO Student Branch... As the Webmaster Executive for the IEEE UBCO Student Branch... As the Webmaster Executive for the IEEE UBCO Student Branch...
-              </Text>
+              <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={8}>
+As the Webmaster Executive for the IEEE UBCO Student Branch, I managed an e-commerce platform called The Hackerspace Store providing electrical components to engineering students. Built with Next.js, the platform integrated APIs, Stripe for payments, and an automatically maintained database. During the six-month development process, my teammate and I resolved around 1,000 bugs, ensuring a seamless user experience before launch. After deployment, I continuously received feedback from users, addressing bugs and implementing improvements to enhance the platform. The store became a key resource for course projects, providing reliable and immediate access to essential components.
+
+I also designed and led the club’s annual PCB workshop, aimed at beginners. Participants worked with a general-purpose PCB I created, featuring USB-C power, UART, SPI, I2C connections, and an STM32 chip. The workshop demonstrated programming a PID controller with temperature sensors but allowed flexibility for other applications, encouraging exploration and innovation.              </Text>
             </Box>
+               <Link href="https://linktr.ee/ubcoieee" passHref legacyBehavior>
             <Box
               flexShrink={0}
               position="relative"
@@ -996,13 +1054,18 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
             >
               <Image
                 src={useColorModeValue("/eduleader/hackerspacelogolight.png", "/eduleader/hackerspacelogodark.png")}
-                alt="UBC Logo"
+                alt="IEEE UBC Okanagan Student Branch Logo"
                 height="16rem"
+                 _hover={{
+                opacity: 0.7,
+        cursor: "pointer",
+      }}
                 sx={{
                   animation: `${translateYanimationhackerspacelogo} 5s ease-in-out infinite alternate`,
                 }}
               />
             </Box>
+            </Link>
           </Flex>
           <Flex direction="column" align="center" mb={4}>
             <DynamicBackgroundBox />
@@ -1010,7 +1073,7 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
           <Flex wrap="wrap" justify="center" gap={4}>
             <Button
               as={Link}
-              href="/projects/project1"
+              href="/projects/hackerspacestore"
              fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
      
               color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
@@ -1030,11 +1093,11 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
               boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
               transition="all 0.3s ease-in-out"
             >
-              Project 1 →
+              Hackerspace Store →
             </Button>
             <Button
               as={Link}
-              href="/projects/project2"
+              href="/projects/pcbworkshop"
                fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
               color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
            
@@ -1054,7 +1117,7 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
               boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
               transition="all 0.3s ease-in-out"
             >
-              Project 2 →
+              PCB Workshop →
             </Button>
           </Flex>
         </Box>

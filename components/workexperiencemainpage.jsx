@@ -145,6 +145,7 @@ const WorkExperience = ({ experiences }) => {
 
                   {/* Logo with line connection */}
                   <VStack position="relative">
+                                    
                     <Box
                       bg={circleBg}
                       w="75px"
@@ -156,15 +157,25 @@ const WorkExperience = ({ experiences }) => {
                       zIndex="1"
                       mt={1}
                       overflow="hidden" 
+                      
                     >
+                      <Link href={`/works/${exp.link}`} passHref legacyBehavior>
                       <ChakraImage
                         src={exp.logo}
                         alt={exp.company}
                         w="100%" 
                         h="100%" 
                         objectFit="cover" 
+                        _hover={{
+        transform: "scale(1.2)",
+        cursor: "pointer",
+        
+      }}
+      transition="all 0.2s ease-in-out"
                       />
+                      </Link>
                     </Box>
+                    
                   </VStack>
 
                   <Box w="50%" textAlign="left" pt={2} pr={7}>
@@ -183,6 +194,7 @@ const WorkExperience = ({ experiences }) => {
 
                   {/* Logo with line connection */}
                   <VStack position="relative">
+                                  
                     <Box
                       bg={circleBg}
                       w="75px"
@@ -194,15 +206,25 @@ const WorkExperience = ({ experiences }) => {
                       zIndex="1"
                       mt={1}
                       overflow="hidden" 
+                   
                     >
+                      <Link href={`/works/${exp.link}`} passHref legacyBehavior>
                       <ChakraImage
                         src={exp.logo}
                         alt={exp.company}
                         w="100%" 
                         h="100%" 
                         objectFit="cover" 
+                         _hover={{
+        transform: "scale(1.2)",
+        cursor: "pointer",
+        
+      }}
+      transition="all 0.2s ease-in-out"
                       />
+                       </Link>
                     </Box>
+                    
                   </VStack>
 
                   {/* Experience Card */}
