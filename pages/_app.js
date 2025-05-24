@@ -5,6 +5,8 @@ import { AnimatePresence } from 'framer-motion';
 import Chakra from '../components/chakra';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import '../styles/doc-viewer.css';
+import '@cyntler/react-doc-viewer/dist/index.css';
 
 if (typeof window !== 'undefined') {
   window.history.scrollRestoration = 'manual';

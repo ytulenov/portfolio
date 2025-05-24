@@ -16,6 +16,7 @@ const ChartComponent = dynamic(() => import("../../components/Chart"), { ssr: fa
 const GlbViewer = dynamic(() => import("../../components/GlbViewer"), { ssr: false });
 const GitHubRepoBrowser = dynamic(() => import("../../components/GitHubRepoBrowser"), { ssr: false });
 import { parse, format } from "date-fns"; // Add date-fns import
+const Viewer = dynamic(() => import('../../components/DocxViewer'), { ssr: false });
 import ImageCarousel from '../../components/ImageCarousel'; // Add import for ImageCarousel
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -147,7 +148,7 @@ const resolvePath = (filePath, baseDir) => {
   }
 
   const imageExtensions = ['.jpg', '.jpeg', '.png'];
-  const supportExtensions = ['.glb', '.xlsx', '.pdf'];
+  const supportExtensions = ['.glb', '.xlsx', '.pdf', '.docx']; // Add .docx
 
   if (imageExtensions.some(ext => filePath.toLowerCase().endsWith(ext))) {
     const resolvedPath = `/images/projects/${filePath}`;
@@ -193,6 +194,7 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
     ImageCarousel,
     SitesLinksWithPhoto,
     code: CodeBlock, 
+    Viewer,
      ul: (props) => (
       <List
         style={{ marginLeft: 0, paddingLeft: "1.5em", listStyleType: "disc" }} 
