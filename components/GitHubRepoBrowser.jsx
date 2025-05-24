@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box, Text, Flex, IconButton, Link, useColorModeValue } from '@chakra-ui/react';
+import { FaGithub } from "react-icons/fa";
 import { ChevronRightIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import SyntaxHighlighter from 'react-syntax-highlighter'; 
 import { xcode, atomOneDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -288,11 +289,29 @@ const GitHubRepoBrowser = ({ repoUrl }) => {
             </Link>
           ))}
           <IconButton
+                as="a"
+                href={repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                icon={<FaGithub fontSize="20px" />}
+                aria-label="Open GitHub repository"
+                size="sm"
+                ml="auto"
+                bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}
+                color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+                _hover={{
+                  bg: useColorModeValue(
+                    process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
+                    process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
+                  ),
+                }}
+              />
+          <IconButton
             icon={isFullPage ? <MinimizeIcon /> : <MaximizeIcon />}
             onClick={toggleFullPage}
             aria-label={isFullPage ? 'Minimize to normal size' : 'Expand to full page'}
             size="sm"
-            ml="auto" 
+            ml={2}
             bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)} color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
             _hover={{
               bg: useColorModeValue(
@@ -300,6 +319,7 @@ const GitHubRepoBrowser = ({ repoUrl }) => {
                 process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
               ),}}
           />
+           
         </Flex>
 
         <Flex direction="row" h={`calc(100% - 40px)`}>

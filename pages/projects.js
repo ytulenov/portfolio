@@ -6,7 +6,7 @@ import { IoLogoGithub } from 'react-icons/io5';
 import Section from '../components/section'; // Import Section component
 
 
-const ProjectBlock = ({ project }) => {
+const ProjectBlock = ({ project, index }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <Container maxW="758px" position="relative" h="565px">
@@ -81,7 +81,7 @@ const ProjectBlock = ({ project }) => {
           w="674px"
         >
           <Text fontSize="1.45rem" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}fontWeight="500" color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)} mb={1.75}>
-            Featured Project
+            Featured Project #{index + 1}
           </Text>
           <Link href={`/projects/${project.slug}`} passHref>
             <Text
@@ -124,7 +124,7 @@ const ProjectBlock = ({ project }) => {
   );
 };
 
-const FirstProjectLayout = ({ project }) => {
+const FirstProjectLayout = ({ project, index }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <Container maxW="1580px" position="relative" h="495px" mx="auto">
@@ -197,7 +197,7 @@ const FirstProjectLayout = ({ project }) => {
           right="40"
         >
           <Text fontSize="2xl" fontWeight="medium"  color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT}mb={2}>
-            Featured Project
+            Featured Project #{index + 1}
           </Text>
           <Link href={`/projects/${project.slug}`} passHref>
             <Text
@@ -274,7 +274,7 @@ export default function Projects({ projects }) {
           <Section key={index} delay={0.2 + index * 0.1}>
 
           <Box key={index} position="relative" h="auto" pb={32}>
-            <FirstProjectLayout project={project} />
+            <FirstProjectLayout project={project} index={index} />
           </Box>
           </Section>
 
@@ -287,7 +287,7 @@ export default function Projects({ projects }) {
           <Section key={index} delay={0.2 + (index / 3) * 0.1}>
 
           <Box key={index} position="relative" h="auto" py={20}>
-            <FirstProjectLayout project={project} />
+            <FirstProjectLayout project={project} index={index} />
           </Box>
           </Section>
 
@@ -308,10 +308,10 @@ export default function Projects({ projects }) {
             justify="space-between"
             py={24}
           >
-            <ProjectBlock project={project} />
+                <ProjectBlock project={project} index={index} />
             {/* Check if there's a next project (2nd in the sequence) */}
             {projects[index + 1] && (
-              <ProjectBlock project={projects[index + 1]} />
+              <ProjectBlock project={projects[index + 1]} index={index + 1} />
             )}
           </Flex>
           </Section>

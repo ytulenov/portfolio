@@ -12,7 +12,7 @@ const Footer = () => {
       pt={20}
       align="center"
       opacity={0.7}
-      fontSize="md"
+      fontSize="md" 
       fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
       color={useColorModeValue(
         process.env.NEXT_PUBLIC_FOOTER_TEXT_COLOR_LIGHT,

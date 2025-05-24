@@ -479,9 +479,9 @@ export default function EduLeaderPage({ courses }) {
   const spinningBlocks = [
     { label: "Cumulative Average", finalValue: 77.7, generateRandom: generateRandomDecimal },
     { label: "GPA", finalValue: 3.47, generateRandom: generateRandomDecimal },
-    { label: "Class Average", finalValue: 71.41, generateRandom: generateRandomDecimal }, // average for first 3 years. the way you calculate is (4*(63.72)+3(72.69+80.24+72.65+61.29+72.89+63.01+69.01+69.64+70.88+77.3+71.7+64.7+81+76+73.7+74+79.3+72+70.3+59.2+66.8+77.8+81.4+68.2+76.6+67.7+68.5+72.5+77.5+67.7+65.9+75.2+69.5))/(4+3(9+12+12)) по нарастающей. первый курс APSC 169, потом APSC 171 до ENGR 378
+    { label: "School Average", finalValue: 71.41, generateRandom: generateRandomDecimal }, // average for first 3 years. the way you calculate is (4*(63.72)+3(72.69+80.24+72.65+61.29+72.89+63.01+69.01+69.64+70.88+77.3+71.7+64.7+81+76+73.7+74+79.3+72+70.3+59.2+66.8+77.8+81.4+68.2+76.6+67.7+68.5+72.5+77.5+67.7+65.9+75.2+69.5))/(4+3(9+12+12)) по нарастающей. первый курс APSC 169, потом APSC 171 до ENGR 378
     { label: "Cumulative Credits Earned", finalValue: "148/148", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
-    { label: "Current Year", finalValue: 4, generateRandom: generateRandomSmallInteger },
+    { label: "Status", finalValue: "completed", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
     { label: "Courses Passed", finalValue: "41/41", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
   ];
 
@@ -507,7 +507,7 @@ export default function EduLeaderPage({ courses }) {
   const progressPercentage = (elapsedMs / totalDurationMs) * 100;
   const [selectedCourse, setSelectedCourse] = useState(courses[0] || null);
 const [isOpen, setIsOpen] = useState(false);
-
+ const arrowColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK);
 const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK); 
   const activeDotColor = useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK); 
   return (
@@ -524,6 +524,11 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
               color: ${activeDotColor};
               opacity: 1;
             }
+               .custom-slider .slick-prev:before, .custom-slider .slick-next:before {
+            color: ${arrowColor};
+            font-size: 20px; /* Increase size for visibility */
+            opacity: 1; /* Full opacity */
+          }
           `}
         />
     <Container maxW="80%" pb={0} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}> {/* Changed pb={20} to pb={0} */}
@@ -1039,7 +1044,7 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
           <Flex direction={{ base: "column", md: "row" }} align="start" gap={8}>
             <Box flex="1">
               <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={8}>
-As the Webmaster Executive for the IEEE UBCO Student Branch, I managed an e-commerce platform called The Hackerspace Store providing electrical components to engineering students. Built with Next.js, the platform integrated APIs, Stripe for payments, and an automatically maintained database. During the six-month development process, my teammate and I resolved around 1,000 bugs, ensuring a seamless user experience before launch. After deployment, I continuously received feedback from users, addressing bugs and implementing improvements to enhance the platform. The store became a key resource for course projects, providing reliable and immediate access to essential components.
+As the Webmaster Executive for the IEEE UBCO Student Branch, I managed an e-commerce platform called The Hackerspace Store providing electrical components to engineering students. Built with Next.js, the platform integrated APIs, Stripe for payments, and an automatically maintained database. During the six-month development process, my teammates and I resolved around 1,000 bugs, ensuring a seamless user experience before launch. After deployment, I continuously received feedback from users, addressing bugs and implementing improvements to enhance the platform. The store became a key resource for course projects, providing reliable and immediate access to essential components.
 
 I also designed and led the club’s annual PCB workshop, aimed at beginners. Participants worked with a general-purpose PCB I created, featuring USB-C power, UART, SPI, I2C connections, and an STM32 chip. The workshop demonstrated programming a PID controller with temperature sensors but allowed flexibility for other applications, encouraging exploration and innovation.              </Text>
             </Box>
@@ -1095,6 +1100,54 @@ I also designed and led the club’s annual PCB workshop, aimed at beginners. Pa
             >
               Hackerspace Store →
             </Button>
+            {/*<Button
+              as={Link}
+              href="/projects/hackerspacestore"
+             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
+     
+              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+            
+              bg={useColorModeValue(
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+              )}
+              _hover={{
+                transform: "translateY(-6px)",
+                bg: useColorModeValue(
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                ),
+              }}
+              
+              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
+              transition="all 0.3s ease-in-out"
+            >
+              Admin CMS →
+            </Button>
+            <Button
+              as={Link}
+              href="/projects/hackerspacestore"
+             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
+     
+              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+            
+              bg={useColorModeValue(
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+              )}
+              _hover={{
+                transform: "translateY(-6px)",
+                bg: useColorModeValue(
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                ),
+              }}
+              
+              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
+              transition="all 0.3s ease-in-out"
+            >
+              Client-Side →
+            </Button>*/}
             <Button
               as={Link}
               href="/projects/pcbworkshop"

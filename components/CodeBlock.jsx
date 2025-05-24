@@ -7,16 +7,25 @@ const CodeBlock = ({ children, className, ...props }) => {
   const [SyntaxHighlighter, setSyntaxHighlighter] = useState(null);
   const [code, setCode] = useState('');
 
-  
+  let displayName = 'text';
+  let language = 'text';
+
+  if (className?.startsWith('language-')) {
+    const classNameParts = className.replace('language-', '').split(',');
+    if (classNameParts.length === 2) {
+      [displayName, language] = classNameParts; // e.g., ["Prisma Setup", "bash"]
+    } else {
+      language = classNameParts[0] || 'text'; // Fallback to language only
+      displayName = language.charAt(0).toUpperCase() + language.slice(1); // Capitalize language if no custom name
+    }
+  }
+
   useEffect(() => {
     console.log(`Raw className: ${className}`);
+    console.log(`Detected displayName: ${displayName}, language: ${language}`);
     console.log('Props:', props);
-  }, [className, props]);
+  }, [className, displayName, language, props]);
 
-  
-  const language = className?.startsWith('language-')
-    ? className.replace(/language-/, '').toLowerCase()
-    : 'text'; 
 
   
   useEffect(() => {
@@ -52,7 +61,7 @@ const CodeBlock = ({ children, className, ...props }) => {
       const html = katex.renderToString(code, {
         displayMode: true,
         throwOnError: true,
-        strict: false, 
+        strict: false,
       });
       return (
         <Box
@@ -75,8 +84,8 @@ const CodeBlock = ({ children, className, ...props }) => {
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
           )}
-          textAlign="left" 
-          fontStyle="normal" 
+          textAlign="left"
+          fontStyle="normal"
         >
           <Box
             position="absolute"
@@ -98,7 +107,7 @@ const CodeBlock = ({ children, className, ...props }) => {
             fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
             zIndex={1}
           >
-            Math
+            {displayName} {/* Use custom name */}
           </Box>
           <pre
             style={{
@@ -107,8 +116,8 @@ const CodeBlock = ({ children, className, ...props }) => {
               whiteSpace: 'pre-wrap',
               background: 'none',
               color: 'inherit',
-              textAlign: 'left', 
-              fontStyle: 'normal', 
+              textAlign: 'left',
+              fontStyle: 'normal',
             }}
           >
             <span
@@ -116,7 +125,7 @@ const CodeBlock = ({ children, className, ...props }) => {
               style={{
                 display: 'block',
                 textAlign: 'left',
-                fontStyle: 'normal', 
+                fontStyle: 'normal',
               }}
             />
           </pre>
@@ -145,8 +154,8 @@ const CodeBlock = ({ children, className, ...props }) => {
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
             process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
           )}
-          textAlign="left" 
-          fontStyle="normal" 
+          textAlign="left"
+          fontStyle="normal"
         >
           <Box
             position="absolute"
@@ -167,7 +176,7 @@ const CodeBlock = ({ children, className, ...props }) => {
             borderRadius="md"
             zIndex={1}
           >
-            Math (Error)
+            {displayName} (Error) {/* Use custom name with error */}
           </Box>
           <pre
             style={{
@@ -175,8 +184,8 @@ const CodeBlock = ({ children, className, ...props }) => {
               padding: 0,
               whiteSpace: 'pre-wrap',
               color: 'inherit',
-              textAlign: 'left', 
-              fontStyle: 'normal', 
+              textAlign: 'left',
+              fontStyle: 'normal',
             }}
           >
             {code}
@@ -185,7 +194,7 @@ const CodeBlock = ({ children, className, ...props }) => {
       );
     }
   }
-  
+
   if (!SyntaxHighlighter) {
     return (
       <Box position="relative" my={4}>
@@ -208,14 +217,13 @@ const CodeBlock = ({ children, className, ...props }) => {
           borderRadius="md"
           zIndex={1}
         >
-          {language.charAt(0).toUpperCase() + language.slice(1)}
+          {displayName} {/* Use custom name */}
         </Box>
         <pre style={{ margin: 0, padding: '1.5rem' }}>{code}</pre>
       </Box>
     );
   }
 
-  
   return (
     <Box position="relative" my={4} borderRadius="xl" boxShadow="md" fontFamily="monospace">
       <Box
@@ -238,11 +246,11 @@ const CodeBlock = ({ children, className, ...props }) => {
         zIndex={1}
         fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
       >
-        {language.charAt(0).toUpperCase() + language.slice(1)}
+        {displayName} {/* Use custom name */}
       </Box>
       <SyntaxHighlighter
-        language={language === 'text' ? 'plaintext' : language} 
-        style={syntaxStyle} 
+        language={language === 'text' ? 'plaintext' : language}
+        style={syntaxStyle}
         customStyle={{
           margin: 0,
           padding: '1.5rem',

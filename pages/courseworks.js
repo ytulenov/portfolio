@@ -23,7 +23,7 @@ import Icon12 from "../public/icons/abstract-12.svg";
 import Icon13 from "../public/icons/abstract-13.svg";
 import Icon14 from "../public/icons/abstract-14.svg";
 import Icon15 from "../public/icons/abstract-15.svg";
-import Icon16 from "../public/icons/abstract-16.svg";
+import Icon16 from "../public/icons/abstract-16.svg"; 
 import Icon17 from "../public/icons/abstract-17.svg";
 import Icon18 from "../public/icons/abstract-18.svg";
 import Section from "../components/section"; // Import Section component

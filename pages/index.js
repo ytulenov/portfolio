@@ -329,19 +329,19 @@ const experiences = [
     ],
     logo: '/images/works/milsanmainpage.png',
   },
-  {
-    company: 'Bosk Bioproducts',
-    title: 'Security Network Engineer',
-    link: 'boskbioproducts',
-    date: 'May 2023 - Aug 2023',
-    description: [
-      'Designed a hybrid AWS network with DMZ and VPC, integrating Bell’s modem and PfSense+ router',
-      'Mitigated a phishing attack, reducing risks by 25% using Suricata IDS/IPS and firewall updates',
-      'Boosted network speed by 40% with Wi-Fi 6 mesh and subnet segmentation for 30+ devices',
-      'Enabled remote lab access for 10+ instruments, optimizing processes for the FLEX department',
-    ],
-    logo: '/images/works/boskmainpage.png',
-  },
+{
+  company: 'Bosk Bioproducts',
+  title: 'Security Network Engineer',
+  link: 'boskbioproducts',
+  date: 'May 2023 - Aug 2023',
+  description: [
+    'Designed a hybrid network infrastructure with DMZ, Restricted Zone, and AWS VPC, integrating Bell’s modem and a PfSense+ router via PPPoE',
+    'Mitigated a phishing attack by isolating the affected system, analyzing Suricata IDS/IPS and Gmail logs, updating firewall rules, and refreshing SSH keys to enhance data protection',
+    'Improved overall network performance by 40% with subnet segmentation and Wi‑Fi 6 mesh deployment for 30+ office devices',
+    'Enabled secure remote access for 10+ lab instruments using OpenVPN, allowing the FLEX department to monitor and control experiments off‑hours'
+  ],
+  logo: '/images/works/boskmainpage.png',
+},
   {
     company: 'ECO2 Magnesia',
     title: 'IT Support',

@@ -1,0 +1,555 @@
+---
+title: "Hackerspace Club: SaaS Platform & E-Commerce CMS"
+summary: "UBCO IEEE shop: 3,900+ components, $400 for club"
+image: "hackerspacestoremainpage.png"
+introglb: ""
+description: "This page tells the story of the UBCO IEEE Hackerspace Electronics Shop: a full‑stack SaaS e‑commerce platform built to give students on‑campus access to 3,900+ electrical components at reduced cost. It covers the project’s inception, design process, team collaboration, design principles, technical highlights, launch & status, and links to live test sites and GitHub."
+author: "Yerkin Tulenov, Elijah Chang, Aziz Rakhimov and Fortune Olawale"
+startedAt: "2023-07"
+endedAt: "2024-06"
+githubLink: "https://github.com/UBCOIEEE/hackerspacestoreadmin"
+---
+
+## From Idea to Execution: The Design Process & Iterative Journey
+
+In July 2023, Aziz Rakhimov, Chair of the UBCO IEEE Student Branch, invited me to join their club as their Webmaster Executive and build an online electronics store for our campus hackerspace. Engineering students at UBCO were facing steep prices and long wait times for components like resistors and capacitors. Our solution: a bulk‑purchasing SaaS platform offering over 3,900 parts at reduced rates, with any profits reinvested in club activities and events—such as the Okanagan Tech Industry Night, our signature networking evening.
+
+To get started, we mapped out the must‑have features and sketched layouts inspired by leaders in the field like DigiKey. Using Figma, we produced our very first drafts of both the customer portal (the front‑end storefront) and the Admin CMS (the back‑end control center). DrawSQL complemented this phase by helping us visualize the initial database structure, making it easier to design scalable, relational models early on. From there, we organized every task on Trello and designed a scalable site architecture focused on ease of use and future growth.
+
+#### Visual Previews of First Drafts: Figma UX/UI Design & DrawSQL MySQL Structure:
+
+<ImageCarousel
+  images={[
+    { src: "hackerspacestorefirstcarousel_firstdraft_1.png", alt: "#1: DrawSQL Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_2.png", alt: "#2: Figma Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_3.png", alt: "#3: Figma Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_4.png", alt: "#4: Figma Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_5.png", alt: "#5: Figma Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_6.png", alt: "#6: Figma Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_7.png", alt: "#7: Figma Drafts" },
+    { src: "hackerspacestorefirstcarousel_firstdraft_8.png", alt: "#8: Figma Drafts" },
+  ]}
+/>
+<br />
+<br />
+#### Inventory Overview Spreadsheet:
+<DataTable src="Hackerspace Website Item Database.xlsx" />
+
+<Button text="Download" href="/files/Hackerspace Website Item Database.xlsx" download />
+
+#### 1. Iteration 1 – Basic HTML/CSS/JS Pages  
+My initial prototype used plain JavaScript, HTML, and CSS. I quickly assembled the landing page — a neatly arranged grid of over 3,900 parts — exactly as I’d envisioned. However, real‑world requirements soon outpaced this simple setup. Integrating Stripe payments introduced payment intents, webhooks, and secure server‑side logic that vanilla JS couldn’t manage cleanly. Exposing API keys in browser code created serious security risks, and rolling my own HTTP handlers for webhook validation felt fragile next to frameworks with built‑in routing and middleware. The Admin CMS also became hard to maintain: manual DOM updates and constant state juggling turned every tweak into a gamble. By August 2023, it was clear this lean approach was too brittle and wouldn’t scale. I paused the prototype and began exploring more robust solutions — setting the stage for the next phase of development.
+
+#### 2. Iteration 2 – CI/CD & Jenkins Exploration
+I sought advice from Jared Paull, a PhD candidate in Electrical Engineering at UBCO who had developed the UBCO IEEE student branch’s main website. He recommended using Jenkins—a robust CI/CD system he’d employed to automate testing and deployments and to securely manage credentials—for our e‑commerce platform.
+
+Initially, I was eager: Jenkins promised to transform our scattered codebase into a disciplined pipeline, safely handling Stripe credentials and webhooks. However, the setup quickly became daunting. Installing and configuring the right plugins and build nodes, writing custom pipeline scripts for payment intents, and locking down API keys all turned out far more time‑consuming than expected. Without an established framework to enforce directory structures or build steps, every Jenkins tweak risked breaking another component.
+
+By September 2023, it was clear that, while powerful, Jenkins introduced too much overhead for our lean, student‑driven effort. I decided to pause the Jenkins experiment and begin exploring lighter, framework‑based deployment tools that better suit our pace and resources.
+
+#### 3. Iteration 3 – Next.js Pages Router
+
+In the third iteration, I compared two front‑end toolkits—React.js vs. Next.js—and, thanks to Aziz’s industry contacts praising Next.js’s balance of simplicity and security, I opted for Next.js. Its Pages Router came with thorough documentation, built‑in server‑side rendering, and intuitive file‑based routing—perfect for our customer portal and Admin CMS needs. Within days, I had a prototype displaying our full inventory, individual product pages, and basic Admin CMS routes for inventory controls. Next.js API routes let me handle Stripe payment intents and webhooks on the server, keeping keys safely out of browsers.
+
+As I layered on features—multi‑category filters, revenue dashboards, and real‑time stock updates—the limits of the Pages Router surfaced. Our flat <Highlight text="/pages"/> folder became crowded, making shared layouts hard to manage. The Pages Router didn’t support nested routes—so creating individual product pages (e.g. <Highlight text="/products/[id]"/> ) with shared, nested layouts became cumbersome and required awkward workarounds. Fetching data with <Highlight text="getServerSideProps"/> and <Highlight text="getStaticProps"/> led to full‑page reloads on every update, increasing latency and blocking streaming or incremental responses. Handling Stripe webhooks under <Highlight text="/api"/> also meant repeating signature‑validation logic across each endpoint, instead of using the cleaner route.js handlers from the App Router. Finally, fully hydrated Pages Router builds shipped large JavaScript bundles, slowing Time to Interactive—especially on mobile.
+
+By October 2023, it was clear: the Pages Router sped up our start, but its organizational and performance drawbacks would stunt long‑term growth. That realization set the stage for our move to Next.js’s App Router in the next phase.
+
+#### 4. Iteration 4 – Next.js App Router & Shadcn UI
+
+In late October 2023, the growing complexity of our platform pushed me to replace Next.js’s Pages Router with the new App Router, bringing much‑needed structure and performance improvements to both the customer portal and Admin CMS. Shortly thereafter, Elijah Chang and Olawale Fortune joined the project — despite their lack of prior web‑development experience, they each picked up the essentials quickly. Elijah tackled the client‑side search system, while Olawale transformed early drafts into clear, engaging content.
+
+The App Router’s folder‑based routing allowed us to organize deeply nested paths like <Highlight text="/products/[category]/[id]"/> intuitively, and TypeScript added a safety net that caught errors at compile time. Moving heavy logic into server components dramatically improved load times for real‑time inventory updates, checkout flows, and revenue dashboards. Stripe integration also became more secure and streamlined, with dedicated server‑side route handlers eliminating boilerplate and safeguarding API keys.
+
+For the user interface, I initially chose Chakra UI for its accessibility and theming, and it served us well during the early build — Elijah used its components to prototype search features, and Fortune structured pages with its layout tools. As we introduced custom product cards and analytics dashboards in the Admin CMS, however, Chakra’s opinionated styling and Emotion‑based (CSS-in-JS library) runtime led to larger bundle sizes and slower page loads. After extensive research and hours of watched tutorials, I switched to Shadcn UI, which provides unstyled React primitives that pair with Tailwind CSS. This change let us craft every element to our exact needs while keeping bundles lightweight and interactions snappy, setting the stage for a fast, scalable final release.
+
+#### 5. Iteration 5 – Polishing & Performance
+By early 2024, it became obvious that our original product schema couldn’t keep up with the store’s expanding inventory. Components such as resistors and capacitors each carried a unique mix of attributes — resistance, power rating, tolerance — so there wasn’t a neat hierarchy where every resistance neatly fell under each tolerance or power rating. Instead, each variant existed independently, and Prisma’s strict data model couldn’t easily express this kind of loosely organized but richly detailed classification.
+
+The main challenge was Prisma’s inflexibility around nested or polymorphic relations. Our initial schema assumed a rigid, multi‑level nesting, but as soon as we tried triple‑nested queries or conditional joins, even a simple <Highlight text="findMany"/> operation failed. Fetching products along with subcategories and their variant attributes became a maze of complex, brittle queries that broke whenever we added a new component type — making filters and groupings increasingly fragile and impossible to maintain at scale.
+
+```Initial_Design,swift
+model Subcategory{
+  id          String      @id @default(uuid())
+  storeId     String      
+  store       Store       @relation("StoreToSubcategory", fields: [storeId], references: [id])
+  name        String
+  types       Subcategorytype[]
+  products      Product[]  @relation("SubcategoryToProduct")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  @@index([storeId])
+}
+model Subcategorytype{
+  id            String      @id @default(uuid())
+  type          String
+  subcategoryId String
+  subcategory   Subcategory   @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+  values Subcategorytypevalue[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([subcategoryId])
+}
+model Subcategorytypevalue{
+  id String @id @default(uuid())
+  value String
+  subcategorytypeId String
+  subcategorytype Subcategorytype @relation(fields:[subcategorytypeId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([subcategorytypeId])
+}
+model Product {
+  id            String    @id @default(uuid())
+  storeId       String    
+  store         Store     @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId    String    
+  category      Category  @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  subcategoryId String    
+  subcategory   Subcategory   @relation("SubcategoryToProduct", fields: [subcategoryId], references: [id])
+  name          String
+  price         Decimal
+  isFeatured    Boolean   @default(false)
+  isArchived    Boolean   @default(false)
+  sizeId        String    
+  size          Size      @relation(fields: [sizeId], references: [id])
+  colorId       String    
+  color         Color     @relation(fields: [colorId], references: [id])
+  images        Image[]   
+  orderItems    OrderItem[] 
+  createdAt     DateTime  @default(now())  
+  updatedAt     DateTime  @updatedAt
+  @@index([storeId])
+  @@index([categoryId])
+  @@index([subcategoryId])
+  @@index([sizeId])
+  @@index([colorId])
+}
+```
+
+To solve this, I redesigned our product schema for maximum flexibility and future growth. Rather than forcing a deeply nested model, I shifted to a flatter, relationship‑driven design. Each item now belongs to a primary <Highlight text="mastertype"/> category, with linked  <Highlight text="childrentype"/> entries for subtypes and further <Highlight text="thirdtype"/> entries for any sub‑subcategories. All defining attributes — resistance, capacitance, inductance, tolerance, power rating — live in their own metadata table and link back to each product, so we no longer rely on Prisma to navigate deep object trees or hard‑coded fields.
+
+As a result, every variant stands on its own: it carries its own images, pricing, inventory count, and attribute set, all tied together through clean relational mappings. We’re no longer forcing products into a rigid hierarchy (for example, resistance → tolerance → power rating); instead, each characteristic is stored and updated independently. This structure not only simplifies queries — <Highlight text="findMany"/> now effortlessly fetches products with any combination of attributes — but also makes adding new component types or revising attribute sets a painless, code‑light process.
+
+```Final_Design,swift
+model Product {
+  id            String    @id @default(uuid())
+  storeId       String    
+  store         Store     @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId    String    
+  category      Category  @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  name          String
+  mastertype String
+  mode  String 
+  childrentype          String
+  thirdtype String
+  values        Productvalue[]
+  description String
+  isFeatured    Boolean   @default(false)
+  isArchived    Boolean   @default(false)
+  sizeId        String    
+  size          Size      @relation(fields: [sizeId], references: [id])
+  orderItems    OrderItem[]  
+  createdAt     DateTime  @default(now())  
+  updatedAt     DateTime  @updatedAt
+  @@index([storeId])
+  @@index([categoryId])
+  @@index([sizeId])
+}
+model Productvalue{ 
+  id          String      @id @default(uuid())
+  typevaluemaster   String
+  typevaluechildren   String
+  productId   String
+  productname String
+  index       Int  
+  price Int
+  typevaluethird String
+  orderItems    OrderItem[]
+  images    Image[]
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  colorId       String  
+  color         Color     @relation(fields: [colorId], references: [id])
+  @@index([productId])
+  @@index([colorId])
+}
+```
+
+Recognizing the diverse nature of components we offered, I introduced four distinct product modes to tailor the UI and database behavior based on the complexity of the product:
+
+- Mode 1: Basic products with a single variant and simple attributes (e.g., pre-packaged kits).
+- Mode 2: Products with one customizable subcategory, like capacitance or cable length.
+- Mode 3: Products with two subcategories (e.g., core count and clock speed).
+- Mode 4: Advanced items like basic electrical components (resistors, inductors or capacitors) or ICs with three subcategories (e.g., resistance, tolerance, and power rating).
+<br />
+On the frontend, I used <Highlight text="React Hook Form"/> together with a <Highlight text="Zod schema"/> validator and <Highlight text="useFieldArray"/> to manage these dynamic inputs. As an engineer or Admin CMS user chooses a mode, the form reconfigures itself — adding or removing fields, labeling them appropriately, and enforcing validation rules. When the form is submitted, client‑side code sends a secure REST request to our Next.js App Router route handler, where all data processing and validation run server‑side. Prisma then writes the new or updated product and its metadata into the database. Fetching inventory for the customer portal or Admin CMS works the same way: <Highlight text="GET"/> endpoints return grouped, sorted, and filtered results based on the chosen mode and its attributes.
+
+#### Server-Side Variant and Image Mapping in Prisma:
+
+```Typescript,jsx
+const product = await prismadb.product.update({
+  where:{
+    id: params.productId},
+  data: {
+    values: {
+      createMany: {
+        data: values.map((value: {
+          typevaluemaster: string;
+          typevaluechildren: string;
+          typevaluethird: string;
+          price: number;
+          colorId: string;
+          quantity: number;
+          index: number;}) => ({
+            typevaluemaster: value.typevaluemaster,
+            typevaluechildren: value.typevaluechildren,
+            typevaluethird: value.typevaluethird,
+            price: value.price,
+            productname: name,
+            colorId: value.colorId,
+            quantity: value.quantity,
+            index: value.index,})),},},},})
+for (const value of values) {
+  const createdValue = await prismadb.productvalue.findFirst({
+    where: {
+      index: value.index,
+      productId: product.id,},});
+  if (createdValue) {
+    const createdImages = await prismadb.image.createMany({
+      data: value.images.map((image: { url: string }) => ({
+        url: image.url,
+        productvalueId: createdValue.id,})),});
+    NextResponse.json(createdImages);}}
+const remainingValues = await prismadb.productvalue.findMany({
+  where: {
+    productId: params.productId,},
+  orderBy: {
+    index: 'asc',},});
+for (let i = 0; i < remainingValues.length; i++) {
+  await prismadb.productvalue.update({
+    where: {
+      id: remainingValues[i].id,},
+    data: {
+      index: i + 1, },});}
+return NextResponse.json(product);
+```
+
+This iteration not only resolved Prisma’s structural constraints but also paved the way for a more modular, reusable system for future component types. By shifting to this architecture, we drastically improved the ability to scale the shop’s inventory, simplified the admin experience, and made customer search and filtering more precise.
+
+## Design Principles
+#### 1. User-Centric Design
+- Interfaces were crafted with the end user in mind — from the storefront to the Admin CMS. Both views featured intuitive navigation, responsive design for all screen sizes, and dynamic filtering to ensure effortless browsing and inventory management.
+#### 2. Scalability and Flexibility
+- A modular system architecture accommodated a catalog of over 3,900 items across multiple categories. It was designed to grow with the project — supporting the addition of new product types and variant structures without requiring major backend changes.
+#### 3. Performance Optimization
+- To deliver fast load times and smooth interactions, the platform leveraged server-side rendering, React server components, and optimized API queries. This ensured real-time features like inventory updates and checkout remained highly responsive.
+#### 4. Security and Reliability
+- Critical functions such as payment processing and webhook handling were managed securely on the server. By isolating API keys and validating all external requests, the system upheld robust data protection standards and transactional integrity.
+#### 5. Maintainable and Collaborative Codebase
+- The codebase was cleanly structured with TypeScript, consistent foldering, and reusable components. This enabled team members like Elijah and Fortune — both new to web development — to contribute meaningfully with minimal onboarding friction.
+#### 6. Iterative Development with CI/CD Principles
+- Agile iteration cycles and continuous testing allowed for rapid improvements based on user feedback. GitHub Actions and Git-based workflows streamlined deployments, enabling a smooth, automated path from development to production.
+#### 7. Data-Driven Extensibility
+- The product schema was redesigned for adaptability, using relational modeling to support complex attributes without enforcing rigid hierarchies. This allowed admins to define custom product metadata while keeping search and filtering fast and accurate.
+#### 8. Component Reusability and Customization
+- By using Shadcn UI with Tailwind CSS, we combined clean design with full control over styles and behavior. This setup replaced Chakra UI’s limitations, allowing us to create accessible, performant components tailored to the platform’s unique requirements.
+
+## Tools Used
+- **Figma:** Designed the foundational UX/UI wireframes for both the customer portal and the Admin CMS, speeding up design iteration and feedback.
+- **Trello:** Managed project planning and team collaboration through detailed task boards, ensuring deadlines and deliverables were met efficiently.
+- **Git & GitHub:** Provided version control and feature coordination through pull requests, structured commits, and protected branches for collaborative development.
+- **Insomnia:** Used to test and debug RESTful API requests — especially for validating how client and server logic interacted during checkout and product updates.
+- **DrawSQL:** Enabled early planning of the database schema, mapping out relationships and refining the structure for scalability.
+- **Stripe CLI:** Essential for local testing of payments — used to generate webhook secrets, simulate Stripe events, forward webhook calls, and validate secure server-side communication between the Admin CMS and customer portal.
+
+#### Snapshots of Project Tools in Action:
+
+<ImageCarousel
+  images={[
+    { src: "hackerspacestoresecondcarousel_toolsused_1.png", alt: "#1: Stripe Test Mode" },
+    { src: "hackerspacestoresecondcarousel_toolsused_2.png", alt: "#2: Stripe Test Mode" },
+    { src: "hackerspacestoresecondcarousel_toolsused_3.png", alt: "#3: Trello Dashboard" },
+    { src: "hackerspacestoresecondcarousel_toolsused_4.png", alt: "#4: Insomnia Tests" },
+    { src: "hackerspacestoresecondcarousel_toolsused_5.png", alt: "#5: Insomnia Tests" },
+    { src: "hackerspacestoresecondcarousel_toolsused_6.png", alt: "#6: Admin CMS Github Repository" },
+    { src: "hackerspacestoresecondcarousel_toolsused_7.png", alt: "#7: Admin CMS Deployments" },
+    { src: "hackerspacestoresecondcarousel_toolsused_8.png", alt: "#8: Customer Portal Github Repository" },
+    { src: "hackerspacestoresecondcarousel_toolsused_9.png", alt: "#8: Customer Portal Deployments" },
+  ]}
+/>
+<br />
+
+## Team & Collaboration  
+From November 2023 to June 2024, I collaborated seamlessly with Elijah and Fortune to develop the UBCO IEEE HackerSpace online electronics store. As the Webmaster Executive, I contributed to every facet of the project — API handling, database design, REST API development integrated with the schema, and UX/UI design — while fostering a tight-knit team dynamic - destination for our campus hackerspace. Our flawless collaboration, characterized by immediate testing on each team member’s computer and iterative sprints, enabled us to complete and support project over eight months, delivering a scalable and user-friendly platform.
+#### Comprehensive Involvement Across All Components:
+I was deeply involved in every technical aspect of the project, ensuring a cohesive and robust system. I designed and implemented the REST API using Next.js App Router, handling endpoints for Stripe payment intents, webhooks, server-client side interaction via REST API and inventory management, with secure server-side logic to protect sensitive credentials. I architected the database schema using Prisma, evolving it from a rigid, nested structure to a flexible, relational model in Iteration 5 to support complex component taxonomies. This schema powered dynamic product filtering and admin forms, which I built with React Hook Form and Zod for validation. For UX/UI, I crafted drafts in Figma, improved design, and implemented responsive, accessible interfaces with Shadcn UI and Tailwind CSS, ensuring intuitive navigation and fast load times. I also managed sensitive Stripe checkout code, keeping it confidential to prevent potential exploits, and provided feedback during code reviews to maintain quality across the codebase.
+#### GitHub-Driven Teamwork:
+GitHub was our collaboration hub, with Git used locally for feature branches (e.g., feature/search-system for Elijah’s client-side search, feature/content for Olawale’s page texts) and a shared repository for integration. Pull requests (PRs) facilitated collaborative reviews, where I offered feedback on issues like UI misalignments or query inefficiencies. Detailed commit messages and PR discussions captured key decisions, such as the database schema redesign in Iteration 5, where I worked with Elijah to accelerate React form handling for dynamic inputs, aligning frontend forms with the new relational model. We tested every change together on each team member’s computer, ensuring compatibility and catching bugs early, which kept our workflow smooth and reliable.
+#### Team Integration and Role Allocation:
+To align Elijah and Olawale, who joined with no web development experience, I introduced the project’s Next.js, TypeScript, and Prisma structure, explained our Git workflow (e.g., <Highlight text="git commit"/> , <Highlight text="git push"/> ) , and clarified collaboration protocols. These discussions, held via Discord or at the UBCO hackerspace, enabled them to dive into hands-on work. I assigned tasks to leverage their strengths while keeping sensitive components like Stripe integration under my purview. Elijah developed the client-side search system, fixed bugs, and contributed code snippets for nearly every page, including product subcategories (client and server-side) and the checkout layout. Olawale crafted clear, engaging page content, enhancing the storefront’s user experience. Their contributions, combined with my work across APIs, database, and UI, created a unified platform.
+#### Sprint-Based Workflow and Task Alignment:
+We ran weekly sprints, with stand-ups to sync progress and address blockers. I led sprint planning, task allocation, and architecture reviews, using Trello to track tasks like “Build dynamic filters” or “Polish admin dashboard.” Every work was linked to GitHub branches via Trello cards, ensuring alignment. For example, the schema redesign sprint involved my database restructuring, Elijah’s React form updates, and Olawale’s content adjustments, all tested and deployed iteratively.
+#### CI/CD Principles for Modular Development:
+Our CI/CD approach prioritized modularity, breaking tasks into small, independent units with minimal dependencies, except for critical code like Stripe integration. We followed a cycle: develop on feature branches, merge commits, manually test on all team members’ computers, deploy to staging, hunt for bugs, fix issues, and redeploy. For instance, after merging the <Highlight text="feature/app-router"/> branch in Iteration 4, we tested server components and APIs locally, deployed to verify mobile performance, and iterated to optimize latency. Often, we split tasks — Elijah on frontend snippets, Olawale on content, and me on backend logic — then reconvened to test and integrate. This iterative process ensured features like search, inventory tracking, and checkout were robust before tackling the next task, sustaining a stable, scalable platform.
+
+
+## Technical Highlights  
+- **Full‑Stack Framework:**
+  - Built on Next.js App Router, React, TypeScript, and Node.js for a scalable SaaS e-commerce platform.
+  - Next.js App Router enabled nested routing and server components, with efficient client-side interaction.
+  - React powered modular, component-based UI, supporting dynamic features.
+  - TypeScript ensured type safety, reducing bugs in both frontend and backend props and backend API payloads.
+  - Node.js handled server-side logic for webhook validations, inventory updates, and API processing.
+  - Intuitive Interface: Shadcn UI’s lightweight components and Tailwind’s responsive styling create a modern, user-friendly CMS.
+- **Database:**
+  - Prisma ORM managed an 11-table MySQL schema: stores, products, categories, billboards, productvalues, images, orders, orderitems, feedback, sizes, and colors.
+  - Originally hosted on PlanetScale’s free tier, the database was migrated to AWS RDS due to free tier phase-out. Test instances were maintained on Aiven.io.
+  - Supported nested categories using junction tables and recursive relations, overcoming Prisma’s relational constraints.
+- **Hosting & Scalability:** 
+  - Vercel hosted the frontend, integrating Next.js for server-rendered catalogs and minimal client-side overhead.
+  - AWS RDS powered the production database, reliably handling over 3,900 component entries.
+  - CI/CD workflows were managed via GitHub, using linting, Insomnia for API testing, and deploy previews to catch regressions and maintain code quality at each push.
+- **Admin CMS:** 
+  - Store Management:
+    - Category Management: Admins could create, edit, and delete categories and products via a REST API ( <Highlight text="POST /api/[storeId]/categories"/> , <Highlight text="PATCH /api/[storeId]/categories/[categoryId]"/> , <Highlight text="DELETE /api/[storeId]/products/[productId]"/> ).
+    - Attribute Customization: Admins defined product attributes like colors and sizes using <Highlight text="POST /api/[storeId]/colors"/> and <Highlight text="POST /api/[storeId]/sizes"/> .
+    - Billboard Management: Admins uploaded, updated, or removed promotional images for categories pages via <Highlight text="POST /api/[storeId]/billboards"/> and <Highlight text="PATCH & DELETE /api/[storeId]/billboards/[billboardId]"/> , by assigning each billboard to category page main photo, hosted on Cloudinary for optimized storage and delivery.
+    - Store Settings: Admins customized store names or deleted entire stores through <Highlight text="PATCH /api/stores/[storeId]"/> and <Highlight text="DELETE /api/stores/[storeId]"/> , supporting SaaS multi-tenancy for potential expansion to other campus clubs.
+  - Inventory Tracking:
+    - Real-Time Stock levels: They were managed per unique product variant, with quantity tracked via detailed parameters stored under each product ID. A TypeScript-based script aggregated this data by counting entries retrieved through <Highlight text="GET /api/[storeId]/products/[productId]"/> and <Highlight text="/actions/get-stock-count.ts"/> , ensuring accurate inventory visibility across all components.
+    - Live Stock Synchronization: Admins could adjust stock in real-time using <Highlight text="PATCH /api/[storeId]/products/[productId]"/> . The system instantly reflected changes to prevent overselling, automatically deducting inventory on order confirmation.
+    - Automatic Archiving: Products with zero inventory were automatically marked as archived by backend logic during stock updates or checkout processes. This ensured out-of-stock items were hidden from the storefront to maintain a clean, up-to-date catalog.
+  - Revenue Dashboards:
+    - Revenue Tracking: Revenue was calculated from the <Highlight text="Order"/> and <Highlight text="OrderItem"/> tables. Each completed order logged individual item prices and quantities, allowing precise tracking of income. A TypeScript utility script aggregated this data, and a <Highlight text="/actions/get-graph-revenue.ts"/> , <Highlight text="/actions/get-total-revenue.ts"/> , and <Highlight text="/actions/get-sales-count.ts"/> endpoints retrieved metrics like total revenue and number of sales.
+    - Monthly Analytics: Interactive dashboards showcased monthly revenue, total number of sales, and top-selling components. Data was fetched via <Highlight text="GET /api/[storeId]/orders/[orderId]"/> .
+    - Order Insights: Admins accessed detailed order histories — including payment status, timestamps, customer information, and product breakdowns — through <Highlight text="GET /api/[storeId]/orders"/> , supporting accurate recordkeeping and refund/dispute workflows.
+  - Order Tracking:
+    - Real-Time Status Updates: Admins monitored the status of every order — including pending, paid, or failed — via <Highlight text="GET /api/[storeId]/orders"/> . Stripe webhooks ( <Highlight text="POST /api/[storeId]/checkout"/> and <Highlight text="POST /api/webhook"/> ) pushed real-time updates to reflect payment activity immediately in the CMS.
+    - Email Receipt Verification: Upon successful checkout, order confirmation emails were sent automatically using Resend. Admins could verify delivery based on webhook-triggered events, ensuring customers receive timely receipts.
+    - Dispute Handling: Admins managed refunds or disputes directly through the CMS, interfacing with Stripe’s API for seamless resolution.
+  - Security and Access Control:
+    - Clerk OAuth Middleware: All modifying endpoints ( <Highlight text="POST"/> , <Highlight text="PATCH"/> , <Highlight text="DELETE"/> ) and Admin CMS pages run through authMiddleware, ensuring only authenticated executives could perform sensitive operations.
+    - CORS Policy: Cross‑origin requests were explicitly enabled only for checkout and feedback endpoints — allowing the customer portal to submit orders and feedback — while all other APIs rejected external origins.
+    - Page-Level Authentication: Every protected page and data fetch checked the user’s session before rendering or returning data. This per-page guard also verified that each product, billboard, or category attribute belongs to the executive’s specific store instance, enforcing true SaaS multi-tenancy.
+    - API Security & Secrets Management: Rate limiting prevented abuse of key endpoints. Environment variables secured Cloudinary and Stripe credentials, and future role-based access controls could be layered on top of the existing admin-only safeguards. All API endpoints were tested with Insomnia.
+  - Email Receipt Verification:
+    - Checkout and Feedback Emails: Email notifications were sent exclusively for completed checkouts and as copies of submitted feedback forms, handled via Resend for reliable delivery.
+    - Delivery Monitoring: Admins could view whether an email was successfully sent and receive a copy of each message sent to the club’s designated email, ensuring transparency and traceability.
+    - Manual Resends: If delivery failed, admins could have manually triggered a resend through the CMS or verified delivery logs to resolve issues.
+- **Customer Portal:** 
+  - Server-Rendered Catalog:
+    - Dynamic Product Listings: Displayed 3,900+ components in a responsive grid, fetched via <Highlight text="GET /api/[storeId]/products"/> and <Highlight text="/api/[storeId]/products/[productId]"/>, with server-side rendering for fast initial loads.
+    - Performance Optimization: Server components reduced client-side JavaScript, improving load times.
+    - Technical Implementation: Next.js App Router’s server-side rendering powered the catalog, with Shadcn UI’s grid components styled by Tailwind CSS. TypeScript ensured robust data handling.
+  - Search and Filtering:
+    - Keyword Search: Elijah’s client-side search system allowed users to search components by name or description via <Highlight text="GET /api/[storeId]/search?q=${encodedSearchQuery}"/>, with instant results.
+    - Multi-Level Filtering: Users filtered by up to 9 attributes: name, description, mastertype, childrentype, thirdtype, category, size, and color.
+    - Subcategory Support: Nested filters reflected the database’s junction table structure, with Elijah’s contributions to client-side logic.
+    - Technical Implementation: Search functionality leveraged React hooks for state management, while Elijah’s memoized selectors ensured efficient filtering and rendering across extensive product catalogs.
+  - Product Pages:
+    - Detailed Views: Each product page displayed name, description, price, stock level, category, color, size, and Cloudinary-hosted images, fetched via <Highlight text="GET /api/[storeId]/products/[productId]"/> .
+    - Dynamic Variants: Users selected product variants depending on mode associated with each product, showing up to 3 level of different types to choose from.
+    - Stock Visibility: Real-time stock levels prevented overselling, updated via server-side APIs.
+  - Stripe Checkout:
+    - Secure Payments: Users completed purchases via <Highlight text="POST /api/[storeId]/checkout"/> , redirecting to Stripe’s hosted checkout, with CORS-enabled communication for client requests.
+    - Webhook-Tested Reliability: Stripe webhooks ( <Highlight text="POST /api/webhooks"/> ), confirmed payments and triggered email receipts, handling edge cases like failed transactions.
+    - Email Receipts: Automated receipts sent post-payment via Resent, integrated with Stripe’s webhook events.
+  - Feedback Form:
+    - User Engagement: Users submited feedback via a form linked to <Highlight text="POST /api/[storeId]/feedback"/> , CORS-enabled, capturing suggestions or issues to improve the platform.
+  - User Experience:
+    - Professional Text: Fortune's product descriptions and UI prompts provided clear, engaging guidance.
+    - Performance: Lazy-loaded images and pagination, implemented by Elijah, reduced load times for large catalogs, boosting mobile usability.
+  - Security and Reliability:
+    - Error Handling: Client-side validation and server-side checks (via TypeScript) handled edge cases like invalid inputs or failed payments.
+- **Third‑Party Integrations:**
+  - Stripe powered payments, handling payment intents, and webhooks.
+  - Resend was used for email receipts.
+  - Cloudinary managed image hosting for promotional billboards, integrated into admin workflows and product images.
+  - Insomnia was used to validate APIs under edge cases (e.g., invalid inputs, high traffic).
+  - Clerk OAuth was used for authentication in Admin CMS.
+  - AWS RDS and Planetscale hosted MySQL databases.
+- **API Endpoints:**
+  - <Highlight text="GET, POST /api/[storeId]/billboards"/> : GET fetches all billboards for a store. POST creates a new billboard with label, imageUrl, storeId. Requires auth.
+  - <Highlight text="GET, PATCH, DELETE /api/[storeId]/billboards/[billboardId]"/> : GET retrieves a billboard by billboardId. PATCH updates label, imageUrl. DELETE removes it. PATCH/DELETE need auth.
+  - <Highlight text="GET, POST /api/[storeId]/categories"/> : GET fetches all categories for a store. POST creates a category with name, billboardId, storeId. Requires auth.
+  - <Highlight text="GET, PATCH, DELETE /api/[storeId]/categories/[categoryId]"/> : GET retrieves a category by categoryId with billboard data. PATCH updates name, billboardId. DELETE removes it. PATCH/DELETE need auth.
+  - <Highlight text="OPTIONS, POST /api/[storeId]/checkout"/> : OPTIONS handles CORS. POST creates a Stripe checkout session, updates product quantities, creates order with formData, productIds.
+  - <Highlight text="GET, POST /api/[storeId]/colors"/> : GET fetches all colors for a store. POST creates a color with name, value, storeId. Requires auth.
+  - <Highlight text="GET, PATCH, DELETE /api/[storeId]/colors/[colorId]"/> : GET retrieves a color by colorId. PATCH updates name, value. DELETE removes it. PATCH/DELETE need auth.
+  - <Highlight text="OPTIONS, POST /api/[storeId]/emails"/> : OPTIONS handles CORS. POST sends order confirmation/failure emails based on action and orderid.
+  - <Highlight text="OPTIONS, POST /api/[storeId]/feedback"/> : OPTIONS handles CORS. POST creates feedback with firstname, lastname, phone, studentid, email, ordernumber, feedbackIn, reviewed, and sends a summary email.
+  - <Highlight text="GET /api/[storeId]/orders/[orderId]"/> : Retrieves an order by orderId, including order items.
+  - <Highlight text="GET, PATCH, DELETE /api/[storeId]/products/[productId]"/> : GET fetches a product by productId with values, category, size. PATCH updates product details and values (name, mode, categoryId, etc.). DELETE removes the product. PATCH/DELETE require auth.
+  - <Highlight text="GET, POST /api/[storeId]/products"/> : GET retrieves products for a store, filterable by categoryId, sizeId, isFeatured. POST creates a product with name, mode, categoryId, etc., and values. Requires auth.
+  - <Highlight text="GET /api/[storeId]/search"/> : Searches products by q query parameter, matching name, description, mastertype, childrentype, or thirdtype, including category, size, values.
+  - <Highlight text="GET, POST /api/[storeId]/sizes"/> : GET fetches all sizes for a store. POST creates a size with name, value, storeId. Requires auth.
+  - <Highlight text="GET, PATCH, DELETE /api/[storeId]/sizes/[sizeId]"/> : GET retrieves a size by sizeId. PATCH updates name, value. DELETE removes the size. PATCH/DELETE require auth.
+  - <Highlight text="PATCH, DELETE /api/stores/[storeId]"/> : PATCH updates a store’s name. DELETE removes the store. Both require auth and ownership verification.
+  - <Highlight text="POST /api/stores"/> : Creates a store with name for the authenticated user.
+  - <Highlight text="POST /api/webhook"/> : Handles Stripe webhook events, updating order status to paid with address and phone on checkout.session.completed.
+
+## Launch, Status & Demo  
+In late February 2024, we officially launched the platform on campus and kept it running through June 2024, processing approximately $400 in student orders. Parallel test environments remain available — configured in Stripe’s development mode so users can “purchase” items without using real banking details — and these staging instances use an Aiven.io free‑tier database to explore performance and reliability.
+<ImageCarousel
+  images={[
+    { src: "hackerspacestorethirdcarousel_launch_1.png", alt: "#1: Successful Payments" },
+    { src: "hackerspacestorethirdcarousel_launch_2.png", alt: "#2: Shopping Cart" },
+    { src: "hackerspacestorethirdcarousel_launch_3.png", alt: "#3: Payments in Stripe's Test Mode" },
+    { src: "hackerspacestorethirdcarousel_launch_4.png", alt: "#4: Order Confirmation" },
+    { src: "hackerspacestorethirdcarousel_launch_5.png", alt: "#5: Orders Received in Admin CMS" },
+    { src: "hackerspacestorethirdcarousel_launch_6.png", alt: "#6: Confirmation Email #1" },
+    { src: "hackerspacestorethirdcarousel_launch_7.png", alt: "#7: Confirmation Email #2" },
+    { src: "hackerspacestorethirdcarousel_launch_8.png", alt: "#8: Feedback Email" },
+  ]}
+/>
+<br />
+<br />
+<br />
+<SitesLinksWithPhoto links={[
+  { image: "hackerspaceadminpagephotolink.png", href: "https://test-admin-kappa.vercel.app/", alt: "Admin CMS Demo"},
+  { image: "hackerspaceuserpagephotolink.png", href: "https://test-user-beta.vercel.app/",  alt: "Customer Portal Demo" },
+]} />
+#### Explore the Code:  
+
+**Admin Page:**
+<GitHubRepoBrowser repoUrl="https://github.com/UBCOIEEE/hackerspacestoreadmin" />
+<br />
+**User Page:**
+<GitHubRepoBrowser repoUrl="https://github.com/UBCOIEEE/hackerspacestore" />
+
+## Reflections
+The UBCO IEEE HackerSpace Online Electronics Shop, built from July 2023 to June 2024, was a formidable endeavor marked by a year-long timeline, five redesigns to overcome technical limitations, my lack of prior web programming experience, and over 1,000 bugs across front-end and back-end. I mastered the Next.js framework, TypeScript for type-safe coding, Tailwind CSS for rapid, responsive styling, and tools like Figma for wireframing, Trello for task management, and GitHub for version control and CI/CD pipelines. I also honed soft skills, including leadership in guiding Elijah Chang and Olawale Fortune, effective communication during weekly sprints, and adaptability in navigating complex challenges. Technical learnings included Stripe payment processing and flexible Prisma database schemas. Future plans involve multi-tenant support, advanced analytics, and a mobile app. This project taught me full-stack SaaS development, proficiency in modern web tools, and critical soft skills, equipping me with resilience and the ability to deliver impactful solutions.
+As part of the deployment process, I and Aziz prepared a comprehensive documentation manual to assist admins. It provided step-by-step guidance on navigating features, configuring settings, and troubleshooting common issues. It was instrumental in streamlining admin onboarding and minimizing configuration errors.
+Viewer 
+<br />
+Additionally, we received a significant volume of feedback from users via emails and Discord messages in club's server, which provided valuable insights. Many users reported bugs and suggested improvements, such as issues with email routing and challenges in refreshing pages. This feedback helped us continuously refine the system, ensuring a smoother user experience and building trust within our community. The process of addressing these reports enhanced my ability to handle constructive criticism and prioritize tasks effectively.
+
+## Tutorial: How to Set Up Your Store
+#### Step 1: Clone the Repositories
+Download the Admin CMS and Customer Portal repositories from GitHub. Here are links:
+
+- <HighlightLink href="https://github.com/UBCOIEEE/hackerspacestoreadmin" title="title">Admin CMS</HighlightLink>
+<br />
+- <HighlightLink href="https://github.com/UBCOIEEE/hackerspacestore" title="title">Customer Portal</HighlightLink>
+<br />
+Clone both repositories to your local machine using:
+```Bash,bash
+git clone https://github.com/UBCOIEEE/hackerspacestoreadmin.git
+git clone https://github.com/UBCOIEEE/hackerspacestore.git
+```
+#### Step 2: Set Up Environment Variables
+Both repositories require environment variables to connect to third-party services and the database. Create a .env file in the root of each repository and add the following variables (without quotes):
+
+**Admin CMS Environment Variables:**
+```.env,swift
+CLERK_SECRET_KEY = From your Clerk account dashboard
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = From your Clerk account dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = /
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL= /
+NEXT_PUBLIC_CLERK_SIGN_IN_URL = /sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL = /sign-up
+DATABASE_URL = MySQL database connection string (set in Step 3)
+STRIPE_WEBHOOK_SECRET = Generated in Stripe’s webhook settings after creating a webhook endpoint
+FRONTEND_STORE_URL = The Customer Portal URL (set after deploying the Customer Portal in Step 5)
+STRIPE_API_KEY = Available from your Stripe account dashboard. Production keys require document verification, which may take several days
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = Obtain from your Cloudinary account dashboard after signing up
+CLOUDINARY_UPLOAD_PRESET = Create an "unsigned" upload preset in Cloudinary (Settings > Upload > Add Upload Preset > Mode: Unsigned)
+RESEND_API_KEY = From your Resend account after signing up
+```
+
+**Below are the images containing the necessary details:**
+<ImageCarousel
+  images={[
+    { src: "hackerspacestorefourthcarousel_tutorial_1.png", alt: "#1: Cloudinary Presets" },
+    { src: "hackerspacestorefourthcarousel_tutorial_2.png", alt: "#2: Cloudinary Dashboard" },
+    { src: "hackerspacestorefourthcarousel_tutorial_3.png", alt: "#3: Resend Dashboard" },
+    { src: "hackerspacestorefourthcarousel_tutorial_4.png", alt: "#4: Clerk Dashboard" },
+    { src: "hackerspacestorefourthcarousel_tutorial_5.png", alt: "#5: Aiven.io Dashboard" },
+  ]}
+/>
+<br/>
+<br/>
+**Customer Portal Environment Variables:**
+```.env,swift
+NEXT_PUBLIC_API_URL = The Admin CMS API URL (set after deploying the Admin CMS in Step 5)
+```
+
+#### Step 3: Set Up the Database
+Create a MySQL database using a service like Aiven.io for easy deployment:
+Sign up at Aiven.io, create a MySQL database, and copy the <Highlight text="DATABASE_URL"/> (e.g., mysql://user:password@host:port/dbname).
+Add the <Highlight text="DATABASE_URL"/> to the Admin CMS .env file.
+In the Admin CMS repository, install dependencies and initialize the database:
+```Bash,bash
+npm i
+npm i @prisma/client
+npx prisma generate
+npx prisma db push
+```
+These commands install Prisma, generate the client, push table schema to database, and sync the schema with your database.
+
+#### Step 4: Configure Cloudinary Upload Preset
+In your Cloudinary account, go to Settings > Upload > Add Upload Preset.
+Create a new preset with Mode: Unsigned and copy the preset name.
+In the Admin CMS repository, open <Highlight text="components/ui/image-upload.tsx"/> and update line 58:
+```Typescript,jsx
+<CldUploadWidget onUpload={onUpload} uploadPreset="your-preset-name">
+```
+Replace <Highlight text="your-preset-name"/> with the preset name from Cloudinary.
+
+#### Step 5: Email Setup
+- 1. Navigate to the following files in your project repository:
+```Routes,jsx
+hackerspacestoreadmin/app/api/[storeId]/emails/route.ts
+hackerspacestoreadmin/app/api/[storeId]/feedback/route.ts
+```
+- 2. Open the file <Highlight text="emails/route.ts"/> . Update the sender’s email address at these lines: 38, 44, 50, 56, 65, 71, 77:
+```Typescript,jsx
+from: 'Hackerspace Store <hackerspacestore@ubcoieee.org>
+```
+Replace existing addresses (e.g., hackerspacestore@ubcoieee.org) with your domain-specific emails.
+- 3. Adjust Feedback File Configuration. Open <Highlight text="feedback/route.ts"/> . Change the sender’s domain on line 50.
+
+#### Step 6: Deploy the Applications
+Deploy both the Admin CMS and Customer Portal to Vercel:
+Admin CMS Deployment:
+Push the Admin CMS repository to your GitHub account.
+In Vercel, create a new project, link it to the Admin CMS repository, and add the environment variables from Step 2.
+Deploy the project. Vercel assigns a domain (e.g., https://admin-hackerspace.vercel.app) or you can assign a custom domain.
+After deployment, copy the deployed URL for the <Highlight text="NEXT_PUBLIC_API_URL"/> .
+Customer Portal Deployment:
+Push the Customer Portal repository to GitHub.
+In Vercel, create another project, link it to the Customer Portal repository, and add the <Highlight text="NEXT_PUBLIC_API_URL"/> (from the Admin CMS deployment) to the environment variables.
+Deploy the project and note the Customer Portal URL (e.g., https://user-hackerspace.vercel.app).
+
+#### Step 7: Post-Deployment Configuration
+After deploying both applications, configure the Admin CMS and Customer Portal to connect them:
+
+- 1. Update Admin CMS Environment Variable: In Vercel, go to the Admin CMS project settings and add the <Highlight text="FRONTEND_STORE_URL"/> environment variable, set to the Customer Portal URL (e.g., https://user-hackerspace.vercel.app).
+- 2. Redeploy the Admin CMS to apply the change.
+- 3. Create a Store in Admin CMS: Access the Admin CMS (e.g., https://admin-hackerspace.vercel.app), sign in with Clerk, and create a new store via the dashboard.
+- 4. Add a Billboard: In the Admin CMS, navigate to the Billboards tab and create a new billboard (an opening image for the Customer Portal). After creation, click the three dots next to the billboard, copy its ID, and open the Customer Portal repository.
+- 5. In <Highlight text="/app/(routes)/page.tsx"/>, update line 14:
+```Typescript,jsx
+billboard = await getBillboard("your-billboard-id");
+```
+- 6. Replace <Highlight text="your-billboard-id"/> with the copied ID.
+- 7. Push the updated Customer Portal code to GitHub and redeploy on Vercel.
+- 8. Set Customer Portal API URL: In the Admin CMS, go to the Settings tab and copy the <Highlight text="NEXT_PUBLIC_API_URL"/> (e.g., https://admin-hackerspace.vercel.app/api). In Vercel, add this as the <Highlight text="NEXT_PUBLIC_API_URL"/> environment variable in the Customer Portal project settings (without quotes).
+- 9. Redeploy the Customer Portal.
+
+#### Step 8: Verify and Redeploy
+Redeploy both applications to ensure all environment variables and configurations are applied.
+
+Test the setup by accessing the Admin CMS to manage inventory and the Customer Portal to browse products and simulate purchases using Stripe’s test mode (development version).
+
+#### <Highlight text="Cautions"/>
+- **Outdated Stripe API:** The project uses Stripe API version "2023-10-16", which is insecure and outdated. Update to the latest version for production use and follow Stripe’s security guidelines.
+- **Security Risks:** Ensure all environment variables (e.g., API keys, database URLs) are securely stored and not exposed in public repositories.
+- **Stripe Verification:** Production Stripe API keys require document verification, which may take several days. Use test keys for initial setup.
+- **Database Setup:** Verify the <Highlight text="DATABASE_URL"/> is correct before running Prisma commands to avoid schema sync errors.
+- **Testing:** Thoroughly test both applications after deployment to catch issues like webhook misconfigurations or missing billboard IDs.
+<br />
+This tutorial guides you through setting up the UBCO IEEE HackerSpace Online Electronics Shop, a full-stack SaaS e-commerce platform with an Admin CMS and Customer Portal. Follow these steps to clone, configure, deploy, and connect the repositories using Next.js, Prisma, Cloudinary, Stripe, Clerk, and Resend. Your store should now be operational, with the Admin CMS managing inventory and the Customer Portal serving customers, connected via APIs and third-party services!

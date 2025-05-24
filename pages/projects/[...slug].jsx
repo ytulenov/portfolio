@@ -1,7 +1,7 @@
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import matter from "gray-matter";
-import { Box, Container, Text, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Box, Container, Text, Heading, useColorModeValue, List } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -15,7 +15,10 @@ const DataTable = dynamic(() => import("../../components/DataTable"), { ssr: fal
 const ChartComponent = dynamic(() => import("../../components/Chart"), { ssr: false });
 const GlbViewer = dynamic(() => import("../../components/GlbViewer"), { ssr: false });
 const GitHubRepoBrowser = dynamic(() => import("../../components/GitHubRepoBrowser"), { ssr: false });
-
+import { parse, format } from "date-fns"; // Add date-fns import
+import ImageCarousel from '../../components/ImageCarousel'; // Add import for ImageCarousel
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const HighlightLink = ({ children, href, ...props }) => (
   <Text
@@ -33,15 +36,109 @@ const HighlightLink = ({ children, href, ...props }) => (
   </Text>
 );
 
+const Highlight = ({ text, ...props }) => (
+  <Text
+    as="span"
+    bg={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT, process.env.NEXT_PUBLIC_BUTTON_BG_DARK)}
+    px={0.5}
+    borderRadius="md"
+    fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+    color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+    {...props}
+  >
+    {text}
+  </Text>
+);
+
+const SiteLinkWithPhoto = ({ image, href, alt = "", ...props }) => {
+  return (
+    <Box
+      as="a"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      display="block"
+      overflow="hidden"
+      borderRadius="lg"
+      position="relative"
+      _hover={{
+        transform: "scale(1.05)",
+        boxShadow: "lg",
+        transition: "all 0.3s ease",
+      }}
+      {...props}
+    >
+      <Image
+        src={`/images/projects/${image}`}
+        alt={alt}
+        width={600}
+        height={400}
+        style={{ objectFit: "cover", width: "100%", height: "100%", aspectRatio: "1920 / 1080" }}
+      />
+    </Box>
+  );
+};
+
+const SitesLinksWithPhoto = ({ links = [], ...props }) => (
+  <Box
+    display="flex"
+    justifyContent="center"
+    flexWrap="wrap"
+    gap={20}
+    {...props}
+  >
+    {links.map((link, index) => (
+      <Box
+        key={index}
+        as="a"
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        display="block"
+        overflow="hidden"
+        borderRadius="lg"
+        position="relative"
+        maxWidth="400px"
+        _hover={{
+          transform: "scale(1.05)",
+          boxShadow: "lg",
+          transition: "all 0.3s ease",
+        }}
+      >
+        <Image
+          src={`/images/projects/${link.image}`}
+          alt={link.alt}
+          width={1920}
+          height={1080}
+          style={{ objectFit: "cover", width: "100%", height: "auto", aspectRatio: "1920 / 1080" }}
+        />
+        <Text
+          textAlign="center"
+          mt={2}
+          fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+          color={useColorModeValue(
+            process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+            process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+          )}
+          fontSize="md"
+          fontWeight="semibold"
+        >
+          {link.alt}
+        </Text>
+      </Box>
+    ))}
+  </Box>
+);
+
 const formatDate = (dateString) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) return "Invalid Date";
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  if (!dateString || typeof dateString !== "string") return "";
+  try {
+    const date = parse(dateString, "yyyy-MM", new Date());
+    return format(date, "MMMM yyyy");
+  } catch (error) {
+    console.error(`Invalid date format for: ${dateString}`, error);
+    return "";
+  }
 };
 
 const resolvePath = (filePath, baseDir) => {
@@ -83,14 +180,27 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
       href.startsWith("http") || href.startsWith("#") ? (
         <a href={href} fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props}>
           {children}
-        </a>
+        </a> 
       ) : (
         <Link href={href} legacyBehavior>
           <a fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} {...props}>{children}</a>
         </Link>
       ),
+    br: () => <Box as="br" />, 
     HighlightLink,
+    Highlight,
+    SiteLinkWithPhoto,
+    ImageCarousel,
+    SitesLinksWithPhoto,
     code: CodeBlock, 
+     ul: (props) => (
+      <List
+        style={{ marginLeft: 0, paddingLeft: "1.5em", listStyleType: "disc" }} 
+        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
+        {...props}
+        
+      />
+    ),
     ol: (props) => (
       <Box
         as="ol"
@@ -98,7 +208,7 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
         color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
         pl={6}
         ml={0}
-        style={{ listStylePosition: "outside", paddingLeft: "1.5em" }}
+        style={{ listStylePosition: "outside", paddingLeft: "1em" }}
         {...props}
       />
     ),
@@ -145,12 +255,13 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
       return <GitHubRepoBrowser {...props} />;
     },
     FastVideo,
-    MDXButton,
+    Button: MDXButton,
   };
 
   const slug = frontmatter.slug || (Array.isArray(params?.slug) ? params.slug.join('/') : params?.slug || '');
 
   return (
+    
     <Container maxW="80%" pb={24} mt={{ base: -20, md: -28 }}>
             <Section delay={0.1}>
 
@@ -225,6 +336,7 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
       </Box>
       </Section>
     </Container>
+    
   );
 }
 
