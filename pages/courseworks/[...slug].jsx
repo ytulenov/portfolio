@@ -90,7 +90,7 @@ export default function CourseworkPage({ source, frontmatter, baseDir, params })
     HighlightLink,
     code: CodeBlock, 
     ol: (props) => (
-      <Box
+      <Box 
         as="ol"
         fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} 
         pl={6} 
@@ -107,6 +107,47 @@ export default function CourseworkPage({ source, frontmatter, baseDir, params })
         {...props}
       />
     ),
+     img: ({ file, aspectratio, width, height, alt = '', ...props }) => {
+        const aspectRatioValue = aspectratio ; 
+        const imgWidth = parseInt(width, 10)
+        const imgHeight = parseInt(height, 10)
+        return (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center" 
+            width="100%" 
+            my={4} 
+          >
+            <Image
+              src={`/images/courseworks/${file}`}
+              alt={alt}
+              width={imgWidth}
+              height={imgHeight}
+              style={{
+                objectFit: 'contain', 
+                aspectRatio: aspectRatioValue,
+                maxWidth: '100%', 
+                height: 'auto', 
+              }}
+              {...props} 
+            />
+            <Text
+              textAlign="center"
+              mt={2}
+              fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+              color={useColorModeValue(
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+                process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+              )}
+              fontSize="md"
+              fontWeight="semibold"
+            >
+              {alt}
+            </Text>
+          </Box>
+        );
+      },
     table: (props) => {
       const resolvedSrc = props.src ? resolvePath(props.src, baseDir) : undefined;
       console.log(`Rendering DataTable with src: ${resolvedSrc}`);

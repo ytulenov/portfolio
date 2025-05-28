@@ -96,7 +96,7 @@ const CourseworkCard = ({ title, summary, slug, year, index }) => {
         _hover={{
           "& .title-container": {
             top: "55%", 
-            transform: "translateY(-50%)",
+            transform: "translateY(-55%)", //maybe -50%
           },
           "& .summary-container": {
             opacity: 1,
@@ -507,9 +507,9 @@ export async function getStaticProps() {
         
         if (yearNum === 2021 || (yearNum === 2022 && month < 8)) {
           year = 1; 
-        } else if (yearNum === 2022 || (yearNum === 2023 && month < 8)) {
+        } else if (yearNum === 2022 || (yearNum === 2023 && month < 7)) {
           year = 2; 
-        } else if (yearNum === 2023 || (yearNum === 2024 && month < 8)) {
+        } else if (yearNum === 2023 || (yearNum === 2024 && month < 7)) {
           year = 3; 
         } else if (yearNum === 2024 || (yearNum === 2025 && month < 8)) {
           year = 4; 

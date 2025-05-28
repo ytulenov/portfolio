@@ -1,0 +1,139 @@
+---
+title: "ENGR 458/558 Project: FLYBACK CONVERTER"
+summary: "Design and analysis of a 100W flyback converter with simulation"
+image: "bosk.png"
+introglb: ""
+description: "This project involves the design and simulation of a 100W DC-DC flyback converter for a notebook adapter. Key elements include transformer and component selection, PI controller tuning, stress calculations, and PSIM validation under varied operating conditions."
+author: "Yerkin Tulenov"
+publishedDate: "2024-08-12"
+---
+
+# Oil Industry Overview
+
+The oil industry remains a cornerstone of the global economy, with **significant impacts** on both developed and _emerging_ markets. This analysis explores production trends, economic impacts, and future projections.
+
+## Production Statistics
+
+### Major Producers (Pie Chart - Chart.js)
+
+<Chart type="pie">
+- Saudi Arabia: 17%
+- Russia: 15%
+- USA: 13%
+- Canada: 10%
+- Others: 45%
+</Chart>
+
+### Production Trends (Line Chart - D3)
+
+<Chart type="line" library="d3">
+Year,Production (M barrels/day)
+2000,75
+2010,88
+2020,95
+2023,92
+2024,97
+</Chart>
+
+### Production vs Price (Scatter Plot - D3)
+
+<Chart type="scatter" library="d3">
+Year,Production (M barrels/day),Price (USD/barrel)
+2000,75,30
+2010,88,80
+2020,95,40
+2023,92,70
+2024,97,85
+</Chart>
+
+## Economic Impact
+
+### Oil Reserves vs GDP (Bubble Chart - Chart.js)
+
+<Chart type="bubble">
+Country	Reserves (B barrels)	GDP ($T)	Population (M)
+USA	35	25	331
+Russia	80	1.7	144
+Saudi Arabia	266	0.8	35
+UAE	98	0.4	10
+</Chart>
+
+## Technical Implementation
+
+### Sample Code from GitHub
+### Repository
+
+Here’s the repository for this project:
+
+dfd
+
+<GitHubRepoBrowser repoUrl="https://github.com/ytulenov/hackerspacestoreadmin" />
+
+
+#### Update `Chart.jsx` to Handle Scatter Plots
+We need to add support for a `scatter` chart type in the `Chart` component using D3.
+
+## Data Table
+
+Here's a sample Excel file with detailed statistics:
+
+
+
+### Statistical Model
+
+```math
+Production_forecast = β₀ + β₁*Price + β₂*Reserves + β₃*GDP + ε
+```
+
+#### Update `Chart.jsx` to Handle Scatter Plots
+We need to add support for a `scatter` chart type in the `Chart` component using D3.
+
+## Data Table
+
+```javascript
+export default function Home() {
+  return <h1>Hello, NextJs!</h1>;
+}
+```
+
+### VI. Conclusion 
+
+Our research endeavors to understand the determinants of IMDb ratings, employing three distinct models: Multiple Regression, Nonlinear Regression, and Time Fixed Effects. Our final specification is anchored in a diverse set of independent variables such as Release Year, Runtime, Genres, Number of Votes, Gross Profit, Certification, Directors, and Lead Actors. While certain variables exhibit significant effects, such as Release Year, Runtime, Genres, and Number of Votes, others like Age Certification and certain Directors and Actors prove less influential. We decided to stay with model with the less endogeneity problems and adjusted R² of 0.76 
+
+Despite the valuable insights gained from our models, challenges persist in dealing with categorical variables and the potential for multicollinearity. Addressing these issues remains an ongoing effort as we refine our models and confront challenges related to simultaneous causality and endogeneity. Future research could involve looking deeper into the dynamics between variables through interaction terms, more variables, increasing the sample size, and considering the incorporation of additional instrumental variables. These efforts could fortify the robustness of our models. Harnessing these econometric tools can provide us a more nuanced understanding of the determinants of IMDb ratings within the dynamic and ever-evolving landscape of the film industry.
+
+## Bibliography: 
+
+1. Wikipedia contributors. (2023, December 6). IMDB. Wikipedia. <HighlightLink href="https://en.wikipedia.org/wiki/IMDb#cite_note-stats_2022.12-4" title="title">https://en.wikipedia.org/wiki/IMDb#cite_note-stats_2022.12-4</HighlightLink>
+
+## Table Contents
+- 1: Introduction
+- 2: Fly back Converter Design
+  - 2.1:	Converter design
+  - 2.2:	PI Controller
+- 3:	Device stress calculation
+  - 3.1:	MOSFET Switch Voltage and Current Stresses
+  - 3.2:	Diode Voltage and Current Stresses
+- 4:	Semiconductor Selection
+  - 4.1:	MOSFET Selection
+  - 4.2:	Diode Selection
+- 5:	Simulation in PSIM
+  - 5.1:	Maximum input voltage and full load
+  - 5.2:	Maximum input voltage at half load
+  - 5.3:	Minimum input voltage at full load
+  - 5.4:	Minimum input voltage at half load
+- 6:	Conclusion
+- 7:	References
+
+## List of Figures
+- Figure 1: Sample Fly Back Converter
+- Figure 9: PSIM Model used to simulate results
+- Figure 10: Waveforms at Full load at 225V
+- Figure 11: Waveforms at Half Load at 225V
+- Figure 12: Waveforms at Full load at 90V
+- Figure 13: Waveforms at Half load at 90V
+
+# 1. Introduction
+Fly back converter is derived from a Buck/Boost topology. The main advantage for a Fly back converter is that it is an isolated DC/DC converter which means that the primary and secondary side reference voltages are not the same. This is advantageous as it prevents any hazardous voltage reference changes such as during a lighting strike and decouples the user from the input voltage fluctuation.  
+A sample converter is shown in Fig.1.
+<img file="engr458finalproject1.png" aspectratio="420/200" width="840" height="400" alt="Figure 1: Sample Fly Back Converter" />

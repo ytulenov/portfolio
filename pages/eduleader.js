@@ -479,7 +479,7 @@ export default function EduLeaderPage({ courses }) {
   const spinningBlocks = [
     { label: "Cumulative Average", finalValue: 77.7, generateRandom: generateRandomDecimal },
     { label: "GPA", finalValue: 3.47, generateRandom: generateRandomDecimal },
-    { label: "School Average", finalValue: 71.41, generateRandom: generateRandomDecimal }, // average for first 3 years. the way you calculate is (4*(63.72)+3(72.69+80.24+72.65+61.29+72.89+63.01+69.01+69.64+70.88+77.3+71.7+64.7+81+76+73.7+74+79.3+72+70.3+59.2+66.8+77.8+81.4+68.2+76.6+67.7+68.5+72.5+77.5+67.7+65.9+75.2+69.5))/(4+3(9+12+12)) по нарастающей. первый курс APSC 169, потом APSC 171 до ENGR 378
+    { label: "School Average", finalValue: 73.5, generateRandom: generateRandomDecimal }, 
     { label: "Cumulative Credits Earned", finalValue: "148/148", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
     { label: "Status", finalValue: "completed", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },
     { label: "Courses Passed", finalValue: "41/41", generateRandom: () => `${Math.floor(Math.random() * 50)}/${Math.floor(Math.random() * 50) + 1}` },

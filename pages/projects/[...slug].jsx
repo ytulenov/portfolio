@@ -223,19 +223,49 @@ export default function ProjectsPage({ source, frontmatter, baseDir, params }) {
         {...props}
       />
     ),
-    img: ({ src, alt, ...props }) => {
-      const resolvedSrc = resolvePath(src, baseDir); 
-      return (
+    img: ({ file, aspectratio, width, height, alt = '', ...props }) => {
+    const resolvedSrc = resolvePath(file || '', baseDir); 
+    const aspectRatioValue = aspectratio || '1382 / 700'; 
+    const imgWidth = parseInt(width, 10) || 1382; 
+    const imgHeight = parseInt(height, 10) || 700;
+
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center" 
+        width="100%" 
+        my={4} 
+      >
         <Image
           src={resolvedSrc}
-          alt={alt || ''}
-          width={1382}
-          height={700}
-          style={{ objectFit: "fill", height: "100%", width: "100%", aspectRatio: '1382 / 700' }}
-          {...props}
+          alt={alt}
+          width={imgWidth}
+          height={imgHeight}
+          style={{
+            objectFit: 'contain', 
+            aspectRatio: aspectRatioValue,
+            maxWidth: '100%', 
+            height: 'auto', 
+          }}
+          {...props} 
         />
-      );
-    },
+        <Text
+          textAlign="center"
+          mt={2}
+          fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
+          color={useColorModeValue(
+            process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT,
+            process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK
+          )}
+          fontSize="md"
+          fontWeight="semibold"
+        >
+          {alt}
+        </Text>
+      </Box>
+    );
+  },
     table: (props) => {
       const resolvedSrc = props.src ? resolvePath(props.src, baseDir) : undefined;
       console.log(`Rendering DataTable with src: ${resolvedSrc}`);
