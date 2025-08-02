@@ -609,19 +609,156 @@ const dotColor = useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_
           </Slider>
         </Box>
         </Section>
-
-<Section delay={0.2}>
+        <Section delay={0.2}>
       {/* Education & Leadership Heading */}
       <Heading  as="h1"
       size="4xl"
       textTransform="uppercase"
       letterSpacing="wide"
       fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}
-      lineHeight="1.1" textAlign="center" mb={14}>
+      lineHeight="1.1" textAlign="center" mb={20}>
         Education & Leadership
       </Heading>
       </Section>
+        <Section delay={0.2}>
+<Box mb={20}> {/* No mb here to ensure no padding after Clubs */}
+          <Heading as="h1" fontSize="3xl"   mb={6} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+            CLUBS & LEADERSHIP
+          </Heading>
+          <Flex direction={{ base: "column", md: "row" }} align="start" gap={8}>
+            <Box flex="1">
+              <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={20}>
+As the Webmaster Executive for the IEEE UBCO Student Branch, I managed an e-commerce platform called The Hackerspace Store providing electrical components to engineering students. Built with Next.js, the platform integrated APIs, Stripe for payments, and an automatically maintained database. During the six-month development process, my teammates and I resolved around 1,000 bugs, ensuring a seamless user experience before launch. After deployment, I continuously received feedback from users, addressing bugs and implementing improvements to enhance the platform. The store became a key resource for course projects, providing reliable and immediate access to essential components.
 
+I also designed and led the club’s annual PCB workshop, aimed at beginners. Participants worked with a general-purpose PCB I created, featuring USB-C power, UART, SPI, I2C connections, and an STM32 chip. The workshop demonstrated programming a PID controller with temperature sensors but allowed flexibility for other applications, encouraging exploration and innovation.              </Text>
+            </Box>
+               <Link href="https://linktr.ee/ubcoieee" passHref legacyBehavior>
+            <Box
+              flexShrink={0}
+              position="relative"
+              height="12rem"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+              <Image
+                src={useColorModeValue("/eduleader/hackerspacelogolight.png", "/eduleader/hackerspacelogodark.png")}
+                alt="IEEE UBC Okanagan Student Branch Logo"
+                height="16rem"
+                 _hover={{
+                opacity: 0.7,
+        cursor: "pointer",
+      }}
+                sx={{
+                  animation: `${translateYanimationhackerspacelogo} 5s ease-in-out infinite alternate`,
+                }}
+              />
+            </Box>
+            </Link>
+          </Flex>
+          <Flex direction="column" align="center" mb={4}>
+            <DynamicBackgroundBox />
+          </Flex>
+          <Flex wrap="wrap" justify="center" gap={4}>
+            <Button
+              as={Link}
+              href="/projects/hackerspacestore"
+             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
+     
+              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+            
+              bg={useColorModeValue(
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+              )}
+              _hover={{
+                transform: "translateY(-6px)",
+                bg: useColorModeValue(
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                ),
+              }}
+              
+              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
+              transition="all 0.3s ease-in-out"
+            >
+              Hackerspace Store →
+            </Button>
+            {/*<Button
+              as={Link}
+              href="/projects/hackerspacestore"
+             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
+     
+              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+            
+              bg={useColorModeValue(
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+              )}
+              _hover={{
+                transform: "translateY(-6px)",
+                bg: useColorModeValue(
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                ),
+              }}
+              
+              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
+              transition="all 0.3s ease-in-out"
+            >
+              Admin CMS →
+            </Button>
+            <Button
+              as={Link}
+              href="/projects/hackerspacestore"
+             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
+     
+              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+            
+              bg={useColorModeValue(
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+              )}
+              _hover={{
+                transform: "translateY(-6px)",
+                bg: useColorModeValue(
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                ),
+              }}
+              
+              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
+              transition="all 0.3s ease-in-out"
+            >
+              Client-Side →
+            </Button>*/}
+            <Button
+              as={Link}
+              href="/projects/pcbworkshop"
+               fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
+              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
+           
+                bg={useColorModeValue(
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                )}
+                
+                _hover={{
+                  transform: "translateY(-6px)",
+                  bg: useColorModeValue(
+                    `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
+                    `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
+                  ),
+                }}
+  
+              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
+              transition="all 0.3s ease-in-out"
+            >
+              PCB Workshop →
+            </Button>
+          </Flex>
+        </Box>
+        </Section>
 <Section delay={0.3}>
       {/* UBC Section */}
       <Box >
@@ -710,8 +847,8 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
 </Flex>
 
         {/* Timeline */}
-        <Box textAlign="center" mb={12}>
-          <Heading fontSize="3xl" pb={5} as="h1" textAlign="center" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
+        <Box textAlign="center" mb={20}>
+          <Heading fontSize="3xl" pb={5} as="h1" mt={10} textAlign="center" fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
             EDUCATION TIMELINE
           </Heading>
           <Box position="relative" height="80px" >
@@ -1037,143 +1174,7 @@ I recently completed my Bachelor of Applied Science in Electrical Engineering at
           </Box>
 
         {/* Clubs */}
-        <Box> {/* No mb here to ensure no padding after Clubs */}
-          <Heading as="h1" fontSize="3xl"   mb={6} fontFamily={process.env.NEXT_PUBLIC_HEADING_H1_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)}>
-            CLUBS & LEADERSHIP
-          </Heading>
-          <Flex direction={{ base: "column", md: "row" }} align="start" gap={8}>
-            <Box flex="1">
-              <Text fontSize="md" fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT} color={useColorModeValue(process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_LIGHT, process.env.NEXT_PUBLIC_GENERAL_TEXT_HEADING_DARK)} mb={8}>
-As the Webmaster Executive for the IEEE UBCO Student Branch, I managed an e-commerce platform called The Hackerspace Store providing electrical components to engineering students. Built with Next.js, the platform integrated APIs, Stripe for payments, and an automatically maintained database. During the six-month development process, my teammates and I resolved around 1,000 bugs, ensuring a seamless user experience before launch. After deployment, I continuously received feedback from users, addressing bugs and implementing improvements to enhance the platform. The store became a key resource for course projects, providing reliable and immediate access to essential components.
-
-I also designed and led the club’s annual PCB workshop, aimed at beginners. Participants worked with a general-purpose PCB I created, featuring USB-C power, UART, SPI, I2C connections, and an STM32 chip. The workshop demonstrated programming a PID controller with temperature sensors but allowed flexibility for other applications, encouraging exploration and innovation.              </Text>
-            </Box>
-               <Link href="https://linktr.ee/ubcoieee" passHref legacyBehavior>
-            <Box
-              flexShrink={0}
-              position="relative"
-              height="12rem"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-            >
-              <Image
-                src={useColorModeValue("/eduleader/hackerspacelogolight.png", "/eduleader/hackerspacelogodark.png")}
-                alt="IEEE UBC Okanagan Student Branch Logo"
-                height="16rem"
-                 _hover={{
-                opacity: 0.7,
-        cursor: "pointer",
-      }}
-                sx={{
-                  animation: `${translateYanimationhackerspacelogo} 5s ease-in-out infinite alternate`,
-                }}
-              />
-            </Box>
-            </Link>
-          </Flex>
-          <Flex direction="column" align="center" mb={4}>
-            <DynamicBackgroundBox />
-          </Flex>
-          <Flex wrap="wrap" justify="center" gap={4}>
-            <Button
-              as={Link}
-              href="/projects/hackerspacestore"
-             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
-     
-              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
-            
-              bg={useColorModeValue(
-                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-              )}
-              _hover={{
-                transform: "translateY(-6px)",
-                bg: useColorModeValue(
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-                ),
-              }}
-              
-              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
-              transition="all 0.3s ease-in-out"
-            >
-              Hackerspace Store →
-            </Button>
-            {/*<Button
-              as={Link}
-              href="/projects/hackerspacestore"
-             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
-     
-              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
-            
-              bg={useColorModeValue(
-                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-              )}
-              _hover={{
-                transform: "translateY(-6px)",
-                bg: useColorModeValue(
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-                ),
-              }}
-              
-              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
-              transition="all 0.3s ease-in-out"
-            >
-              Admin CMS →
-            </Button>
-            <Button
-              as={Link}
-              href="/projects/hackerspacestore"
-             fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
-     
-              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
-            
-              bg={useColorModeValue(
-                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-              )}
-              _hover={{
-                transform: "translateY(-6px)",
-                bg: useColorModeValue(
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-                ),
-              }}
-              
-              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
-              transition="all 0.3s ease-in-out"
-            >
-              Client-Side →
-            </Button>*/}
-            <Button
-              as={Link}
-              href="/projects/pcbworkshop"
-               fontWeight="bold" borderRadius='md' fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}   fontSize="18px"
-              color={useColorModeValue(process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT, process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK)}
-           
-                bg={useColorModeValue(
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                  `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-                )}
-                
-                _hover={{
-                  transform: "translateY(-6px)",
-                  bg: useColorModeValue(
-                    `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_LIGHT} 100%)`,
-                    `linear-gradient(315deg, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK} 0%, ${process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_GRADIENT_SECONDCOLOR_DARK} 100%)`
-                  ),
-                }}
-  
-              boxShadow={useColorModeValue(process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_LIGHT, process.env.NEXT_PUBLIC_EDULEADER_CLUB_LASTBUTTONS_TEXTSHADOW_DARK)}
-              transition="all 0.3s ease-in-out"
-            >
-              PCB Workshop →
-            </Button>
-          </Flex>
-        </Box>
+        
       </Box>
       </Section>
     </Container></>

@@ -643,36 +643,7 @@ const Home = () => {
       >
          Academic Journey
       </Button>
-      <Button
-        as={NextLink}
-        href="/files/Yerkin's Transcript.xlsx"
-        download
-        mx={2}
-        fontSize= "18px"
-        fontWeight="bold"
-        borderRadius="md"
-        fontFamily={process.env.NEXT_PUBLIC_HEADING_H2_FONT}
-        bg={useColorModeValue(
-          process.env.NEXT_PUBLIC_BUTTON_BG_LIGHT,
-          process.env.NEXT_PUBLIC_BUTTON_BG_DARK
-        )}
-        color={useColorModeValue(
-          process.env.NEXT_PUBLIC_BUTTON_TEXT_LIGHT,
-          process.env.NEXT_PUBLIC_BUTTON_TEXT_DARK
-        )}
-        _hover={{
-          bg: useColorModeValue(
-            process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_LIGHT,
-            process.env.NEXT_PUBLIC_BUTTON_HOVER_BG_DARK
-          ),
-         
-        }}
-        
-        
-      >
-        Download Transcript
-      </Button>
-     
+      
     </Box>
   </Box>
 </Section>

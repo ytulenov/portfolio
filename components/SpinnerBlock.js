@@ -7,11 +7,11 @@ const spin = keyframes`
   to { transform: translateY(calc(-100% + 40px)); }
 `;
 
-const SpinningBlock = ({ label, finalValue, generateRandom, spinDuration = 5000 }) => {
+const SpinningBlock = ({ label, finalValue, generateRandom, spinDuration = 30000 }) => {
   const [values, setValues] = useState([]);
 
   useEffect(() => {
-    const randomValues = Array.from({ length: 50 }, generateRandom);
+    const randomValues = Array.from({ length: 300 }, generateRandom);
     setValues([...randomValues, finalValue]);
   }, [finalValue, generateRandom]);
 
